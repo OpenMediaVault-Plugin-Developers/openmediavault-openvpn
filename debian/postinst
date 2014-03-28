@@ -15,6 +15,7 @@ case "$1" in
             omv_config_add_element "${SERVICE_XPATH}" "enable" "0"
 
             omv_config_add_element "${SERVICE_XPATH}" "port" "1194"
+            omv_config_add_element "${SERVICE_XPATH}" "protocol" "udp"
             omv_config_add_element "${SERVICE_XPATH}" "compression" "1"
             omv_config_add_element "${SERVICE_XPATH}" "extra_options" ""
             omv_config_add_element "${SERVICE_XPATH}" "loglevel" "2"
