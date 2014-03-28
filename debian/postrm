@@ -1,0 +1,48 @@
+#!/bin/sh
+
+set -e
+
+. /etc/default/openmediavault
+. /usr/share/openmediavault/scripts/helper-functions
+
+case "$1" in
+    purge)
+        SERVICE_XPATH_NAME="openvpn"
+        SERVICE_XPATH="/config/services/${SERVICE_XPATH_NAME}"
+
+        if omv_config_exists "${SERVICE_XPATH}"; then
+            omv_config_delete "${SERVICE_XPATH}"
+        fi
+
+        if getent group openvpn >/dev/null 2>&1; then
+            groupdel openvpn
+        fi
+
+        if [ -d /etc/openvpn/easy-rsa ]; then
+            /bin/rm -rf /etc/openvpn/easy-rsa
+        fi
+
+        if [ -d /etc/openvpn/keys ]; then
+            /bin/rm -rf /etc/openvpn/keys
+        fi
+
+        if [ -f /etc/openvpn/server.conf ]; then
+            /bin/rm -rf /etc/openvpn/server.conf
+        fi
+    ;;
+
+    remove)
+    ;;
+
+    upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+    ;;
+
+    *)
+        echo "postrm called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0
