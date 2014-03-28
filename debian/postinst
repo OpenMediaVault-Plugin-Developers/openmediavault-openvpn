@@ -1,0 +1,51 @@
+#!/bin/sh
+
+set -e
+
+. /etc/default/openmediavault
+. /usr/share/openmediavault/scripts/helper-functions
+
+case "$1" in
+    configure)
+        SERVICE_XPATH_NAME="openvpn"
+        SERVICE_XPATH="/config/services/${SERVICE_XPATH_NAME}"
+
+        if ! omv_config_exists "${SERVICE_XPATH}"; then
+            omv_config_add_element "/config/services" "${SERVICE_XPATH_NAME}"
+            omv_config_add_element "${SERVICE_XPATH}" "enable" "0"
+
+            omv_config_add_element "${SERVICE_XPATH}" "port" "1194"
+            omv_config_add_element "${SERVICE_XPATH}" "compression" "1"
+            omv_config_add_element "${SERVICE_XPATH}" "extra_options" ""
+            omv_config_add_element "${SERVICE_XPATH}" "loglevel" "2"
+
+            omv_config_add_element "${SERVICE_XPATH}" "vpn_network" "10.8.0.0"
+            omv_config_add_element "${SERVICE_XPATH}" "vpn_mask" "255.255.255.0"
+            omv_config_add_element "${SERVICE_XPATH}" "client_to_client" "0"
+
+            omv_config_add_element "${SERVICE_XPATH}" "dns" ""
+            omv_config_add_element "${SERVICE_XPATH}" "dns_domains" ""
+            omv_config_add_element "${SERVICE_XPATH}" "wins" ""
+
+            omv_config_add_element "${SERVICE_XPATH}" "clients" ""
+        fi
+
+        if ! getent group openvpn >/dev/null 2>&1; then
+            groupadd openvpn
+        fi
+
+        service rsyslog restart
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0
