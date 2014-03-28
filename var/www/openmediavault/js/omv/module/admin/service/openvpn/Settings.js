@@ -50,6 +50,27 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
                 allowNegative : false,
                 value         : 1194
             },{
+                xtype      : "combo",
+                name       : "protocol",
+                fieldLabel : _("Protocol"),
+                queryMode  : "local",
+                store      : Ext.create("Ext.data.ArrayStore", {
+                    fields : [
+                        "value",
+                        "text"
+                    ],
+                    data: [
+                        [ "udp", "UDP" ],
+                        [ "tcp", "TCP" ]
+                    ]
+                }),
+                displayField  : "text",
+                valueField    : "value",
+                allowBlank    : false,
+                editable      : false,
+                triggerAction : "all",
+                value         : "udp"
+            },{
                 xtype      : "checkbox",
                 name       : "compression",
                 fieldLabel : _("Use compression"),

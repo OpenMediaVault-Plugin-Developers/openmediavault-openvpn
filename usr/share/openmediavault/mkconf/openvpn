@@ -115,6 +115,7 @@ setup_config()
     # Variables
     ip=$(get_ip)
     port=$(omv_config_get "${SERVICE_XPATH}/port")
+    protocol=$(omv_config_get "${SERVICE_XPATH}/protocol")
     compression=$(omv_config_get "${SERVICE_XPATH}/compression")
     extra_options=$(omv_config_get "${SERVICE_XPATH}/extra_options")
     loglevel=$(omv_config_get "${SERVICE_XPATH}/loglevel")
@@ -170,7 +171,7 @@ setup_config()
 port ${port}
 
 # TCP or UDP server?
-proto udp
+proto ${protocol}
 
 # "dev tun" will create a routed IP tunnel,
 # "dev tap" will create an ethernet tunnel.

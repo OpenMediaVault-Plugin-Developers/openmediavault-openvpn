@@ -83,8 +83,17 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
 
         // Modify result data
         $settingsObject["enable"]           = boolval($object["enable"]);
+        $settingsObject["port"]             = intval($object["port"]);
+        $settingsObject["protocol"]         = $object["protocol"];
         $settingsObject["compression"]      = boolval($object["compression"]);
+        $settingsObject["extra_options"]    = $object["extra_options"];
+        $settingsObject["loglevel"]         = intval($object["loglevel"]);
+        $settingsObject["vpn_network"]      = $object["vpn_network"];
+        $settingsObject["vpn_mask"]         = $object["vpn_mask"];
         $settingsObject["client_to_client"] = boolval($object["client_to_client"]);
+        $settingsObject["dns"]              = $object["dns"];
+        $settingsObject["dns_domains"]      = $object["dns_domains"];
+        $settingsObject["wins"]             = $object["wins"];
 
         return $settingsObject;
     }
@@ -104,6 +113,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
             "properties" : {
                 "enable"           : { "type" : "boolean" },
                 "port"             : { "type" : "integer" },
+                "protocol"         : { "type" : "string", "enum" : ["udp", "tcp"] },
                 "compression"      : { "type" : "boolean" },
                 "extra_options"    : { "type" : "string", "optional" : true},
                 "loglevel"         : { "type" : "integer", "enum" : [0, 2, 5, 7] },
@@ -120,6 +130,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         $object = array(
             "enable"           => array_boolval($params, "enable"),
             "port"             => intval($params["port"]),
+            "protocol"         => $params["protocol"],
             "compression"      => array_boolval($params, "compression"),
             "extra_options"    => $params["extra_options"],
             "loglevel"         => intval($params["loglevel"]),
