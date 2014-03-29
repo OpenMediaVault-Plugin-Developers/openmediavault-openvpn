@@ -1,0 +1,111 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-openvpn\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-29 10:54-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Add certificate"
+msgstr ""
+
+msgid "Address"
+msgstr ""
+
+msgid "Allow client to client communication"
+msgstr ""
+
+msgid "Certificates"
+msgstr ""
+
+msgid "Client to client"
+msgstr ""
+
+msgid "Common name"
+msgstr ""
+
+msgid "DNS search domains(s)"
+msgstr ""
+
+msgid "DNS server(s)"
+msgstr ""
+
+msgid "Date & Time"
+msgstr ""
+
+msgid "Debug"
+msgstr ""
+
+msgid "Download certificate"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Event"
+msgstr ""
+
+msgid "Extra options"
+msgstr ""
+
+msgid "General"
+msgstr ""
+
+msgid "General settings"
+msgstr ""
+
+msgid "Log each packet"
+msgstr ""
+
+msgid "Logging level"
+msgstr ""
+
+msgid "Mask"
+msgstr ""
+
+msgid "No output except fatal errors"
+msgstr ""
+
+msgid "Normal usage output"
+msgstr ""
+
+msgid "OpenVPN"
+msgstr ""
+
+msgid "Port"
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "Separate multiple entries with commas"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "UUID"
+msgstr ""
+
+msgid "Use compression"
+msgstr ""
+
+msgid "User"
+msgstr ""
+
+msgid "VPN network"
+msgstr ""
+
+msgid "WINS server(s)"
+msgstr ""
