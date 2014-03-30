@@ -146,9 +146,9 @@ setup_config()
     echo 1 > /proc/sys/net/ipv4/ip_forward
 
     # Set iptables
-    iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -j SNAT --to ${ip}
+    iptables -t nat -A POSTROUTING -s ${vpn_network}/24 -j SNAT --to ${ip}
     echo "#!/bin/sh" > ${SERVICE_IPTABLES_CONF}
-    echo "iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -j SNAT --to ${ip}" > ${SERVICE_IPTABLES_CONF}
+    echo "iptables -t nat -A POSTROUTING -s ${vpn_network}/24 -j SNAT --to ${ip}" > ${SERVICE_IPTABLES_CONF}
     chmod 755 ${SERVICE_IPTABLES_CONF}
 
     cat > ${SERVICE_OPENVPN_CONF} <<EOF
