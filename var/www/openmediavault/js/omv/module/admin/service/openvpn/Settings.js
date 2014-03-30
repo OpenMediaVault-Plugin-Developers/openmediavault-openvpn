@@ -136,7 +136,7 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
             }]
         },{
             xtype    : "fieldset",
-            title    : _("VPN network"),
+            title    : _("DHCP options"),
             defaults : {
                 labelSeparator : ""
             },
