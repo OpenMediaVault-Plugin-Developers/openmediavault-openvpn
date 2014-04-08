@@ -169,7 +169,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
 
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
-            "role" => OMV_ROLE_ADMINISTRATOR
+            "role" => OMV_ROLE_EVERYONE
         ));
 
         // Validate the parameters of the RPC service method.
@@ -184,7 +184,14 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         }');
 
         // Get configuration object
-        $xPath = sprintf("%s/client/uuid", $this->getClientsXPath());
+        $xPath = null;
+
+        if ($context == $this->getAdminContext()) {
+            $xPath = sprintf("%s/client/uuid", $this->getClientsXPath());
+        } else {
+            $xPath = sprintf("%s/client[user='%s']/uuid", $this->getClientsXPath(), $context["username"]);
+        }
+
         $uuids = $xmlConfig->getList($xPath);
 
         if (is_null($uuids))
@@ -216,7 +223,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
 
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
-            "role" => OMV_ROLE_ADMINISTRATOR
+            "role" => OMV_ROLE_EVERYONE
         ));
 
         // Validate the parameters of the RPC service method.
