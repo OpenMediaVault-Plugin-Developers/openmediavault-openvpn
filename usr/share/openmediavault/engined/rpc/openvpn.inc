@@ -361,6 +361,11 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
             if ($context["username"] != $client["associated_user"])
                 return;
 
+
+        $configContent = $this->generateClientConf(
+            $client, $xmlConfig->get($this->getXPath()));
+
+        // Create a new tempory file and a new ZipArchive object
         $tmpFile = tempnam(sys_get_temp_dir(), "zip");
         $zip = new \ZipArchive();
         $zip->open($tmpFile, \ZIPARCHIVE::CREATE | \ZIPARCHIVE::OVERWRITE);
@@ -368,22 +373,56 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         $keyDir = "/etc/openvpn/keys";
 
         $files = array(
-            "ca.crt"     => sprintf("%s/ca.crt", $keyDir),
-            "$commonName.crt" => sprintf("%s/%s.crt", $keyDir, $uuid),
-            "$commonName.key" => sprintf("%s/%s.key", $keyDir, $uuid)
+            "$commonName-ca.crt"     => sprintf("%s/ca.crt", $keyDir),
+            "$commonName-client.crt" => sprintf("%s/%s.crt", $keyDir, $uuid),
+            "$commonName-client.key" => sprintf("%s/%s.key", $keyDir, $uuid),
+        );
+
+        $stringContent = array(
+            "$commonName-client.conf" => $configContent,
+            "$commonName-client.ovpn" => $configContent,
         );
 
         foreach ($files as $filename => $file) {
             $zip->addFile($file, $filename);
         }
 
+        foreach ($stringContent as $filename => $content) {
+            $zip->addFromString($filename, $content);
+        }
+
         $content = file_get_contents($tmpFile);
 
         return array(
             "contenttype" => "application/zip",
-            "filename"    => "openvpn.zip",
+            "filename"    => "openvpn-$commonName.zip",
             "filepath"    => $tmpFile,
         );
+    }
+
+    private function generateClientConf($client, $settings)
+    {
+        $commonName = $client["common_name"];
+        $publicAddress = $settings["public_address"];
+        $compression = empty($settings["compression"]) ? ";comp-lzo" : "comp-lzo";
+
+        $conf = "";
+        $conf .= "client\n";
+        $conf .= "remote $publicAddress\n";
+        $conf .= "dev tun\n";
+        $conf .= "ca   $commonName-ca.crt\n";
+        $conf .= "cert $commonName-client.crt\n";
+        $conf .= "key  $commonName-client.key\n";
+        $conf .= "ns-cert-type server\n";
+        $conf .= "$compression\n";
+        $conf .= "persist-key\n";
+        $conf .= "persist-tun\n";
+        $conf .= "nobind\n";
+        $conf .= "resolv-retry infinite\n";
+        $conf .= "verb 3\n";
+        $conf .= "mute 10\n";
+
+        return $conf;
     }
 
 }
