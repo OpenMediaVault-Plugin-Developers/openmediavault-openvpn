@@ -45,7 +45,7 @@ Ext.define("OMV.module.admin.service.openvpn.ClientCertificate", {
             title : _("General"),
             items : [{
                 xtype      : "usercombo",
-                name       : "user",
+                name       : "associated_user",
                 fieldLabel : _("User"),
                 userType   : "normal",
                 editable   : false,

@@ -189,7 +189,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         if ($context == $this->getAdminContext()) {
             $xPath = sprintf("%s/client/uuid", $this->getClientsXPath());
         } else {
-            $xPath = sprintf("%s/client[user='%s']/uuid", $this->getClientsXPath(), $context["username"]);
+            $xPath = sprintf("%s/client[associated_user='%s']/uuid", $this->getClientsXPath(), $context["username"]);
         }
 
         $uuids = $xmlConfig->getList($xPath);
@@ -230,7 +230,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         $this->validateMethodParams($params, '{
             "type"       : "object",
             "properties" : {
-                "uuid" : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_NONE"] . '}
+                "uuid" : {' . $GLOBALS["OMV_JSONSCHEMA_UUID"] . '}
             }
         }');
 
@@ -239,6 +239,8 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         if (is_null($client))
             throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
                 $xPath);
+
+        file_put_contents("/tmp/test.txt", var_export($client, true));
 
         return $client;
     }
@@ -256,16 +258,16 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         $this->validateMethodParams($params, '{
             "type"       : "object",
             "properties" : {
-                "uuid"        : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_UNDEFINED"] . '},
-                "user"        : { "type" : "string" },
-                "common_name" : { "type" : "string" }
+                "uuid"            : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_UNDEFINED"] . '},
+                "associated_user" : { "type" : "string" },
+                "common_name"     : { "type" : "string" }
             }
         }');
 
         $client = array(
-            "uuid"        => empty($params["uuid"]) ? OMVUtil::uuid() : $params["uuid"],
-            "user"        => $params["user"],
-            "common_name" => $params["common_name"],
+            "uuid"            => empty($params["uuid"]) ? OMVUtil::uuid() : $params["uuid"],
+            "associated_user" => $params["associated_user"],
+            "common_name"     => $params["common_name"],
         );
 
         // Save configuration
@@ -332,9 +334,11 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
 
     public function downloadCertificate($params, $context)
     {
+        global $xmlConfig;
+
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
-            "role" => OMV_ROLE_ADMINISTRATOR
+            "role" => OMV_ROLE_EVERYONE
         ));
 
         // Validate the parameters of the RPC service method.
@@ -345,6 +349,15 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
             }
         }');
 
+        $client = $this->get($params, $context);
+        $uuid = $client["uuid"];
+        $commonName = $client["common_name"];
+
+        // Check if user is eligble to download certificate
+        if ($context != $this->getAdminContext())
+            if ($context["username"] != $client["associated_user"])
+                return;
+
         $tmpFile = tempnam(sys_get_temp_dir(), "zip");
         $zip = new \ZipArchive();
         $zip->open($tmpFile, \ZIPARCHIVE::CREATE | \ZIPARCHIVE::OVERWRITE);
@@ -353,8 +366,8 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
 
         $files = array(
             "ca.crt"     => sprintf("%s/ca.crt", $keyDir),
-            "client.crt" => sprintf("%s/%s.crt", $keyDir, $params["uuid"]),
-            "client.key" => sprintf("%s/%s.key", $keyDir, $params["uuid"])
+            "$commonName.crt" => sprintf("%s/%s.crt", $keyDir, $uuid),
+            "$commonName.key" => sprintf("%s/%s.key", $keyDir, $uuid)
         );
 
         foreach ($files as $filename => $file) {
