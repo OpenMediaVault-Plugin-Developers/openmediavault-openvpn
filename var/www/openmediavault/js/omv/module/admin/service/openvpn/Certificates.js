@@ -42,7 +42,7 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
         header    : _("User"),
         flex      : 1,
         sortable  : true,
-        dataIndex : "user"
+        dataIndex : "associated_user"
     },{
         header    : _("Common name"),
         flex      : 1,
@@ -62,7 +62,7 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
                     totalPoperty : "total",
                     fields       : [
                         { name : "uuid" },
-                        { name : "user" },
+                        { name : "associated_user" },
                         { name : "common_name" }
                     ]
                 }),
