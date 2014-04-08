@@ -21,15 +21,13 @@
 // require("js/omv/data/Model.js")
 // require("js/omv/data/proxy/Rpc.js")
 // require("js/omv/data/Download.js")
-// require("js/omv/module/admin/service/openvpn/ClientCertificate.js")
 
-Ext.define("OMV.module.admin.service.openvpn.Certificates", {
+Ext.define("OMV.module.user.service.openvpn.Certificates", {
     extend   : "OMV.workspace.grid.Panel",
     requires : [
         "OMV.data.Store",
         "OMV.data.Model",
-        "OMV.data.proxy.Rpc",
-        "OMV.module.admin.service.openvpn.ClientCertificate"
+        "OMV.data.proxy.Rpc"
     ],
 
     hideAddButton    : true,
@@ -108,36 +106,6 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
         me.queryById(me.getId() + "-dowload-certificate")[action]();
     },
 
-    onAddButton : function() {
-        var me = this;
-
-        Ext.create("OMV.module.admin.service.openvpn.ClientCertificate", {
-            title        : _("Add certificate"),
-            listeners    : {
-                scope  : me,
-                submit : function() {
-                    me.doReload();
-                }
-            }
-        }).show();
-    },
-
-    doDeletion : function(record) {
-        var me = this;
-
-        OMV.Rpc.request({
-            scope : me,
-            callback : me.onDeletion,
-            rpcData : {
-                service : "OpenVPN",
-                method : "delete",
-                params : {
-                    uuid : record.get("uuid")
-                }
-            }
-        });
-    },
-
     onDownloadCertificateButton : function() {
         var me = this,
             record = me.getSelected();
@@ -154,5 +122,5 @@ OMV.WorkspaceManager.registerPanel({
     path      : "/service/openvpn",
     text      : _("Certificates"),
     position  : 10,
-    className : "OMV.module.admin.service.openvpn.Certificates"
+    className : "OMV.module.user.service.openvpn.Certificates"
 });
