@@ -94,6 +94,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         $settingsObject["dns"]              = $object["dns"];
         $settingsObject["dns_domains"]      = $object["dns_domains"];
         $settingsObject["wins"]             = $object["wins"];
+        $settingsObject["public_address"]   = $object["public_address"];
 
         return $settingsObject;
     }
@@ -122,7 +123,8 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
                 "client_to_client" : { "type" : "boolean" },
                 "dns"              : { "type" : "string", "optional" : true },
                 "dns_domains"      : { "type" : "string", "optional" : true },
-                "wins"             : { "type" : "string", "optional" : true }
+                "wins"             : { "type" : "string", "optional" : true },
+                "public_address"   : { "type" : "string" }
             }
         }');
 
@@ -140,6 +142,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
             "dns"              => $params["dns"],
             "dns_domains"      => $params["dns_domains"],
             "wins"             => $params["wins"],
+            "public_address"   => $params["public_address"],
         );
 
         // Get old configuration object

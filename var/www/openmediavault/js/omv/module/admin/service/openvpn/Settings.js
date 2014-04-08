@@ -171,6 +171,22 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
                     text  : _("Separate multiple entries with commas")
                 }]
             }]
+        },{
+            xtype    : "fieldset",
+            title    : _("Public"),
+            defaults : {
+                labelSeparator : ""
+            },
+            items : [{
+                xtype      : "textfield",
+                name       : "public_address",
+                fieldLabel : _("Public address"),
+                allowBlank : false,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("This is the address which external clients can connect to your VPN with. This is automatically used in the generated configuration.")
+                }]
+            }]
         }];
     }
 });

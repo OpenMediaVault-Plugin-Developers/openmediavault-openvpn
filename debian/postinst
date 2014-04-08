@@ -28,6 +28,8 @@ case "$1" in
             omv_config_add_element "${SERVICE_XPATH}" "dns_domains" ""
             omv_config_add_element "${SERVICE_XPATH}" "wins" ""
 
+            omv_config_add_element "${SERVICE_XPATH}" "public_address" ""
+
             omv_config_add_element "${SERVICE_XPATH}" "clients" ""
         fi
 
