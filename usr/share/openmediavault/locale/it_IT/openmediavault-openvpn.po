@@ -1,0 +1,128 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-openvpn\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-09 06:57-0500\n"
+"PO-Revision-Date: 2014-04-09 11:57+0000\n"
+"Last-Translator: ryecoaaron <aaron27@ryecoinc.com>\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/openmediavault-openvpn/language/it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add certificate"
+msgstr "Aggiungi certificato"
+
+msgid "Address"
+msgstr "Indirizzo"
+
+msgid "Allow client to client communication"
+msgstr "Permetti comunicazione client a client"
+
+msgid "Certificates"
+msgstr "Certificati"
+
+msgid "Client to client"
+msgstr "Client a client"
+
+msgid "Common name"
+msgstr "Nome Comune"
+
+msgid "DHCP options"
+msgstr ""
+
+msgid "DNS search domains(s)"
+msgstr "Dominio di ricerca DNS"
+
+msgid "DNS server(s)"
+msgstr "Server DNS"
+
+msgid "Date & Time"
+msgstr "Data & Orario"
+
+msgid "Debug"
+msgstr "Debug"
+
+msgid "Download certificate"
+msgstr "Scarica certificato"
+
+msgid "Enable"
+msgstr "Abilita"
+
+msgid "Event"
+msgstr "Evento"
+
+msgid "Extra options"
+msgstr "Opzioni Extra"
+
+msgid "General"
+msgstr "Generale"
+
+msgid "General settings"
+msgstr "Impostazioni generali"
+
+msgid "Log each packet"
+msgstr "Logga ogni pacchetto"
+
+msgid "Logging level"
+msgstr "Livello di log"
+
+msgid "Mask"
+msgstr "Maschera"
+
+msgid "No output except fatal errors"
+msgstr "Nessun output tranne che per errori fatali"
+
+msgid "Normal usage output"
+msgstr "Output di utilizzo normale"
+
+msgid "OpenVPN"
+msgstr "OpenVPN"
+
+msgid "Port"
+msgstr "Porta"
+
+msgid "Protocol"
+msgstr "Protocollo"
+
+msgid "Public"
+msgstr ""
+
+msgid "Public address"
+msgstr ""
+
+msgid "Separate multiple entries with commas"
+msgstr "Separa voci multiple con una virgola"
+
+msgid "Services"
+msgstr ""
+
+msgid "Settings"
+msgstr "Impostazioni"
+
+msgid ""
+"This is the address which external clients can connect to your VPN with. "
+"This is automatically used in the generated configuration."
+msgstr ""
+
+msgid "UUID"
+msgstr "UUID"
+
+msgid "Use compression"
+msgstr "Utilizza compressione"
+
+msgid "User"
+msgstr "Utente"
+
+msgid "VPN network"
+msgstr "Rete VPN"
+
+msgid "WINS server(s)"
+msgstr "Server WINS"
