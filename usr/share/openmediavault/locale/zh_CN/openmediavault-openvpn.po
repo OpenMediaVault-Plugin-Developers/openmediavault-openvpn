@@ -1,0 +1,129 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# dezi121 <by@songming.me>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-openvpn\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-09 06:57-0500\n"
+"PO-Revision-Date: 2014-04-09 11:57+0000\n"
+"Last-Translator: ryecoaaron <aaron27@ryecoinc.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/openmediavault-openvpn/language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add certificate"
+msgstr "添加证书"
+
+msgid "Address"
+msgstr "地址"
+
+msgid "Allow client to client communication"
+msgstr "允许客户端到客户端之间的通信"
+
+msgid "Certificates"
+msgstr "证书"
+
+msgid "Client to client"
+msgstr "客户端到客户端"
+
+msgid "Common name"
+msgstr "通用名"
+
+msgid "DHCP options"
+msgstr ""
+
+msgid "DNS search domains(s)"
+msgstr "DNS search domains(s)"
+
+msgid "DNS server(s)"
+msgstr "DNS server(s)"
+
+msgid "Date & Time"
+msgstr "日期和时间"
+
+msgid "Debug"
+msgstr "Debug"
+
+msgid "Download certificate"
+msgstr "下载证书"
+
+msgid "Enable"
+msgstr "启用"
+
+msgid "Event"
+msgstr "事件"
+
+msgid "Extra options"
+msgstr "扩展选项"
+
+msgid "General"
+msgstr "常规"
+
+msgid "General settings"
+msgstr "常规设置"
+
+msgid "Log each packet"
+msgstr "记录每个数据包"
+
+msgid "Logging level"
+msgstr "日志级别"
+
+msgid "Mask"
+msgstr "掩码"
+
+msgid "No output except fatal errors"
+msgstr "除致命错误不进行输出"
+
+msgid "Normal usage output"
+msgstr "常规使用输出"
+
+msgid "OpenVPN"
+msgstr "OpenVPN"
+
+msgid "Port"
+msgstr "端口"
+
+msgid "Protocol"
+msgstr "协议"
+
+msgid "Public"
+msgstr ""
+
+msgid "Public address"
+msgstr ""
+
+msgid "Separate multiple entries with commas"
+msgstr "用逗号分隔多个条目"
+
+msgid "Services"
+msgstr ""
+
+msgid "Settings"
+msgstr "设置"
+
+msgid ""
+"This is the address which external clients can connect to your VPN with. "
+"This is automatically used in the generated configuration."
+msgstr ""
+
+msgid "UUID"
+msgstr "UUID"
+
+msgid "Use compression"
+msgstr "使用压缩"
+
+msgid "User"
+msgstr "用户"
+
+msgid "VPN network"
+msgstr "VPN网络"
+
+msgid "WINS server(s)"
+msgstr "WINS server(s)"
