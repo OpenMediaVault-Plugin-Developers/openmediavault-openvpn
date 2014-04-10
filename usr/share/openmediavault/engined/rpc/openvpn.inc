@@ -205,7 +205,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
 
         foreach ($uuids as $uuid) {
             try {
-                $clients[] = $this->get(array("uuid" => $uuid), $context);
+                $clients[] = $this->get(array("uuid" => $uuid), $this->getAdminContext());
             } catch (Exception $e) {
                 throw $e;
             }
@@ -226,7 +226,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
 
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
-            "role" => OMV_ROLE_EVERYONE
+            "role" => OMV_ROLE_ADMINISTRATOR
         ));
 
         // Validate the parameters of the RPC service method.
@@ -242,8 +242,6 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         if (is_null($client))
             throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
                 $xPath);
-
-        file_put_contents("/tmp/test.txt", var_export($client, true));
 
         return $client;
     }
@@ -352,7 +350,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
             }
         }');
 
-        $client = $this->get($params, $context);
+        $client = $this->get($params, $this->getAdminContext());
         $uuid = $client["uuid"];
         $commonName = $client["common_name"];
 
