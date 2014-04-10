@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-29 10:54-0500\n"
+"POT-Creation-Date: 2014-04-09 06:57-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,6 +33,9 @@ msgid "Client to client"
 msgstr ""
 
 msgid "Common name"
+msgstr ""
+
+msgid "DHCP options"
 msgstr ""
 
 msgid "DNS search domains(s)"
@@ -89,10 +92,22 @@ msgstr ""
 msgid "Protocol"
 msgstr ""
 
+msgid "Public"
+msgstr ""
+
+msgid "Public address"
+msgstr ""
+
 msgid "Separate multiple entries with commas"
 msgstr ""
 
+msgid "Services"
+msgstr ""
+
 msgid "Settings"
+msgstr ""
+
+msgid "This is the address which external clients can connect to your VPN with. This is automatically used in the generated configuration."
 msgstr ""
 
 msgid "UUID"
