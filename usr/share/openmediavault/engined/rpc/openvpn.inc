@@ -17,11 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once "openmediavault/object.inc";
 require_once "openmediavault/error.inc";
-require_once "openmediavault/util.inc";
-require_once "openmediavault/rpc.inc";
 require_once "openmediavault/notify.inc";
+require_once "openmediavault/object.inc";
+require_once "openmediavault/rpc.inc";
+require_once "openmediavault/util.inc";
 
 class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
 {
@@ -77,9 +77,12 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         // Get configuration object
         $object = $xmlConfig->get($this->getXPath());
 
-        if (is_null($object))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getXPath());
+        if (is_null($object)) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $this->getXPath()
+            );
+        }
 
         // Modify result data
         $settingsObject["enable"]           = boolval($object["enable"]);
@@ -109,24 +112,27 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         ));
 
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, '{
-            "type"       : "object",
-            "properties" : {
-                "enable"           : { "type" : "boolean" },
-                "port"             : { "type" : "integer" },
-                "protocol"         : { "type" : "string", "enum" : ["udp", "tcp"] },
-                "compression"      : { "type" : "boolean" },
-                "extra_options"    : { "type" : "string", "optional" : true},
-                "loglevel"         : { "type" : "integer", "enum" : [0, 2, 5, 7] },
-                "vpn_network"      : { "type" : "string" },
-                "vpn_mask"         : { "type" : "string" },
-                "client_to_client" : { "type" : "boolean" },
-                "dns"              : { "type" : "string", "optional" : true },
-                "dns_domains"      : { "type" : "string", "optional" : true },
-                "wins"             : { "type" : "string", "optional" : true },
-                "public_address"   : { "type" : "string" }
-            }
-        }');
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type"       : "object",
+                "properties" : {
+                    "enable"           : { "type" : "boolean" },
+                    "port"             : { "type" : "integer" },
+                    "protocol"         : { "type" : "string", "enum" : ["udp", "tcp"] },
+                    "compression"      : { "type" : "boolean" },
+                    "extra_options"    : { "type" : "string", "optional" : true},
+                    "loglevel"         : { "type" : "integer", "enum" : [0, 2, 5, 7] },
+                    "vpn_network"      : { "type" : "string" },
+                    "vpn_mask"         : { "type" : "string" },
+                    "client_to_client" : { "type" : "boolean" },
+                    "dns"              : { "type" : "string", "optional" : true },
+                    "dns_domains"      : { "type" : "string", "optional" : true },
+                    "wins"             : { "type" : "string", "optional" : true },
+                    "public_address"   : { "type" : "string" }
+                }
+            }'
+        );
 
         // Prepare configuration data
         $object = array(
@@ -148,16 +154,22 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         // Get old configuration object
         $oldConfig = $xmlConfig->get($this->getXPath());
 
-        if (is_null($object))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getXPath());
+        if (is_null($object)) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $this->getXPath()
+            );
+        }
 
         $object["clients"] = $oldConfig["clients"];
 
         // Set configuration object
-        if (false === $xmlConfig->replace($this->getXPath(), $object))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_SET_OBJECT_FAILED,
-                $this->getXPath());
+        if (false === $xmlConfig->replace($this->getXPath(), $object)) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_SET_OBJECT_FAILED,
+                $this->getXPath()
+            );
+        }
 
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
@@ -176,15 +188,18 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         ));
 
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, '{
-            "type"       : "object",
-            "properties" : {
-                "start"     : { "type" : "integer" },
-                "limit"     : {' . $GLOBALS["OMV_JSONSCHEMA_COUNTFIELD"] . '},
-                "sortfield" : {' . $GLOBALS["OMV_JSONSCHEMA_SORTFIELD"] . '},
-                "sortdir"   : {' . $GLOBALS["OMV_JSONSCHEMA_SORTDIR"] . '}
-            }
-        }');
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type"       : "object",
+                "properties" : {
+                    "start"     : { "type" : "integer" },
+                    "limit"     : {' . $GLOBALS["OMV_JSONSCHEMA_COUNTFIELD"] . '},
+                    "sortfield" : {' . $GLOBALS["OMV_JSONSCHEMA_SORTFIELD"] . '},
+                    "sortdir"   : {' . $GLOBALS["OMV_JSONSCHEMA_SORTDIR"] . '}
+                }
+            }'
+        );
 
         // Get configuration object
         $xPath = null;
@@ -192,14 +207,21 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         if ($context == $this->getAdminContext()) {
             $xPath = sprintf("%s/client/uuid", $this->getClientsXPath());
         } else {
-            $xPath = sprintf("%s/client[associated_user='%s']/uuid", $this->getClientsXPath(), $context["username"]);
+            $xPath = sprintf(
+                "%s/client[associated_user='%s']/uuid",
+                $this->getClientsXPath(),
+                $context["username"]
+            );
         }
 
         $uuids = $xmlConfig->getList($xPath);
 
-        if (is_null($uuids))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $xPath);
+        if (is_null($uuids)) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $xPath
+            );
+        }
 
         $clients = array();
 
@@ -230,18 +252,24 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         ));
 
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, '{
-            "type"       : "object",
-            "properties" : {
-                "uuid" : {' . $GLOBALS["OMV_JSONSCHEMA_UUID"] . '}
-            }
-        }');
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type"       : "object",
+                "properties" : {
+                    "uuid" : {' . $GLOBALS["OMV_JSONSCHEMA_UUID"] . '}
+                }
+            }'
+        );
 
         $client = $xmlConfig->get($this->getClientXPathByUuid($params["uuid"]));
 
-        if (is_null($client))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $xPath);
+        if (is_null($client)) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $xPath
+            );
+        }
 
         return $client;
     }
@@ -256,14 +284,17 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         ));
 
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, '{
-            "type"       : "object",
-            "properties" : {
-                "uuid"            : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_UNDEFINED"] . '},
-                "associated_user" : { "type" : "string" },
-                "common_name"     : { "type" : "string" }
-            }
-        }');
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type"       : "object",
+                "properties" : {
+                    "uuid"            : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_UNDEFINED"] . '},
+                    "associated_user" : { "type" : "string" },
+                    "common_name"     : { "type" : "string" }
+                }
+            }'
+        );
 
         $client = array(
             "uuid"            => empty($params["uuid"]) ? OMVUtil::uuid() : $params["uuid"],
@@ -275,26 +306,40 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         $success = false;
         $xPath = null;
 
-        if (empty($params["uuid"]))
-            $success = $xmlConfig->set($xPath = $this->getClientsXPath(),
+        if (empty($params["uuid"])) {
+            $success = $xmlConfig->set(
+                $xPath = $this->getClientsXPath(),
                 array("client" => $client),
-                $client);
-        else
-            $success = $xmlConfig->replace($xPath = $this->getClientXPathByUuid($params["uuid"]),
-                $client);
+                $client
+            );
+        } else {
+            $success = $xmlConfig->replace(
+                $xPath = $this->getClientXPathByUuid($params["uuid"]),
+                $client
+            );
+        }
 
-        if (!$success)
-            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
-                $xPath);
+        if (!$success) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
+                $xPath
+            );
+        }
 
         // Generate certificate
-        $cmd = sprintf("sudo omv-mkconf %s add %s 2>&1",
+        $cmd = sprintf(
+            "sudo omv-mkconf %s add %s 2>&1",
             strtolower($this->getName()),
-            $client["uuid"]);
+            $client["uuid"]
+        );
 
-        if (0 !== $this->exec($cmd, $output))
-            throw new OMVException(OMVErrorMsg::E_EXEC_FAILED,
-                $cmd, implode("\n", $output));
+        if (0 !== $this->exec($cmd, $output)) {
+            throw new OMVException(
+                OMVErrorMsg::E_EXEC_FAILED,
+                $cmd,
+                implode("\n", $output)
+            );
+        }
 
         return $client;
     }
@@ -309,28 +354,40 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         ));
 
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, '{
-            "type"       : "object",
-            "properties" : {
-                "uuid" : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_NONE"] . '}
-            }
-        }');
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type"       : "object",
+                "properties" : {
+                    "uuid" : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_NONE"] . '}
+                }
+            }'
+        );
 
         // Revoke certificate and then delete from xml
         // if successful
-        $cmd = sprintf("sudo omv-mkconf %s revoke %s 2>&1",
+        $cmd = sprintf(
+            "sudo omv-mkconf %s revoke %s 2>&1",
             strtolower($this->getName()),
-            $params["uuid"]);
+            $params["uuid"]
+        );
 
-        if (0 !== $this->exec($cmd, $output))
-            throw new OMVException(OMVErrorMsg::E_EXEC_FAILED,
-                $cmd, implode("\n", $output));
+        if (0 !== $this->exec($cmd, $output)) {
+            throw new OMVException(
+                OMVErrorMsg::E_EXEC_FAILED,
+                $cmd,
+                implode("\n", $output)
+            );
+        }
 
         $client = $xmlConfig->delete($this->getClientXPathByUuid($params["uuid"]));
 
-        if (is_null($client))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
-                $this->getClientXPathByUuid($params["uuid"]));
+        if (is_null($client)) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
+                $this->getClientXPathByUuid($params["uuid"])
+            );
+        }
     }
 
     public function downloadCertificate($params, $context)
@@ -343,25 +400,32 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         ));
 
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, '{
-            "type"       : "object",
-            "properties" : {
-                "uuid" : {' . $GLOBALS["OMV_JSONSCHEMA_UUID"] . '}
-            }
-        }');
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type"       : "object",
+                "properties" : {
+                    "uuid" : {' . $GLOBALS["OMV_JSONSCHEMA_UUID"] . '}
+                }
+            }'
+        );
 
         $client = $this->get($params, $this->getAdminContext());
         $uuid = $client["uuid"];
         $commonName = $client["common_name"];
 
         // Check if user is eligble to download certificate
-        if ($context != $this->getAdminContext())
-            if ($context["username"] != $client["associated_user"])
+        if ($context != $this->getAdminContext()) {
+            if ($context["username"] != $client["associated_user"]) {
                 return;
+            }
+        }
 
 
         $configContent = $this->generateClientConf(
-            $client, $xmlConfig->get($this->getXPath()));
+            $client,
+            $xmlConfig->get($this->getXPath())
+        );
 
         // Create a new tempory file and a new ZipArchive object
         $tmpFile = tempnam(sys_get_temp_dir(), "zip");
@@ -422,7 +486,6 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
 
         return $conf;
     }
-
 }
 
 // Register the RPC service.

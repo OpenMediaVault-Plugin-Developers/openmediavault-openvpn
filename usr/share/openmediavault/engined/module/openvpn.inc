@@ -17,15 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once "openmediavault/module.inc";
 require_once "openmediavault/config.inc";
 require_once "openmediavault/error.inc";
-require_once "openmediavault/util.inc";
 require_once "openmediavault/initscript.inc";
 require_once "openmediavault/log.inc";
+require_once "openmediavault/module.inc";
+require_once "openmediavault/util.inc";
 
-class OMVModuleOpenVPN extends OMVModuleServiceAbstract
-    implements OMVINotifyListener, OMVIModuleServiceStatus
+class OMVModuleOpenVPN extends OMVModuleServiceAbstract implements
+    OMVINotifyListener,
+    OMVIModuleServiceStatus
 {
     /* Helpers */
 
@@ -58,9 +59,12 @@ class OMVModuleOpenVPN extends OMVModuleServiceAbstract
 
         $object = $xmlConfig->get($this->getXPath());
 
-        if (is_null($object))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getXPath());
+        if (is_null($object)) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $this->getXPath()
+            );
+        }
 
         $initd = new OMVSysVInitScript($this->getName());
 
@@ -79,9 +83,13 @@ class OMVModuleOpenVPN extends OMVModuleServiceAbstract
     {
         $cmd = sprintf("sudo omv-mkconf %s setup 2>&1", $this->getName());
 
-        if (0 !== $this->exec($cmd, $output))
-            throw new OMVException(OMVErrorMsg::E_EXEC_FAILED,
-                $cmd, implode("\n", $output));
+        if (0 !== $this->exec($cmd, $output)) {
+            throw new OMVException(
+                OMVErrorMsg::E_EXEC_FAILED,
+                $cmd,
+                implode("\n", $output)
+            );
+        }
     }
 
     /**
@@ -93,12 +101,16 @@ class OMVModuleOpenVPN extends OMVModuleServiceAbstract
 
         $object = $xmlConfig->get($this->getXPath());
 
-        if (is_null($object))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getXPath());
+        if (is_null($object)) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $this->getXPath()
+            );
+        }
 
-        if (!$object["enable"])
+        if (!$object["enable"]) {
             return;
+        }
 
         $initd = new OMVSysVInitScript($this->getName(), true);
         $initd->exec();
@@ -116,11 +128,13 @@ class OMVModuleOpenVPN extends OMVModuleServiceAbstract
     /**
      * Bind listeners.
      */
-    public function bindListeners(OMVNotifyDispatcher $dispatcher) {
+    public function bindListeners(OMVNotifyDispatcher $dispatcher)
+    {
         $dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
             $this->getEventMessagePath(),
-            array($this, "setDirty"));
+            array($this, "setDirty")
+        );
     }
 }
 
@@ -138,16 +152,19 @@ OMVLogFile::registerType(
         "columns" => array(
             "ts" => array(
                 "index" => 1,
-                "func" => create_function("\$v",
-                    "return strpdate(\$v, \"D M d H:i:s Y\");")
+                "func" => create_function(
+                    "\$v",
+                    "return strpdate(\$v, \"D M d H:i:s Y\");"
+                )
             ),
             "date" => array(
                 "index" => 1,
-                "func" => create_function('$v',
-                    "return strftime(\"%c\", strpdate(\$v,\"D M d H:i:s Y\"));")
+                "func" => create_function(
+                    "$v",
+                    "return strftime(\"%c\", strpdate(\$v,\"D M d H:i:s Y\"));"
+                )
             ),
             "event" => 2
         )
     )
 );
-
