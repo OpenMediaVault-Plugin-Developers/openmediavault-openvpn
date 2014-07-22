@@ -89,8 +89,8 @@ Ext.define("OMV.module.user.service.openvpn.Certificates", {
             scope    : me,
             disabled : true,
             selectionConfig : {
-                minSelection : 1,
-                maxSelection : 1
+                minSelections : 1,
+                maxSelections : 1
             }
         }]);
 
