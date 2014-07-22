@@ -93,7 +93,7 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
             handler  : Ext.Function.bind(me.onDownloadCertificateButton, me, [ me ]),
             scope    : me,
             disabled : true,
-            selectionChangeConfig : {
+            selectionConfig : {
                 minSelection : 1,
                 maxSelection : 1
             }
