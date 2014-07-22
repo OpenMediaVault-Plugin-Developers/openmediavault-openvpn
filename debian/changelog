@@ -1,9 +1,15 @@
-openmediavault-openvpn (1.0.0.2) UNRELEASED; urgency=low
+openmediavault-openvpn (1.0.7) stable; urgency=low
+
+  * update to OMV 1.0.7 selectionchange changes 
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 22 Jul 2014 11:09:40 +0200
+
+openmediavault-openvpn (1.0.0.2) stable; urgency=low
 
   * Conform to OMV 0.6.0.6 trigger standards
   * Work with OMV 0.6.0.11 
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 16 Apr 2014 01:50:22 +0200
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 22 Jul 2014 11:08:59 +0200
 
 openmediavault-openvpn (1.0.0.1) stable; urgency=low
 
