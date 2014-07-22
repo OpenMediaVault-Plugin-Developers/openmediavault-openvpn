@@ -77,10 +77,6 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
         });
 
         me.doReload();
-
-        var selModel = me.getSelectionModel();
-        selModel.on("selectionchange", me.updateButtonState, me);
-
         me.callParent(arguments);
     },
 
@@ -96,19 +92,14 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
             iconCls  : Ext.baseCSSPrefix + "btn-icon-16x16",
             handler  : Ext.Function.bind(me.onDownloadCertificateButton, me, [ me ]),
             scope    : me,
-            disabled : true
+            disabled : true,
+            selectionChangeConfig : {
+                minSelection : 1,
+                maxSelection : 1
+            }
         }]);
 
         return items;
-    },
-
-    updateButtonState : function() {
-        var me = this;
-
-        var records = me.getSelection();
-
-        var action = records.length === 1 ? "enable" : "disable";
-        me.queryById(me.getId() + "-dowload-certificate")[action]();
     },
 
     onAddButton : function() {
