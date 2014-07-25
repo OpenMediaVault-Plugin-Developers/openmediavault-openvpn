@@ -32,8 +32,9 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
         "OMV.module.admin.service.openvpn.ClientCertificate"
     ],
 
-    hideEditButton   : true,
-    reloadOnActivate : true,
+    hidePagingToolbar : false,
+    hideEditButton    : true,
+    reloadOnActivate  : true,
 
     columns : [{
         header    : _("UUID"),
@@ -52,7 +53,7 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
     }],
 
     store : Ext.create("OMV.data.Store", {
-        autoload   : true,
+        autoLoad   : true,
         remoteSort : false,
         model      : OMV.data.Model.createImplicit({
             idProperty   : "uuid",

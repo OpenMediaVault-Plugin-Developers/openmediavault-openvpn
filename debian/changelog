@@ -1,3 +1,9 @@
+openmediavault-openvpn (1.0.8) stable; urgency=low
+
+  * Fix Javascript errors 
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 25 Jul 2014 14:45:31 +0200
+
 openmediavault-openvpn (1.0.7) stable; urgency=low
 
   * update to OMV 1.0.7 selectionchange changes 
