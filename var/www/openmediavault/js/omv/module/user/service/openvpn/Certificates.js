@@ -30,6 +30,7 @@ Ext.define("OMV.module.user.service.openvpn.Certificates", {
         "OMV.data.proxy.Rpc"
     ],
 
+    hidePagingToolbar : false,
     hideAddButton     : true,
     hideDeleteButton  : true,
     hideEditButton    : true,
@@ -48,7 +49,7 @@ Ext.define("OMV.module.user.service.openvpn.Certificates", {
     }],
 
     store : Ext.create("OMV.data.Store", {
-        autoload   : true,
+        autoLoad   : true,
         remoteSort : false,
         model      : OMV.data.Model.createImplicit({
             idProperty : "uuid",
@@ -65,11 +66,6 @@ Ext.define("OMV.module.user.service.openvpn.Certificates", {
             }
         }
     }),
-
-    initComponent : function() {
-        this.callParent(arguments);
-        this.doReload();
-    },
 
     getTopToolbarItems : function() {
         var me = this;
