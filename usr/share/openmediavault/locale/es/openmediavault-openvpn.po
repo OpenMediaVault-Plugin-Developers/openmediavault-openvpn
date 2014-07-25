@@ -3,127 +3,127 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Stefan Thrane Overby <stoverby@gmail.com>, 2014
+# Raul Fernandez Garcia <raulfg3@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-10 10:57-0500\n"
-"PO-Revision-Date: 2014-04-11 04:39+0000\n"
-"Last-Translator: Stefan Thrane Overby <stoverby@gmail.com>\n"
-"Language-Team: Danish (http://www.transifex.com/projects/p/openmediavault-openvpn/language/da/)\n"
+"PO-Revision-Date: 2014-04-21 11:41+0000\n"
+"Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/openmediavault-openvpn/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Add certificate"
-msgstr "Tilføj certifikat"
+msgstr "Añadir certificado"
 
 msgid "Address"
-msgstr "Adresse"
+msgstr "Dirección"
 
 msgid "Allow client to client communication"
-msgstr "Tillad klient til klient kommunikation"
+msgstr "Permitir comunicación cliente a cliente"
 
 msgid "Certificates"
-msgstr "Certifikater"
+msgstr "Certificados"
 
 msgid "Client to client"
-msgstr "Klient til klient"
+msgstr "Clente a cliente"
 
 msgid "Common name"
-msgstr "Fælles navn"
+msgstr "Nombre"
 
 msgid "DHCP options"
-msgstr "DHCP valgmuligheder"
+msgstr "Opciones DHCP"
 
 msgid "DNS search domains(s)"
-msgstr "DNS søge domæne(r)"
+msgstr "Dominio(s) de busqueda DNS"
 
 msgid "DNS server(s)"
-msgstr "DNS server(e)"
+msgstr "Servidor(es) DNS"
 
 msgid "Date & Time"
-msgstr "Dato & Tid"
+msgstr "Fecha y hora"
 
 msgid "Debug"
-msgstr "Debug"
+msgstr "Depuración"
 
 msgid "Download certificate"
-msgstr "Download certifikat"
+msgstr "Descargar certificado"
 
 msgid "Enable"
-msgstr "Aktiver"
+msgstr "Habilitar"
 
 msgid "Event"
-msgstr "Begivenhed"
+msgstr "Evento"
 
 msgid "Extra options"
-msgstr "Ekstra valgmuligheder"
+msgstr "Opciones"
 
 msgid "General"
-msgstr "Generelt"
+msgstr "General"
 
 msgid "General settings"
-msgstr "Generelle indstillinger"
+msgstr "Opciones"
 
 msgid "Log each packet"
-msgstr "Log hver pakke"
+msgstr "Log de cada paquete"
 
 msgid "Logging level"
-msgstr "Log niveau"
+msgstr "Nivel de log"
 
 msgid "Mask"
-msgstr "Masker"
+msgstr "Máscara"
 
 msgid "No output except fatal errors"
-msgstr "Intet output undtaget alvorlige fejl"
+msgstr "No mostrar nada excepto errores fatales."
 
 msgid "Normal usage output"
-msgstr "Normal forbrug output"
+msgstr "Mostar uso normal"
 
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
 msgid "Port"
-msgstr "Port"
+msgstr "Puerto"
 
 msgid "Protocol"
-msgstr "Protokol"
+msgstr "Protocolo"
 
 msgid "Public"
-msgstr "Offentlig"
+msgstr "Publico"
 
 msgid "Public address"
-msgstr "Offentlig adresse"
+msgstr "Dirección publica"
 
 msgid "Separate multiple entries with commas"
-msgstr "Del forskellige indtastninger med komma"
+msgstr "Separar multiples entradas con comas"
 
 msgid "Services"
-msgstr "Tjenester"
+msgstr "Servicios"
 
 msgid "Settings"
-msgstr "Indstillinger"
+msgstr "Opciones"
 
 msgid ""
 "This is the address which external clients can connect to your VPN with. "
 "This is automatically used in the generated configuration."
-msgstr "Dette er adressen som eksterne klienter kan forbinde til din VPN med. Den bliver automatisk brugt i den generet konfiguration."
+msgstr "Está es la dirección a la que los clientes VPN externos se podrán conectar. Se usa automáticamente en la configuración por defecto"
 
 msgid "UUID"
 msgstr "UUID"
 
 msgid "Use compression"
-msgstr "Brug komprimering"
+msgstr "Usar compresión"
 
 msgid "User"
-msgstr "Bruger"
+msgstr "Usuario"
 
 msgid "VPN network"
-msgstr "VPN netværk"
+msgstr "Red VPN"
 
 msgid "WINS server(s)"
-msgstr "WINS server(e)"
+msgstr "Servidor(es) WINS"
