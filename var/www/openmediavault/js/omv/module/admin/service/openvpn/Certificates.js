@@ -32,7 +32,8 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
         "OMV.module.admin.service.openvpn.ClientCertificate"
     ],
 
-    hideEditButton : true,
+    hideEditButton   : true,
+    reloadOnActivate : true,
 
     columns : [{
         header    : _("UUID"),
@@ -50,35 +51,25 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
         dataIndex : "common_name",
     }],
 
-    initComponent : function() {
-        var me = this;
-
-        Ext.apply(me, {
-            store : Ext.create("OMV.data.Store", {
-                autoload   : true,
-                remoteSort : false,
-                model      : OMV.data.Model.createImplicit({
-                    idProperty   : "uuid",
-                    totalPoperty : "total",
-                    fields       : [
-                        { name : "uuid" },
-                        { name : "associated_user" },
-                        { name : "common_name" }
-                    ]
-                }),
-                proxy : {
-                    type    : "rpc",
-                    rpcData : {
-                        "service" : "OpenVPN",
-                        "method"  : "getList"
-                    }
-                }
-            })
-        });
-
-        me.doReload();
-        me.callParent(arguments);
-    },
+    store : Ext.create("OMV.data.Store", {
+        autoload   : true,
+        remoteSort : false,
+        model      : OMV.data.Model.createImplicit({
+            idProperty   : "uuid",
+            fields       : [
+                { name : "uuid" },
+                { name : "associated_user" },
+                { name : "common_name" }
+            ]
+        }),
+        proxy : {
+            type    : "rpc",
+            rpcData : {
+                "service" : "OpenVPN",
+                "method"  : "getList"
+            }
+        }
+    }),
 
     getTopToolbarItems : function() {
         var me = this;
