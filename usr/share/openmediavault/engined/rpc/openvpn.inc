@@ -328,7 +328,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
 
         // Generate certificate
         $cmd = sprintf(
-            "sudo omv-mkconf %s add %s 2>&1",
+            "omv-mkconf %s add %s 2>&1",
             strtolower($this->getName()),
             $client["uuid"]
         );
@@ -367,7 +367,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         // Revoke certificate and then delete from xml
         // if successful
         $cmd = sprintf(
-            "sudo omv-mkconf %s revoke %s 2>&1",
+            "omv-mkconf %s revoke %s 2>&1",
             strtolower($this->getName()),
             $params["uuid"]
         );
