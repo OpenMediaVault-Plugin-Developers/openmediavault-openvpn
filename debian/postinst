@@ -37,7 +37,7 @@ case "$1" in
             groupadd openvpn
         fi
 
-        service rsyslog restart
+        invoke-rc.d rsyslog restart
 
         # Activate package triggers. These triggers are only set during the
         # package installation.
