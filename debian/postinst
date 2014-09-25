@@ -22,6 +22,7 @@ case "$1" in
 
             omv_config_add_element "${SERVICE_XPATH}" "vpn_network" "10.8.0.0"
             omv_config_add_element "${SERVICE_XPATH}" "vpn_mask" "255.255.255.0"
+            omv_config_add_element "${SERVICE_XPATH}" "default_gw" "1"
             omv_config_add_element "${SERVICE_XPATH}" "client_to_client" "0"
 
             omv_config_add_element "${SERVICE_XPATH}" "dns" ""
