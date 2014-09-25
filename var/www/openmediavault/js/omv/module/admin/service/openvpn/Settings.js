@@ -126,6 +126,15 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
                 value      : "255.255.255.0"
             },{
                 xtype      : "checkbox",
+                name       : "default_gw",
+                fieldLabel : _("Default Gateway"),
+                checked    : true,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("If enabled, this directive will configure all clients to redirect their default network gateway through the VPN. If disabled, a static route to the private subnet is configured on all clients.")
+                }]
+            },{
+                xtype      : "checkbox",
                 name       : "client_to_client",
                 fieldLabel : _("Client to client"),
                 checked    : false,
