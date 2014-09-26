@@ -25,7 +25,8 @@ require_once "openmediavault/util.inc";
 
 class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
 {
-    /* Helpers */
+    private $ipPoolReservationsPath = "/etc/openvpn/ipp.txt";
+    private $openVpnStatusLogPath = "/etc/openvpn/openvpn-status.log";
 
     private function getEventMessagePath()
     {
@@ -46,8 +47,6 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
     {
         return sprintf("%s/client[uuid='%s']", $this->getClientsXPath(), $uuid);
     }
-
-    /* /Helpers */
 
     public function getName()
     {
@@ -466,43 +465,49 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         );
     }
 
-    // Get OpenVPN status and IP pool reservation
-    public function getStats($params, $context) {
+    public function getStats($params, $context)
+    {
         global $xmlConfig;
+
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
-                  "role" => OMV_ROLE_ADMINISTRATOR
-          ));
-        // Is service enabled?
-        $xpath = $this->getXPath();
-        $object = $xmlConfig->get($xpath);
-        if(is_null($object)) {
-                throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                  $xpath);
+            "role" => OMV_ROLE_ADMINISTRATOR
+        ));
+
+        $object = $xmlConfig->get($this->getXPath());
+
+        if (is_null($object)) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $this->getXPath()
+            );
         }
-        if (!boolvalEx($object['enable'])) {
-                $stats = gettext("Service disabled");
-        } else {
-                // Get users currently logged in.
-                $stats = sprintf("%s\n", gettext("-------OpenVPN status-------"));
-                $cmd = "export LANG=C; cat /etc/openvpn/openvpn-status.log 2>&1";
-                if(0 !== $this->exec($cmd, $output)) {
-                        throw new OMVException(OMVErrorMsg::E_EXEC_FAILED,
-                          $cmd, implode("\n", $output));
-                }
-                $stats .= empty($output) ? gettext("No users connected") :
-                  implode("\n", $output);
-                // Get IP pool reservation.
-                $cmd = "export LANG=C; cat /etc/openvpn/ipp.txt 2>&1";
-                if(0 !== $this->exec($cmd, $output)) {
-                        throw new OMVException(OMVErrorMsg::E_EXEC_FAILED,
-                          $cmd, implode("\n", $output));
-                }
-                $stats .= sprintf("\n\n%s\n", gettext("-----IP pool reservation-----"));
-                $stats .= empty($output) ? gettext("No IP reserved") :
-                  implode("\n", $output);
+
+        if (!boolval($object["enable"])) {
+            return gettext("OpenVPN is disabled.");
         }
-        return $stats;
+
+        // Get users currently logged in.
+        $status = file_get_contents($this->openVpnStatusLogPath);
+
+        if (!$status) {
+            $status = gettext("No users connected.");
+        }
+
+        // Get IP pool reservation.
+        $reservations = file_get_contents($this->ipPoolReservationsPath);
+
+        if (!$reservations) {
+            $reservations = gettext("No IP reserved.");
+        }
+
+        $data = gettext("-------OpenVPN status--------") . PHP_EOL
+              . $status
+              . PHP_EOL . PHP_EOL
+              . gettext("-----IP pool reservation-----") . PHP_EOL
+              . $reservations;
+
+        return $data;
     }
 
     private function generateClientConf($client, $settings)
