@@ -147,7 +147,7 @@ setup_config()
 
     vpn_network=$(omv_config_get "${SERVICE_XPATH}/vpn_network")
     vpn_mask=$(omv_config_get "${SERVICE_XPATH}/vpn_mask")
-    default_gw=$(omv_config_get "${SERVICE_XPATH}/default_gw")
+    default_gateway=$(omv_config_get "${SERVICE_XPATH}/default_gateway")
     client_to_client=$(omv_config_get "${SERVICE_XPATH}/client_to_client")
 
     # Split strings into rows with the regex "\s*,\s*"
@@ -161,11 +161,11 @@ setup_config()
         compression=";comp-lzo"
     fi
 
-    if [ ${default_gw} -eq 1 ]; then
-        default_gw="push \"redirect-gateway def1 bypass-dhcp\""
+    if [ ${default_gateway} -eq 1 ]; then
+        default_gateway="push \"redirect-gateway def1 bypass-dhcp\""
         static_route=";push \"route ${subnet} ${mask}\""
     else
-        default_gw=";push \"redirect-gateway def1 bypass-dhcp\""
+        default_gateway=";push \"redirect-gateway def1 bypass-dhcp\""
         static_route="push \"route ${subnet} ${mask}\""
     fi
 
@@ -282,7 +282,7 @@ ${static_route}
 # (The OpenVPN server machine may need to NAT
 # or bridge the TUN/TAP interface to the internet
 # in order for this to work properly).
-${default_gw}
+${default_gateway}
 
 # Certain Windows-specific network settings
 # can be pushed to clients, such as DNS

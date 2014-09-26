@@ -126,7 +126,7 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
                 value      : "255.255.255.0"
             },{
                 xtype      : "checkbox",
-                name       : "default_gw",
+                name       : "default_gateway",
                 fieldLabel : _("Default Gateway"),
                 checked    : true,
                 plugins    : [{
