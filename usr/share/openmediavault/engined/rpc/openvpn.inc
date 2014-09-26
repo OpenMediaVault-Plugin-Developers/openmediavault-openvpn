@@ -23,7 +23,7 @@ require_once "openmediavault/object.inc";
 require_once "openmediavault/rpc.inc";
 require_once "openmediavault/util.inc";
 
-class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
+class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
 {
     /* Helpers */
 
@@ -51,7 +51,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
 
     public function getName()
     {
-        return "OpenVPN";
+        return "OpenVpn";
     }
 
     public function initialize()
@@ -533,4 +533,4 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
 
 // Register the RPC service.
 $rpcServiceMgr = &OMVRpcServiceMgr::getInstance();
-$rpcServiceMgr->registerService(new OMVRpcServiceOpenVPN());
+$rpcServiceMgr->registerService(new OMVRpcServiceOpenVpn());
