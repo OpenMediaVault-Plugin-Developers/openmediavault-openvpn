@@ -66,7 +66,7 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
         proxy : {
             type    : "rpc",
             rpcData : {
-                "service" : "OpenVPN",
+                "service" : "OpenVpn",
                 "method"  : "getList"
             }
         }
@@ -115,7 +115,7 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
             scope : me,
             callback : me.onDeletion,
             rpcData : {
-                service : "OpenVPN",
+                service : "OpenVpn",
                 method : "delete",
                 params : {
                     uuid : record.get("uuid")
@@ -128,7 +128,7 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
         var me = this,
             record = me.getSelected();
 
-        OMV.Download.request("OpenVPN", "downloadCertificate", {
+        OMV.Download.request("OpenVpn", "downloadCertificate", {
             uuid: record.get("uuid")
         });
     }
