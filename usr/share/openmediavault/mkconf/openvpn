@@ -41,6 +41,29 @@ get_ip()
     echo ${ip}
 }
 
+get_mask()
+{
+    mask=$(ifconfig | grep 'inet addr:' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | cut -d: -f4 | awk '{ print $1}' | head -1)
+
+    echo ${mask}
+}
+
+get_subnet()
+{
+    ip=$(get_ip)
+    mask=$(get_mask)
+    local IFS='.' subnet i
+    local -a oct msk
+    read -ra oct <<< "${ip}"
+    read -ra msk <<< "${mask}"
+
+    for i in ${!oct[@]}; do
+        subnet+=( "$(( oct[i] & msk[i] ))" )
+    done
+
+    echo "${subnet[*]}"
+}
+
 setup_easy_rsa()
 {
     if [ ! -d /etc/openvpn/easy-rsa/2.0/ ]; then
@@ -114,6 +137,8 @@ setup_config()
 {
     # Variables
     ip=$(get_ip)
+    mask=$(get_mask)
+    subnet=$(get_subnet)
     port=$(omv_config_get "${SERVICE_XPATH}/port")
     protocol=$(omv_config_get "${SERVICE_XPATH}/protocol")
     compression=$(omv_config_get "${SERVICE_XPATH}/compression")
@@ -122,6 +147,7 @@ setup_config()
 
     vpn_network=$(omv_config_get "${SERVICE_XPATH}/vpn_network")
     vpn_mask=$(omv_config_get "${SERVICE_XPATH}/vpn_mask")
+    default_gateway=$(omv_config_get "${SERVICE_XPATH}/default_gateway")
     client_to_client=$(omv_config_get "${SERVICE_XPATH}/client_to_client")
 
     # Split strings into rows with the regex "\s*,\s*"
@@ -133,6 +159,14 @@ setup_config()
         compression="comp-lzo"
     else
         compression=";comp-lzo"
+    fi
+
+    if [ ${default_gateway} -eq 1 ]; then
+        default_gateway="push \"redirect-gateway def1 bypass-dhcp\""
+        static_route=";push \"route ${subnet} ${mask}\""
+    else
+        default_gateway=";push \"redirect-gateway def1 bypass-dhcp\""
+        static_route="push \"route ${subnet} ${mask}\""
     fi
 
     if [ ${client_to_client} -eq 1 ]; then
@@ -238,9 +272,7 @@ ifconfig-pool-persist ipp.txt
 # to know to route the OpenVPN client
 # address pool (10.8.0.0/255.255.255.0)
 # back to the OpenVPN server.
-
-;push "route 192.168.10.0 255.255.255.0"
-;push "route 192.168.20.0 255.255.255.0"
+${static_route}
 
 # If enabled, this directive will configure
 # all clients to redirect their default
@@ -250,7 +282,7 @@ ifconfig-pool-persist ipp.txt
 # (The OpenVPN server machine may need to NAT
 # or bridge the TUN/TAP interface to the internet
 # in order for this to work properly).
-push "redirect-gateway def1 bypass-dhcp"
+${default_gateway}
 
 # Certain Windows-specific network settings
 # can be pushed to clients, such as DNS
@@ -299,8 +331,8 @@ ${compression}
 #
 # You can uncomment this out on
 # non-Windows systems.
-;user nobody
-;group nogroup
+user nobody
+group nogroup
 
 # The persist options will try to avoid
 # accessing certain resources on restart

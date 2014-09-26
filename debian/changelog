@@ -1,3 +1,12 @@
+openmediavault-openvpn (1.0.9) stable; urgency=low
+
+  * Added 'Default Gateway' flag in OpenVPN settings
+  * Added an OpenVPN status tab
+  * Fixed log timestamp
+  * Updated conf to reduce the OpenVPN daemon's privileges after initialization
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 25 Sep 2014 22:02:38 +0200
+
 openmediavault-openvpn (1.0.8) stable; urgency=low
 
   * Fix Javascript errors 
