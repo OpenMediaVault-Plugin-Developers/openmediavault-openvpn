@@ -63,6 +63,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         $this->registerMethod("set");
         $this->registerMethod("delete");
         $this->registerMethod("downloadCertificate");
+        $this->registerMethod("getStats");
     }
 
     public function getSettings($params, $context)
@@ -93,6 +94,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
         $settingsObject["loglevel"]         = intval($object["loglevel"]);
         $settingsObject["vpn_network"]      = $object["vpn_network"];
         $settingsObject["vpn_mask"]         = $object["vpn_mask"];
+        $settingsObject["default_gateway"]  = boolval($object["default_gateway"]);
         $settingsObject["client_to_client"] = boolval($object["client_to_client"]);
         $settingsObject["dns"]              = $object["dns"];
         $settingsObject["dns_domains"]      = $object["dns_domains"];
@@ -125,6 +127,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
                     "loglevel"         : { "type" : "integer", "enum" : [0, 2, 5, 7] },
                     "vpn_network"      : { "type" : "string" },
                     "vpn_mask"         : { "type" : "string" },
+                    "default_gateway"  : { "type" : "boolean" },
                     "client_to_client" : { "type" : "boolean" },
                     "dns"              : { "type" : "string", "optional" : true },
                     "dns_domains"      : { "type" : "string", "optional" : true },
@@ -144,6 +147,7 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
             "loglevel"         => intval($params["loglevel"]),
             "vpn_network"      => $params["vpn_network"],
             "vpn_mask"         => $params["vpn_mask"],
+            "default_gateway"  => array_boolval($params, "default_gateway"),
             "client_to_client" => array_boolval($params, "client_to_client"),
             "dns"              => $params["dns"],
             "dns_domains"      => $params["dns_domains"],
@@ -460,6 +464,45 @@ class OMVRpcServiceOpenVPN extends OMVRpcServiceAbstract
             "filename"    => "openvpn-$commonName.zip",
             "filepath"    => $tmpFile,
         );
+    }
+
+    // Get OpenVPN status and IP pool reservation
+    public function getStats($params, $context) {
+        global $xmlConfig;
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, array(
+                  "role" => OMV_ROLE_ADMINISTRATOR
+          ));
+        // Is service enabled?
+        $xpath = $this->getXPath();
+        $object = $xmlConfig->get($xpath);
+        if(is_null($object)) {
+                throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                  $xpath);
+        }
+        if (!boolvalEx($object['enable'])) {
+                $stats = gettext("Service disabled");
+        } else {
+                // Get users currently logged in.
+                $stats = sprintf("%s\n", gettext("-------OpenVPN status-------"));
+                $cmd = "export LANG=C; cat /etc/openvpn/openvpn-status.log 2>&1";
+                if(0 !== $this->exec($cmd, $output)) {
+                        throw new OMVException(OMVErrorMsg::E_EXEC_FAILED,
+                          $cmd, implode("\n", $output));
+                }
+                $stats .= empty($output) ? gettext("No users connected") :
+                  implode("\n", $output);
+                // Get IP pool reservation.
+                $cmd = "export LANG=C; cat /etc/openvpn/ipp.txt 2>&1";
+                if(0 !== $this->exec($cmd, $output)) {
+                        throw new OMVException(OMVErrorMsg::E_EXEC_FAILED,
+                          $cmd, implode("\n", $output));
+                }
+                $stats .= sprintf("\n\n%s\n", gettext("-----IP pool reservation-----"));
+                $stats .= empty($output) ? gettext("No IP reserved") :
+                  implode("\n", $output);
+        }
+        return $stats;
     }
 
     private function generateClientConf($client, $settings)

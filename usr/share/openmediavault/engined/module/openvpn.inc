@@ -160,7 +160,7 @@ OMVLogFile::registerType(
             "date" => array(
                 "index" => 1,
                 "func" => create_function(
-                    "$v",
+                    "\$v",
                     "return strftime(\"%c\", strpdate(\$v,\"D M d H:i:s Y\"));"
                 )
             ),
