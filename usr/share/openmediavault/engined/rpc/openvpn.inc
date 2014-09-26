@@ -514,11 +514,14 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
     {
         $commonName = $client["common_name"];
         $publicAddress = $settings["public_address"];
+        $port = $settings["port"];
+        $protocol = $settings["protocol"];
         $compression = empty($settings["compression"]) ? ";comp-lzo" : "comp-lzo";
 
         $conf = "";
         $conf .= "client\n";
-        $conf .= "remote $publicAddress\n";
+        $conf .= "remote $publicAddress $port\n";
+        $conf .= "proto $protocol\n";
         $conf .= "dev tun\n";
         $conf .= "ca   $commonName-ca.crt\n";
         $conf .= "cert $commonName-client.crt\n";
