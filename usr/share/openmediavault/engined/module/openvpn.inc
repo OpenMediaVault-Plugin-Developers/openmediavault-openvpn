@@ -24,7 +24,7 @@ require_once "openmediavault/log.inc";
 require_once "openmediavault/module.inc";
 require_once "openmediavault/util.inc";
 
-class OMVModuleOpenVPN extends OMVModuleServiceAbstract implements
+class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
     OMVINotifyListener,
     OMVIModuleServiceStatus
 {
@@ -140,7 +140,7 @@ class OMVModuleOpenVPN extends OMVModuleServiceAbstract implements
 
 // Register module
 $moduleMgr = &OMVModuleMgr::getInstance();
-$moduleMgr->registerModule(new OMVModuleOpenVPN());
+$moduleMgr->registerModule(new OMVModuleOpenVpn());
 
 // Register new logfile type
 OMVLogFile::registerType(

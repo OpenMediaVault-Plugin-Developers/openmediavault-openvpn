@@ -31,7 +31,7 @@ Ext.define("OMV.module.admin.service.openvpn.ClientCertificate", {
         ptype : "configobject"
     }],
 
-    rpcService   : "OpenVPN",
+    rpcService   : "OpenVpn",
     rpcSetMethod : "set",
 
     hideResetButton : true,
