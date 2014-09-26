@@ -14,18 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 // require("js/omv/workspace/panel/Textarea.js")
 
-/**
- * @class OMV.module.admin.diagnostic.service.plugin.OpenVPN
- * @derived OMV.workspace.panel.Textarea
- */
-Ext.define("OMV.module.admin.diagnostic.service.plugin.OpenVPN", {
-        extend: "OMV.workspace.panel.Textarea",
-        alias: "omv.plugin.diagnostic.service.openvpn",
+Ext.define("OMV.module.admin.diagnostic.service.plugin.OpenVpn", {
+    extend : "OMV.workspace.panel.Textarea",
+    alias  : "omv.plugin.diagnostic.service.openvpn",
 
-        title: _("OpenVPN"),
-        rpcService: "OpenVPN",
-        rpcMethod: "getStats"
+    title      : _("OpenVPN"),
+    rpcService : "OpenVpn",
+    rpcMethod  : "getStats"
 });
-
