@@ -239,7 +239,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         return $this->applyFilter(
             $clients,
             $params["start"],
-            $params["count"],
+            $params["limit"],
             $params["sortfield"],
             $params["sortdir"]
         );
