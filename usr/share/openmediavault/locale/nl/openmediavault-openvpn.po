@@ -3,151 +3,150 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Raul Fernandez Garcia <raulfg3@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-27 07:25-0500\n"
-"PO-Revision-Date: 2014-09-28 06:59+0000\n"
-"Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/openmediavault-openvpn/language/es/)\n"
+"PO-Revision-Date: 2014-03-29 15:54+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/openmediavault-openvpn/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "-------OpenVPN status--------"
-msgstr "-------OpenVPN estado--------"
+msgstr ""
 
 msgid "-----IP pool reservation-----"
-msgstr "-----Reserva IP pool-----"
+msgstr ""
 
 msgid "Add certificate"
-msgstr "Añadir certificado"
+msgstr ""
 
 msgid "Address"
-msgstr "Dirección"
+msgstr ""
 
 msgid "Allow client to client communication"
-msgstr "Permitir comunicación cliente a cliente"
+msgstr ""
 
 msgid "Certificates"
-msgstr "Certificados"
+msgstr ""
 
 msgid "Client to client"
-msgstr "Clente a cliente"
+msgstr ""
 
 msgid "Common name"
-msgstr "Nombre"
+msgstr ""
 
 msgid "DHCP options"
-msgstr "Opciones DHCP"
+msgstr ""
 
 msgid "DNS search domains(s)"
-msgstr "Dominio(s) de busqueda DNS"
+msgstr ""
 
 msgid "DNS server(s)"
-msgstr "Servidor(es) DNS"
+msgstr ""
 
 msgid "Date & Time"
-msgstr "Fecha y hora"
+msgstr ""
 
 msgid "Debug"
-msgstr "Depuración"
+msgstr ""
 
 msgid "Default gateway"
-msgstr "Gateway por defecto"
+msgstr ""
 
 msgid "Download certificate"
-msgstr "Descargar certificado"
+msgstr ""
 
 msgid "Enable"
-msgstr "Habilitar"
+msgstr ""
 
 msgid "Event"
-msgstr "Evento"
+msgstr ""
 
 msgid "Extra options"
-msgstr "Opciones"
+msgstr ""
 
 msgid "General"
-msgstr "General"
+msgstr ""
 
 msgid "General settings"
-msgstr "Opciones"
+msgstr ""
 
 msgid ""
 "If enabled, this directive will configure all clients to redirect their "
 "default network gateway through the VPN. If disabled, a static route to the "
 "private subnet is configured on all clients."
-msgstr "Si se habilita, esta directiva configurará todos los clientes para ser redirigidos atraves del gateway de la VPN. Si se deshabilita, una ruta estatica será configurada en todos los clientes."
+msgstr ""
 
 msgid "Log each packet"
-msgstr "Log de cada paquete"
+msgstr ""
 
 msgid "Logging level"
-msgstr "Nivel de log"
+msgstr ""
 
 msgid "Mask"
-msgstr "Máscara"
+msgstr ""
 
 msgid "No IP reserved."
-msgstr "No se ha reservado IP."
+msgstr ""
 
 msgid "No output except fatal errors"
-msgstr "No mostrar nada excepto errores fatales."
+msgstr ""
 
 msgid "No users connected."
-msgstr "No hay usuarios conectados."
+msgstr ""
 
 msgid "Normal usage output"
-msgstr "Mostar uso normal"
+msgstr ""
 
 msgid "OpenVPN"
-msgstr "OpenVPN"
+msgstr ""
 
 msgid "OpenVPN is disabled."
-msgstr "OpenVPN está deshabilitado."
+msgstr ""
 
 msgid "Port"
-msgstr "Puerto"
+msgstr ""
 
 msgid "Protocol"
-msgstr "Protocolo"
+msgstr ""
 
 msgid "Public"
-msgstr "Publico"
+msgstr ""
 
 msgid "Public address"
-msgstr "Dirección publica"
+msgstr ""
 
 msgid "Separate multiple entries with commas"
-msgstr "Separar multiples entradas con comas"
+msgstr ""
 
 msgid "Services"
-msgstr "Servicios"
+msgstr ""
 
 msgid "Settings"
-msgstr "Opciones"
+msgstr ""
 
 msgid ""
 "This is the address which external clients can connect to your VPN with. "
 "This is automatically used in the generated configuration."
-msgstr "Está es la dirección a la que los clientes VPN externos se podrán conectar. Se usa automáticamente en la configuración por defecto"
+msgstr ""
 
 msgid "UUID"
-msgstr "UUID"
+msgstr ""
 
 msgid "Use compression"
-msgstr "Usar compresión"
+msgstr ""
 
 msgid "User"
-msgstr "Usuario"
+msgstr ""
 
 msgid "VPN network"
-msgstr "Red VPN"
+msgstr ""
 
 msgid "WINS server(s)"
-msgstr "Servidor(es) WINS"
+msgstr ""
