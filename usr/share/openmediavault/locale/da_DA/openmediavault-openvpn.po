@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-10 10:57-0500\n"
-"PO-Revision-Date: 2014-04-11 04:39+0000\n"
+"POT-Creation-Date: 2014-09-27 07:25-0500\n"
+"PO-Revision-Date: 2014-09-29 07:18+0000\n"
 "Last-Translator: Stefan Thrane Overby <stoverby@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/openmediavault-openvpn/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "-------OpenVPN status--------"
+msgstr "-------OpenVPN status--------"
+
+msgid "-----IP pool reservation-----"
+msgstr "-----IP pool reservation-----"
 
 msgid "Add certificate"
 msgstr "Tilføj certifikat"
@@ -51,6 +57,9 @@ msgstr "Dato & Tid"
 msgid "Debug"
 msgstr "Debug"
 
+msgid "Default gateway"
+msgstr "Standard gateway"
+
 msgid "Download certificate"
 msgstr "Download certifikat"
 
@@ -69,6 +78,12 @@ msgstr "Generelt"
 msgid "General settings"
 msgstr "Generelle indstillinger"
 
+msgid ""
+"If enabled, this directive will configure all clients to redirect their "
+"default network gateway through the VPN. If disabled, a static route to the "
+"private subnet is configured on all clients."
+msgstr "Hvis aktiveret vil dette direktiv konfigurere alle klienter til at videresende deres standard gateway igennem VPNen. Hvis deaktiveret vil en statisk route til det private subnet blive konfigureret på alle klienter. "
+
 msgid "Log each packet"
 msgstr "Log hver pakke"
 
@@ -78,14 +93,23 @@ msgstr "Log niveau"
 msgid "Mask"
 msgstr "Masker"
 
+msgid "No IP reserved."
+msgstr "Ingen IP reserveret."
+
 msgid "No output except fatal errors"
 msgstr "Intet output undtaget alvorlige fejl"
+
+msgid "No users connected."
+msgstr "Ingen brugere forbundet."
 
 msgid "Normal usage output"
 msgstr "Normal forbrug output"
 
 msgid "OpenVPN"
 msgstr "OpenVPN"
+
+msgid "OpenVPN is disabled."
+msgstr "OpenVPN er deaktiveret."
 
 msgid "Port"
 msgstr "Port"

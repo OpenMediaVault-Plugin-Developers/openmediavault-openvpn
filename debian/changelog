@@ -1,3 +1,9 @@
+openmediavault-openvpn (1.0.10) stable; urgency=low
+
+  * Correctly call applyFilter
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 29 Oct 2014 17:26:33 +0100
+
 openmediavault-openvpn (1.0.9) stable; urgency=low
 
   * Added 'Default Gateway' flag in OpenVPN settings

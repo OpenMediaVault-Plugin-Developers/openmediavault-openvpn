@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-10 10:57-0500\n"
+"POT-Creation-Date: 2014-09-27 07:25-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "-------OpenVPN status--------"
+msgstr ""
+
+msgid "-----IP pool reservation-----"
+msgstr ""
 
 msgid "Add certificate"
 msgstr ""
@@ -50,6 +56,9 @@ msgstr ""
 msgid "Debug"
 msgstr ""
 
+msgid "Default gateway"
+msgstr ""
+
 msgid "Download certificate"
 msgstr ""
 
@@ -68,6 +77,9 @@ msgstr ""
 msgid "General settings"
 msgstr ""
 
+msgid "If enabled, this directive will configure all clients to redirect their default network gateway through the VPN. If disabled, a static route to the private subnet is configured on all clients."
+msgstr ""
+
 msgid "Log each packet"
 msgstr ""
 
@@ -77,13 +89,22 @@ msgstr ""
 msgid "Mask"
 msgstr ""
 
+msgid "No IP reserved."
+msgstr ""
+
 msgid "No output except fatal errors"
+msgstr ""
+
+msgid "No users connected."
 msgstr ""
 
 msgid "Normal usage output"
 msgstr ""
 
 msgid "OpenVPN"
+msgstr ""
+
+msgid "OpenVPN is disabled."
 msgstr ""
 
 msgid "Port"

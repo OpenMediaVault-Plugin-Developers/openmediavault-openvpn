@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-10 10:57-0500\n"
-"PO-Revision-Date: 2014-04-19 01:11+0000\n"
+"POT-Creation-Date: 2014-09-27 07:25-0500\n"
+"PO-Revision-Date: 2014-10-03 00:43+0000\n"
 "Last-Translator: songming <by@songming.me>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/openmediavault-openvpn/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "-------OpenVPN status--------"
+msgstr "-------OpenVPN状态--------"
+
+msgid "-----IP pool reservation-----"
+msgstr "-----IP保留池-----"
 
 msgid "Add certificate"
 msgstr "添加证书"
@@ -51,6 +57,9 @@ msgstr "日期和时间"
 msgid "Debug"
 msgstr "Debug"
 
+msgid "Default gateway"
+msgstr "默认网关"
+
 msgid "Download certificate"
 msgstr "下载证书"
 
@@ -69,6 +78,12 @@ msgstr "常规"
 msgid "General settings"
 msgstr "常规设置"
 
+msgid ""
+"If enabled, this directive will configure all clients to redirect their "
+"default network gateway through the VPN. If disabled, a static route to the "
+"private subnet is configured on all clients."
+msgstr "如果启用，该规则将配置应用于所有客户端，客户端将通过VPN重定向使用默认网关。如果不启用，私有子网的静态路由将配置应用所有客户端。"
+
 msgid "Log each packet"
 msgstr "记录每个数据包"
 
@@ -78,14 +93,23 @@ msgstr "日志级别"
 msgid "Mask"
 msgstr "掩码"
 
+msgid "No IP reserved."
+msgstr "没有保留IP。"
+
 msgid "No output except fatal errors"
 msgstr "除致命错误不进行输出"
+
+msgid "No users connected."
+msgstr "没有用户连接。"
 
 msgid "Normal usage output"
 msgstr "常规使用输出"
 
 msgid "OpenVPN"
 msgstr "OpenVPN"
+
+msgid "OpenVPN is disabled."
+msgstr "OpenVPN停用。"
 
 msgid "Port"
 msgstr "端口"

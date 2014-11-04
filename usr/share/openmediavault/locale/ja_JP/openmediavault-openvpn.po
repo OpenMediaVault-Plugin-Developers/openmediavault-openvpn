@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-10 10:57-0500\n"
-"PO-Revision-Date: 2014-04-10 00:20+0000\n"
+"POT-Creation-Date: 2014-09-27 07:25-0500\n"
+"PO-Revision-Date: 2014-09-29 05:22+0000\n"
 "Last-Translator: Toshihiro Kan <kansuke4649@gmail.com>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/projects/p/openmediavault-openvpn/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja_JP\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "-------OpenVPN status--------"
+msgstr "-------OpenVPN ステータス--------"
+
+msgid "-----IP pool reservation-----"
+msgstr "-----IP pool 予約-----"
 
 msgid "Add certificate"
 msgstr "証明書の追加"
@@ -51,6 +57,9 @@ msgstr "日付 & 時刻"
 msgid "Debug"
 msgstr "デバッグ"
 
+msgid "Default gateway"
+msgstr "デフォルトゲートウェイ"
+
 msgid "Download certificate"
 msgstr "証明書のダウンロード"
 
@@ -69,6 +78,12 @@ msgstr "一般"
 msgid "General settings"
 msgstr "一般設定"
 
+msgid ""
+"If enabled, this directive will configure all clients to redirect their "
+"default network gateway through the VPN. If disabled, a static route to the "
+"private subnet is configured on all clients."
+msgstr "有効にした場合、VPNを経由してデフォルトネットワークへリダイレクトする設定をすべてのクライアントに適応します。無効にした場合は、プライベートサブネットへの静的ルートをすべてのクライアントに適応します。"
+
 msgid "Log each packet"
 msgstr "各パケットのログ"
 
@@ -78,14 +93,23 @@ msgstr "ログレベル"
 msgid "Mask"
 msgstr "マスク"
 
+msgid "No IP reserved."
+msgstr "予約されたIPはありません。"
+
 msgid "No output except fatal errors"
 msgstr "致命的なエラー以外は何も出力しない"
+
+msgid "No users connected."
+msgstr "だれも接続していません。"
 
 msgid "Normal usage output"
 msgstr "通常の出力方法"
 
 msgid "OpenVPN"
 msgstr "OpenVPN"
+
+msgid "OpenVPN is disabled."
+msgstr "OpenVPNは無効です。"
 
 msgid "Port"
 msgstr "ポート"
