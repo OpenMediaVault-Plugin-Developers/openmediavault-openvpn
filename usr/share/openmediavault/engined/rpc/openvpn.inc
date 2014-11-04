@@ -85,20 +85,21 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         }
 
         // Modify result data
-        $settingsObject["enable"]           = boolval($object["enable"]);
-        $settingsObject["port"]             = intval($object["port"]);
-        $settingsObject["protocol"]         = $object["protocol"];
-        $settingsObject["compression"]      = boolval($object["compression"]);
-        $settingsObject["extra_options"]    = $object["extra_options"];
-        $settingsObject["loglevel"]         = intval($object["loglevel"]);
-        $settingsObject["vpn_network"]      = $object["vpn_network"];
-        $settingsObject["vpn_mask"]         = $object["vpn_mask"];
-        $settingsObject["default_gateway"]  = boolval($object["default_gateway"]);
-        $settingsObject["client_to_client"] = boolval($object["client_to_client"]);
-        $settingsObject["dns"]              = $object["dns"];
-        $settingsObject["dns_domains"]      = $object["dns_domains"];
-        $settingsObject["wins"]             = $object["wins"];
-        $settingsObject["public_address"]   = $object["public_address"];
+        $settingsObject["enable"]             = boolval($object["enable"]);
+        $settingsObject["port"]               = intval($object["port"]);
+        $settingsObject["protocol"]           = $object["protocol"];
+        $settingsObject["compression"]        = boolval($object["compression"]);
+        $settingsObject["pam_authentication"] = boolval($object["pam_authentication"]);
+        $settingsObject["extra_options"]      = $object["extra_options"];
+        $settingsObject["loglevel"]           = intval($object["loglevel"]);
+        $settingsObject["vpn_network"]        = $object["vpn_network"];
+        $settingsObject["vpn_mask"]           = $object["vpn_mask"];
+        $settingsObject["default_gateway"]    = boolval($object["default_gateway"]);
+        $settingsObject["client_to_client"]   = boolval($object["client_to_client"]);
+        $settingsObject["dns"]                = $object["dns"];
+        $settingsObject["dns_domains"]        = $object["dns_domains"];
+        $settingsObject["wins"]               = $object["wins"];
+        $settingsObject["public_address"]     = $object["public_address"];
 
         return $settingsObject;
     }
@@ -118,40 +119,42 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             '{
                 "type"       : "object",
                 "properties" : {
-                    "enable"           : { "type" : "boolean" },
-                    "port"             : { "type" : "integer" },
-                    "protocol"         : { "type" : "string", "enum" : ["udp", "tcp"] },
-                    "compression"      : { "type" : "boolean" },
-                    "extra_options"    : { "type" : "string", "optional" : true},
-                    "loglevel"         : { "type" : "integer", "enum" : [0, 2, 5, 7] },
-                    "vpn_network"      : { "type" : "string" },
-                    "vpn_mask"         : { "type" : "string" },
-                    "default_gateway"  : { "type" : "boolean" },
-                    "client_to_client" : { "type" : "boolean" },
-                    "dns"              : { "type" : "string", "optional" : true },
-                    "dns_domains"      : { "type" : "string", "optional" : true },
-                    "wins"             : { "type" : "string", "optional" : true },
-                    "public_address"   : { "type" : "string" }
+                    "enable"             : { "type" : "boolean" },
+                    "port"               : { "type" : "integer" },
+                    "protocol"           : { "type" : "string", "enum" : ["udp", "tcp"] },
+                    "compression"        : { "type" : "boolean" },
+                    "pam_authentication" : { "type" : "boolean" },
+                    "extra_options"      : { "type" : "string", "optional" : true},
+                    "loglevel"           : { "type" : "integer", "enum" : [0, 2, 5, 7] },
+                    "vpn_network"        : { "type" : "string" },
+                    "vpn_mask"           : { "type" : "string" },
+                    "default_gateway"    : { "type" : "boolean" },
+                    "client_to_client"   : { "type" : "boolean" },
+                    "dns"                : { "type" : "string", "optional" : true },
+                    "dns_domains"        : { "type" : "string", "optional" : true },
+                    "wins"               : { "type" : "string", "optional" : true },
+                    "public_address"     : { "type" : "string" }
                 }
             }'
         );
 
         // Prepare configuration data
         $object = array(
-            "enable"           => array_boolval($params, "enable"),
-            "port"             => intval($params["port"]),
-            "protocol"         => $params["protocol"],
-            "compression"      => array_boolval($params, "compression"),
-            "extra_options"    => $params["extra_options"],
-            "loglevel"         => intval($params["loglevel"]),
-            "vpn_network"      => $params["vpn_network"],
-            "vpn_mask"         => $params["vpn_mask"],
-            "default_gateway"  => array_boolval($params, "default_gateway"),
-            "client_to_client" => array_boolval($params, "client_to_client"),
-            "dns"              => $params["dns"],
-            "dns_domains"      => $params["dns_domains"],
-            "wins"             => $params["wins"],
-            "public_address"   => $params["public_address"],
+            "enable"             => array_boolval($params, "enable"),
+            "port"               => intval($params["port"]),
+            "protocol"           => $params["protocol"],
+            "compression"        => array_boolval($params, "compression"),
+            "pam_authentication" => array_boolval($params, "pam_authentication"),
+            "extra_options"      => $params["extra_options"],
+            "loglevel"           => intval($params["loglevel"]),
+            "vpn_network"        => $params["vpn_network"],
+            "vpn_mask"           => $params["vpn_mask"],
+            "default_gateway"    => array_boolval($params, "default_gateway"),
+            "client_to_client"   => array_boolval($params, "client_to_client"),
+            "dns"                => $params["dns"],
+            "dns_domains"        => $params["dns_domains"],
+            "wins"               => $params["wins"],
+            "public_address"     => $params["public_address"],
         );
 
         // Get old configuration object
@@ -517,6 +520,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         $port = $settings["port"];
         $protocol = $settings["protocol"];
         $compression = empty($settings["compression"]) ? ";comp-lzo" : "comp-lzo";
+        $pam_authentication = empty($settings["pam_authentication"]) ? ";auth-user-pass" : "auth-user-pass";
 
         $conf = "";
         $conf .= "client\n";
@@ -528,6 +532,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         $conf .= "key  $commonName-client.key\n";
         $conf .= "ns-cert-type server\n";
         $conf .= "$compression\n";
+        $conf .= "$pam_authentication\n";
         $conf .= "persist-key\n";
         $conf .= "persist-tun\n";
         $conf .= "nobind\n";

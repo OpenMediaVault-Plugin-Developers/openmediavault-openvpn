@@ -76,6 +76,15 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
                 fieldLabel : _("Use compression"),
                 checked    : true
             },{
+                xtype      : "checkbox",
+                name       : "pam_authentication",
+                fieldLabel : _("PAM authentication"),
+                checked    : false,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("Authenticate with server using username/password (client certificate and key are still required).")
+                }]
+            },{
                 xtype      : "textarea",
                 name       : "extra_options",
                 fieldLabel : _("Extra options"),

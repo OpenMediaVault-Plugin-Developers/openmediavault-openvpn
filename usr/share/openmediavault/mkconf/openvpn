@@ -142,6 +142,7 @@ setup_config()
     port=$(omv_config_get "${SERVICE_XPATH}/port")
     protocol=$(omv_config_get "${SERVICE_XPATH}/protocol")
     compression=$(omv_config_get "${SERVICE_XPATH}/compression")
+    pam_authentication=$(omv_config_get "${SERVICE_XPATH}/pam_authentication")
     extra_options=$(omv_config_get "${SERVICE_XPATH}/extra_options")
     loglevel=$(omv_config_get "${SERVICE_XPATH}/loglevel")
 
@@ -159,6 +160,12 @@ setup_config()
         compression="comp-lzo"
     else
         compression=";comp-lzo"
+    fi
+
+    if [ ${pam_authentication} -eq 1 ]; then
+        pam_authentication="plugin /usr/lib/openvpn/openvpn-auth-pam.so login"
+    else
+        pam_authentication=";plugin /usr/lib/openvpn/openvpn-auth-pam.so login"
     fi
 
     if [ ${default_gateway} -eq 1 ]; then
@@ -327,6 +334,11 @@ keepalive 10 120
 # If you enable it here, you must also
 # enable it in the client config file.
 ${compression}
+
+# Enable PAM authentication plugin.
+# If you enable it here, you must also
+# enable it in the client config file.
+${pam_authentication}
 
 # It's a good idea to reduce the OpenVPN
 # daemon's privileges after initialization.

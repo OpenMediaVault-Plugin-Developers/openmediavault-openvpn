@@ -6,6 +6,7 @@ openmediavault-openvpn (1.0.11) stable; urgency=low
   * Restricted 'Common Name' field in certificate tab to alphanum
   * Fixed iptables rule not added upon boot/reboot
   * Refined iptables to remove previous rule before adding new rule
+  * Added 'PAM authentication' checkbox
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 04 Nov 2014 18:50:00 +0100
 
