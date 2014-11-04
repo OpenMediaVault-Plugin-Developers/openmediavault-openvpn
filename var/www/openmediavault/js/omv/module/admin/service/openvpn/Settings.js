@@ -153,7 +153,7 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
                 xtype      : "textfield",
                 name       : "dns",
                 fieldLabel : _("DNS server(s)"),
-                vtype      : "IPv4",
+                vtype      : "IPv4List",
                 allowBlank : true,
                 plugins    : [{
                     ptype : "fieldinfo",
@@ -163,7 +163,7 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
                 xtype      : "textfield",
                 name       : "dns_domains",
                 fieldLabel : _("DNS search domains(s)"),
-                vtype      : "IPv4",
+                vtype      : "domainnameIPList",
                 allowBlank : true,
                 plugins    : [{
                     ptype : "fieldinfo",
@@ -173,7 +173,7 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
                 xtype      : "textfield",
                 name       : "wins",
                 fieldLabel : _("WINS server(s)"),
-                vtype      : "IPv4",
+                vtype      : "IPv4List",
                 allowBlank : true,
                 plugins    : [{
                     ptype : "fieldinfo",
