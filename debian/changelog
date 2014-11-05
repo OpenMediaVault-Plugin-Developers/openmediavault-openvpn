@@ -3,7 +3,7 @@ openmediavault-openvpn (1.0.11) stable; urgency=low
   * Fixed cannot input domain in 'DNS search domain' field
   * Fixed cannot input multiple entries separated with commas
   * Fixed log entries missing for date from 1 to 9
-  * Restricted 'Common Name' field in certificate tab to alphanum
+  * Restricted 'Common Name' field in certificate tab to fqdn type
   * Fixed iptables rule not added upon boot/reboot
   * Refined iptables to remove previous rule before adding new rule
   * Added 'PAM authentication' checkbox
