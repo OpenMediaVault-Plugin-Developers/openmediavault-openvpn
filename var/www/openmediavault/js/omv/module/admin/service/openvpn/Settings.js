@@ -76,6 +76,15 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
                 fieldLabel : _("Use compression"),
                 checked    : true
             },{
+                xtype      : "checkbox",
+                name       : "pam_authentication",
+                fieldLabel : _("PAM authentication"),
+                checked    : false,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("Authenticate with server using username/password (client certificate and key are still required).")
+                }]
+            },{
                 xtype      : "textarea",
                 name       : "extra_options",
                 fieldLabel : _("Extra options"),
@@ -153,7 +162,7 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
                 xtype      : "textfield",
                 name       : "dns",
                 fieldLabel : _("DNS server(s)"),
-                vtype      : "IPv4",
+                vtype      : "IPv4List",
                 allowBlank : true,
                 plugins    : [{
                     ptype : "fieldinfo",
@@ -163,7 +172,7 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
                 xtype      : "textfield",
                 name       : "dns_domains",
                 fieldLabel : _("DNS search domains(s)"),
-                vtype      : "IPv4",
+                vtype      : "domainnameIPList",
                 allowBlank : true,
                 plugins    : [{
                     ptype : "fieldinfo",
@@ -173,7 +182,7 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
                 xtype      : "textfield",
                 name       : "wins",
                 fieldLabel : _("WINS server(s)"),
-                vtype      : "IPv4",
+                vtype      : "IPv4List",
                 allowBlank : true,
                 plugins    : [{
                     ptype : "fieldinfo",

@@ -148,7 +148,7 @@ OMVLogFile::registerType(
     array(
         "filename" => "openvpn",
         "filepath" => "/var/log/openvpn.log",
-        "regex" => "/^(\w+\s\w+\s\d+\s+\d+:\d+:\d+\s\d+)\s+(.*)$/",
+        "regex" => "/^(\w+\s\w+\s+\d+\s+\d+:\d+:\d+\s\d+)\s+(.*)$/",
         "columns" => array(
             "ts" => array(
                 "index" => 1,
