@@ -54,7 +54,7 @@ Ext.define("OMV.module.admin.service.openvpn.ClientCertificate", {
                 xtype      : "textfield",
                 name       : "common_name",
                 fieldLabel : _("Common name"),
-                vtype      : "alphanum",
+                vtype      : "domainname",
                 allowBlank : false
             }]
         }];

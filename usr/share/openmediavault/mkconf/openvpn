@@ -187,7 +187,7 @@ setup_config()
     echo 1 > /proc/sys/net/ipv4/ip_forward
 
     # Set iptables
-    iptables -t nat -D `tail -1 ${SERVICE_IPTABLES_CONF} | cut -c20-`
+    iptables -t nat -D $(tail -1 ${SERVICE_IPTABLES_CONF} | cut -c20-)
     iptables -t nat -A POSTROUTING -s ${vpn_network}/24 -j SNAT --to ${ip}
     echo "#!/bin/sh" > ${SERVICE_IPTABLES_CONF}
     echo "[ \"\$IFACE\" != \"lo\" ] || exit 0" >> ${SERVICE_IPTABLES_CONF}
