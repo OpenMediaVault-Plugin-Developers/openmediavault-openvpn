@@ -188,7 +188,7 @@ setup_config()
 
     # Remove old iptables rule.
     if [ -f ${SERVICE_IPTABLES_CONF} ]; then
-        iptables -t nat -D $(tail -1 ${SERVICE_IPTABLES_CONF} | cut -c20-)
+        iptables -t nat -D $(tail -1 ${SERVICE_IPTABLES_CONF} | cut -c20-) || true
     fi
 
     # Set iptables.
