@@ -67,7 +67,7 @@ get_subnet()
 setup_easy_rsa()
 {
     if [ ! -d /etc/openvpn/easy-rsa/2.0/ ]; then
-        # Get easy-rsa from the examples directory
+        # Get easy-rsa from the examples directory.
         cp -R /usr/share/doc/openvpn/examples/easy-rsa/ /etc/openvpn
 
         # With never releases of OpenVPN in Debian easy-rsa isn't
@@ -97,36 +97,36 @@ setup_certificates()
     touch ${SERVICE_OPENVPN_KEY_DIR}/serial
     echo "01" > ${SERVICE_OPENVPN_KEY_DIR}/serial
 
-    # Change directory
+    # Change directory.
     cd /etc/openvpn/easy-rsa/2.0/
 
-    # Increase key size to 2048
+    # Increase key size to 2048.
     cp -u -p openssl-1.0.0.cnf openssl.cnf
     sed -i 's|export KEY_SIZE=1024|export KEY_SIZE=2048|' /etc/openvpn/easy-rsa/2.0/vars
 
-    # Create the PKI
+    # Create the PKI.
     . /etc/openvpn/easy-rsa/2.0/vars
     . /etc/openvpn/easy-rsa/2.0/clean-all
 
-    # Remove clients from the config
+    # Remove clients from the config.
     omv_config_update "${SERVICE_XPATH}/clients" ""
 
     # The following lines are from build-ca. We don't use that script directly
     # because it's interactive. This could potentially break the installation
     # script in case of future changes.
 
-    # Certificate Authority
+    # Certificate Authority.
     export KEY_DIR="${SERVICE_OPENVPN_KEY_DIR}"
     export EASY_RSA="${EASY_RSA:-.}"
     "$EASY_RSA/pkitool" --initca
 
-    # Initialize CRL by revoking a non-existant cert
+    # Initialize CRL by revoking a non-existant cert.
     . /etc/openvpn/easy-rsa/2.0/revoke-full NULL || echo "CRL created"
 
     # Generate Diffie Hellman parameter
     . /etc/openvpn/easy-rsa/2.0/build-dh
 
-    # Same as the last time, we are going to run build-key-server
+    # Same as the last time, we are going to run build-key-server.
     # Server Certificate
     export KEY_DIR="${SERVICE_OPENVPN_KEY_DIR}"
     export EASY_RSA="${EASY_RSA:-.}"
@@ -135,7 +135,7 @@ setup_certificates()
 
 setup_config()
 {
-    # Variables
+    # Variables.
     ip=$(get_ip)
     mask=$(get_mask)
     subnet=$(get_subnet)
@@ -151,7 +151,7 @@ setup_config()
     default_gateway=$(omv_config_get "${SERVICE_XPATH}/default_gateway")
     client_to_client=$(omv_config_get "${SERVICE_XPATH}/client_to_client")
 
-    # Split strings into rows with the regex "\s*,\s*"
+    # Split strings into rows with the regex "\s*,\s*".
     dns=$(omv_config_get "${SERVICE_XPATH}/dns" | sed -e 's/\s*,\s*/\n/g')
     dns_domains=$(omv_config_get "${SERVICE_XPATH}/dns_domains" | sed -e 's/\s*,\s*/\n/g')
     wins=$(omv_config_get "${SERVICE_XPATH}/wins" | sed -e 's/\s*,\s*/\n/g')
@@ -182,12 +182,16 @@ setup_config()
         client_to_client=";client-to-client"
     fi
 
-    # Enable net.ipv4.ip_forward
+    # Enable net.ipv4.ip_forward.
     echo "net.ipv4.ip_forward=1" > ${SERVICE_SYSCTL_CONF}
     echo 1 > /proc/sys/net/ipv4/ip_forward
 
-    # Set iptables
-    iptables -t nat -D $(tail -1 ${SERVICE_IPTABLES_CONF} | cut -c20-)
+    # Remove old iptables rule.
+    if [ -f ${SERVICE_IPTABLES_CONF} ]; then
+        iptables -t nat -D $(tail -1 ${SERVICE_IPTABLES_CONF} | cut -c20-)
+    fi
+
+    # Set iptables.
     iptables -t nat -A POSTROUTING -s ${vpn_network}/24 -j SNAT --to ${ip}
     echo "#!/bin/sh" > ${SERVICE_IPTABLES_CONF}
     echo "[ \"\$IFACE\" != \"lo\" ] || exit 0" >> ${SERVICE_IPTABLES_CONF}
@@ -399,11 +403,11 @@ add_client_cert()
     uuid=$1
     common_name="$(omv_config_get "${SERVICE_XPATH}/clients/client[uuid='${uuid}']/common_name")"
 
-    # Change directory
+    # Change directory.
     cd /etc/openvpn/easy-rsa/2.0/
     source ./vars
 
-    # build-key for the client
+    # build-key for the client.
     export KEY_DIR="${SERVICE_OPENVPN_KEY_DIR}"
     export KEY_CN="${common_name}"
     export EASY_RSA="${EASY_RSA:-.}"
@@ -414,13 +418,13 @@ revoke_client_cert()
 {
     uuid=$1
 
-    # Change directory
+    # Change directory.
     cd /etc/openvpn/easy-rsa/2.0/
 
-    # Revoke
+    # Revoke.
     . /etc/openvpn/easy-rsa/2.0/vars
     export KEY_DIR="${SERVICE_OPENVPN_KEY_DIR}"
-    # revoke-full returns error 23 on success so just ignore errors
+    # revoke-full returns error 23 on success so just ignore errors.
     . /etc/openvpn/easy-rsa/2.0/revoke-full ${uuid} || true
 }
 
@@ -431,10 +435,10 @@ else
     args=(${*})
 fi
 
-# Generate configuration files
+# Generate configuration files.
 case ${args[0]} in
     setup)
-        # Check if certificates exists
+        # Check if certificates exists.
         if [ ! -f ${SERVICE_OPENVPN_KEY_DIR}/ca.key -o ! -f ${SERVICE_OPENVPN_KEY_DIR}/server.key ]; then
             setup_certificates
         fi
