@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Cyryl Sochacki <cyrylsochacki@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
@@ -11,72 +10,72 @@ msgstr ""
 "POT-Creation-Date: 2014-09-27 07:25-0500\n"
 "PO-Revision-Date: 2014-11-14 19:50+0000\n"
 "Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
-"Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/openmediavault-openvpn/language/pl_PL/)\n"
+"Language-Team: French (http://www.transifex.com/projects/p/openmediavault-openvpn/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl_PL\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "-------OpenVPN status--------"
-msgstr "-------Status OpenVPN--------"
+msgstr ""
 
 msgid "-----IP pool reservation-----"
 msgstr ""
 
 msgid "Add certificate"
-msgstr "Dodaj certyfikat"
+msgstr ""
 
 msgid "Address"
-msgstr "Adres"
+msgstr ""
 
 msgid "Allow client to client communication"
-msgstr "Pozwól na komunikację pomiędzy użytkownikami"
+msgstr ""
 
 msgid "Certificates"
-msgstr "Certyfikaty"
+msgstr ""
 
 msgid "Client to client"
-msgstr "Klient do klienta"
+msgstr ""
 
 msgid "Common name"
-msgstr "Podstawowa nazwa"
+msgstr ""
 
 msgid "DHCP options"
-msgstr "Opcje DHCP"
+msgstr ""
 
 msgid "DNS search domains(s)"
-msgstr "Szukanie domen(y) DNS"
+msgstr ""
 
 msgid "DNS server(s)"
-msgstr "Serwer(y) DNS"
+msgstr ""
 
 msgid "Date & Time"
-msgstr "Data i czas"
+msgstr ""
 
 msgid "Debug"
-msgstr "Debug"
+msgstr ""
 
 msgid "Default gateway"
 msgstr ""
 
 msgid "Download certificate"
-msgstr "Pobierz certyfikat"
+msgstr ""
 
 msgid "Enable"
-msgstr "Włącz"
+msgstr ""
 
 msgid "Event"
-msgstr "Zdarzenie"
+msgstr ""
 
 msgid "Extra options"
-msgstr "Dodatkowe opcje"
+msgstr ""
 
 msgid "General"
-msgstr "Główne"
+msgstr ""
 
 msgid "General settings"
-msgstr "Główne ustawienia"
+msgstr ""
 
 msgid ""
 "If enabled, this directive will configure all clients to redirect their "
@@ -88,10 +87,10 @@ msgid "Log each packet"
 msgstr ""
 
 msgid "Logging level"
-msgstr "Poziom logów"
+msgstr ""
 
 msgid "Mask"
-msgstr "Maska"
+msgstr ""
 
 msgid "No IP reserved."
 msgstr ""
@@ -106,31 +105,31 @@ msgid "Normal usage output"
 msgstr ""
 
 msgid "OpenVPN"
-msgstr "OpenVPN"
+msgstr ""
 
 msgid "OpenVPN is disabled."
-msgstr "OpenVPN jest wyłączony."
+msgstr ""
 
 msgid "Port"
-msgstr "Port"
+msgstr ""
 
 msgid "Protocol"
-msgstr "Protokół"
+msgstr ""
 
 msgid "Public"
-msgstr "Publiczny"
+msgstr ""
 
 msgid "Public address"
-msgstr "Publiczny adres"
+msgstr ""
 
 msgid "Separate multiple entries with commas"
-msgstr "Oddziel wpisy przecinkami"
+msgstr ""
 
 msgid "Services"
-msgstr "Usługi"
+msgstr ""
 
 msgid "Settings"
-msgstr "Ustawienia"
+msgstr ""
 
 msgid ""
 "This is the address which external clients can connect to your VPN with. "
@@ -138,16 +137,16 @@ msgid ""
 msgstr ""
 
 msgid "UUID"
-msgstr "UUID"
+msgstr ""
 
 msgid "Use compression"
-msgstr "Użyj kompresji"
+msgstr ""
 
 msgid "User"
-msgstr "Użytkownik"
+msgstr ""
 
 msgid "VPN network"
-msgstr "Sieć VPN"
+msgstr ""
 
 msgid "WINS server(s)"
-msgstr "Serwer(y) WINS"
+msgstr ""

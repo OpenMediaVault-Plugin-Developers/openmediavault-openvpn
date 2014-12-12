@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Cyryl Sochacki <cyrylsochacki@gmail.com>, 2014
+# okpail <okpail@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
@@ -11,143 +11,143 @@ msgstr ""
 "POT-Creation-Date: 2014-09-27 07:25-0500\n"
 "PO-Revision-Date: 2014-11-14 19:50+0000\n"
 "Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
-"Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/openmediavault-openvpn/language/pl_PL/)\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/openmediavault-openvpn/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl_PL\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "-------OpenVPN status--------"
-msgstr "-------Status OpenVPN--------"
+msgstr "-------OpenVPN status--------"
 
 msgid "-----IP pool reservation-----"
-msgstr ""
+msgstr "-----IP pool reservering-----"
 
 msgid "Add certificate"
-msgstr "Dodaj certyfikat"
+msgstr "Voeg certificaat toe"
 
 msgid "Address"
 msgstr "Adres"
 
 msgid "Allow client to client communication"
-msgstr "Pozwól na komunikację pomiędzy użytkownikami"
+msgstr "Sta client naar client communicatie toe"
 
 msgid "Certificates"
-msgstr "Certyfikaty"
+msgstr "Certificaten"
 
 msgid "Client to client"
-msgstr "Klient do klienta"
+msgstr "Client naar client"
 
 msgid "Common name"
-msgstr "Podstawowa nazwa"
+msgstr "Standaard naam"
 
 msgid "DHCP options"
-msgstr "Opcje DHCP"
+msgstr "DHCP opties"
 
 msgid "DNS search domains(s)"
-msgstr "Szukanie domen(y) DNS"
+msgstr "DNS zoek domein(en)"
 
 msgid "DNS server(s)"
-msgstr "Serwer(y) DNS"
+msgstr "DNS server(s)"
 
 msgid "Date & Time"
-msgstr "Data i czas"
+msgstr "Datum en Tijd"
 
 msgid "Debug"
 msgstr "Debug"
 
 msgid "Default gateway"
-msgstr ""
+msgstr "Standaard Gateway"
 
 msgid "Download certificate"
-msgstr "Pobierz certyfikat"
+msgstr "Download certificaat"
 
 msgid "Enable"
-msgstr "Włącz"
+msgstr "Aanzetten"
 
 msgid "Event"
-msgstr "Zdarzenie"
+msgstr "Event"
 
 msgid "Extra options"
-msgstr "Dodatkowe opcje"
+msgstr "Extra opties"
 
 msgid "General"
-msgstr "Główne"
+msgstr "Algemeen"
 
 msgid "General settings"
-msgstr "Główne ustawienia"
+msgstr "Algemene instellingen"
 
 msgid ""
 "If enabled, this directive will configure all clients to redirect their "
 "default network gateway through the VPN. If disabled, a static route to the "
 "private subnet is configured on all clients."
-msgstr ""
+msgstr "Indien aangezet, deze richtlijn configureert alle cliënten hun default netwerk gateway door de VPN verbinding. Indien uitgezet zal een statische route naar het private subnet worden geconfigureerd op alle clients"
 
 msgid "Log each packet"
-msgstr ""
+msgstr "Log elk packet"
 
 msgid "Logging level"
-msgstr "Poziom logów"
+msgstr "Logging level"
 
 msgid "Mask"
-msgstr "Maska"
+msgstr "Mask"
 
 msgid "No IP reserved."
-msgstr ""
+msgstr "Geen IP nummer gereserveerd"
 
 msgid "No output except fatal errors"
-msgstr ""
+msgstr "Geen output behalve fatale fouten"
 
 msgid "No users connected."
-msgstr ""
+msgstr "Geen gebruikers die een verbinding hebben"
 
 msgid "Normal usage output"
-msgstr ""
+msgstr "Normale gebruikers output"
 
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
 msgid "OpenVPN is disabled."
-msgstr "OpenVPN jest wyłączony."
+msgstr "OpenVPN is uitgezet"
 
 msgid "Port"
-msgstr "Port"
+msgstr "Poort"
 
 msgid "Protocol"
-msgstr "Protokół"
+msgstr "Protocol"
 
 msgid "Public"
-msgstr "Publiczny"
+msgstr "Publiek"
 
 msgid "Public address"
-msgstr "Publiczny adres"
+msgstr "Publiek adres"
 
 msgid "Separate multiple entries with commas"
-msgstr "Oddziel wpisy przecinkami"
+msgstr "Separate meerdere ingaven met komma's"
 
 msgid "Services"
-msgstr "Usługi"
+msgstr "Services"
 
 msgid "Settings"
-msgstr "Ustawienia"
+msgstr "Instellingen"
 
 msgid ""
 "This is the address which external clients can connect to your VPN with. "
 "This is automatically used in the generated configuration."
-msgstr ""
+msgstr "Dit is het adres waar externe cliënten een VPN verbinding mee kunnen maken. Dit wordt automatisch gegeneerd tijden de configuratie"
 
 msgid "UUID"
 msgstr "UUID"
 
 msgid "Use compression"
-msgstr "Użyj kompresji"
+msgstr "Gebruik compressie"
 
 msgid "User"
-msgstr "Użytkownik"
+msgstr "Gebruiker"
 
 msgid "VPN network"
-msgstr "Sieć VPN"
+msgstr "VPN netwerk"
 
 msgid "WINS server(s)"
-msgstr "Serwer(y) WINS"
+msgstr "WINS server(s)"

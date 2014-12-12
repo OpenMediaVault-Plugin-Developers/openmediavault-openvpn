@@ -3,151 +3,151 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Cyryl Sochacki <cyrylsochacki@gmail.com>, 2014
+# kochin <kochinc@outlook.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-27 07:25-0500\n"
-"PO-Revision-Date: 2014-11-14 19:50+0000\n"
-"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
-"Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/openmediavault-openvpn/language/pl_PL/)\n"
+"PO-Revision-Date: 2014-11-25 18:08+0000\n"
+"Last-Translator: kochin <kochinc@outlook.com>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/openmediavault-openvpn/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl_PL\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "-------OpenVPN status--------"
-msgstr "-------Status OpenVPN--------"
+msgstr "-------OpenVPN 狀態--------"
 
 msgid "-----IP pool reservation-----"
-msgstr ""
+msgstr "-----IP 集用保留-----"
 
 msgid "Add certificate"
-msgstr "Dodaj certyfikat"
+msgstr "新增證書"
 
 msgid "Address"
-msgstr "Adres"
+msgstr "地址"
 
 msgid "Allow client to client communication"
-msgstr "Pozwól na komunikację pomiędzy użytkownikami"
+msgstr "允許客戶端對客戶端的通訊"
 
 msgid "Certificates"
-msgstr "Certyfikaty"
+msgstr "證書"
 
 msgid "Client to client"
-msgstr "Klient do klienta"
+msgstr "客戶端對客戶端"
 
 msgid "Common name"
-msgstr "Podstawowa nazwa"
+msgstr "通用名稱"
 
 msgid "DHCP options"
-msgstr "Opcje DHCP"
+msgstr "DHCP 選項"
 
 msgid "DNS search domains(s)"
-msgstr "Szukanie domen(y) DNS"
+msgstr "DNS 搜尋網預"
 
 msgid "DNS server(s)"
-msgstr "Serwer(y) DNS"
+msgstr "DNS 伺服器"
 
 msgid "Date & Time"
-msgstr "Data i czas"
+msgstr "日期與時間"
 
 msgid "Debug"
-msgstr "Debug"
+msgstr "除錯"
 
 msgid "Default gateway"
-msgstr ""
+msgstr "預設閘道器"
 
 msgid "Download certificate"
-msgstr "Pobierz certyfikat"
+msgstr "下載證書"
 
 msgid "Enable"
-msgstr "Włącz"
+msgstr "啟用"
 
 msgid "Event"
-msgstr "Zdarzenie"
+msgstr "是件"
 
 msgid "Extra options"
-msgstr "Dodatkowe opcje"
+msgstr "額外選項"
 
 msgid "General"
-msgstr "Główne"
+msgstr "一般"
 
 msgid "General settings"
-msgstr "Główne ustawienia"
+msgstr "一般設定"
 
 msgid ""
 "If enabled, this directive will configure all clients to redirect their "
 "default network gateway through the VPN. If disabled, a static route to the "
 "private subnet is configured on all clients."
-msgstr ""
+msgstr "若啟用，此指引把所有的客戶端設置為重新導向它們的網路閘道器經由此 VPN。若停用，則會在所有客戶端上設置一個靜態路線到私用子網。"
 
 msgid "Log each packet"
-msgstr ""
+msgstr "記載每個數據包"
 
 msgid "Logging level"
-msgstr "Poziom logów"
+msgstr "日誌層級"
 
 msgid "Mask"
-msgstr "Maska"
+msgstr "遮罩"
 
 msgid "No IP reserved."
-msgstr ""
+msgstr "沒有保留的 IP。"
 
 msgid "No output except fatal errors"
-msgstr ""
+msgstr "只輸出致命錯誤"
 
 msgid "No users connected."
-msgstr ""
+msgstr "沒有用戶連接。"
 
 msgid "Normal usage output"
-msgstr ""
+msgstr "正常使用輸出"
 
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
 msgid "OpenVPN is disabled."
-msgstr "OpenVPN jest wyłączony."
+msgstr "OpenVPN 被停用。"
 
 msgid "Port"
-msgstr "Port"
+msgstr "通訊埠"
 
 msgid "Protocol"
-msgstr "Protokół"
+msgstr "通訊協定"
 
 msgid "Public"
-msgstr "Publiczny"
+msgstr "公開"
 
 msgid "Public address"
-msgstr "Publiczny adres"
+msgstr "公開地址"
 
 msgid "Separate multiple entries with commas"
-msgstr "Oddziel wpisy przecinkami"
+msgstr "多個項目要以逗號分開"
 
 msgid "Services"
-msgstr "Usługi"
+msgstr "服務"
 
 msgid "Settings"
-msgstr "Ustawienia"
+msgstr "設定"
 
 msgid ""
 "This is the address which external clients can connect to your VPN with. "
 "This is automatically used in the generated configuration."
-msgstr ""
+msgstr "這是外部客戶端可以用來連接到您的 VPN 之地址。這在所產生的配置中會自動被使用。"
 
 msgid "UUID"
 msgstr "UUID"
 
 msgid "Use compression"
-msgstr "Użyj kompresji"
+msgstr "使用壓縮"
 
 msgid "User"
-msgstr "Użytkownik"
+msgstr "用戶"
 
 msgid "VPN network"
-msgstr "Sieć VPN"
+msgstr "VPN 網路"
 
 msgid "WINS server(s)"
-msgstr "Serwer(y) WINS"
+msgstr "WINS 服務"

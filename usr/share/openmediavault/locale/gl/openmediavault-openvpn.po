@@ -3,151 +3,151 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Paolo Velati <paolo.velati@gmail.com>, 2014
+# Miguel Anxo Bouzada <mbouzada@gmail.com>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-27 07:25-0500\n"
-"PO-Revision-Date: 2014-11-14 19:50+0000\n"
-"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/openmediavault-openvpn/language/it/)\n"
+"PO-Revision-Date: 2014-12-07 13:06+0000\n"
+"Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
+"Language-Team: Galician (http://www.transifex.com/projects/p/openmediavault-openvpn/language/gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
+"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "-------OpenVPN status--------"
-msgstr "-------Stato di OpenVPN--------"
+msgstr "-------Estado OpenVPN--------"
 
 msgid "-----IP pool reservation-----"
-msgstr ""
+msgstr "-----Reserva de agrupación de IP-----"
 
 msgid "Add certificate"
-msgstr "Aggiungi certificato"
+msgstr "Engadir certificado"
 
 msgid "Address"
-msgstr "Indirizzo"
+msgstr "Enderezo"
 
 msgid "Allow client to client communication"
-msgstr "Permetti comunicazione client a client"
+msgstr "Permitir a comunicación de cliente a cliente"
 
 msgid "Certificates"
-msgstr "Certificati"
+msgstr "Certificados"
 
 msgid "Client to client"
-msgstr "Client a client"
+msgstr "De cliente a cliente"
 
 msgid "Common name"
-msgstr "Nome Comune"
+msgstr "Nome común"
 
 msgid "DHCP options"
-msgstr "Opzioni DHCP"
+msgstr "Opcións DHCP"
 
 msgid "DNS search domains(s)"
-msgstr "Dominio di ricerca DNS"
+msgstr "Dominio(s) de busca de DNS"
 
 msgid "DNS server(s)"
-msgstr "Server DNS"
+msgstr "Servidor(es) de DNS"
 
 msgid "Date & Time"
-msgstr "Data & Orario"
+msgstr "Data e hora"
 
 msgid "Debug"
-msgstr "Debug"
+msgstr "Depuración"
 
 msgid "Default gateway"
-msgstr ""
+msgstr "Pasarela predeterminada"
 
 msgid "Download certificate"
-msgstr "Scarica certificato"
+msgstr "Descargar o certificado"
 
 msgid "Enable"
-msgstr "Abilita"
+msgstr "Activar"
 
 msgid "Event"
-msgstr "Evento"
+msgstr "Actividade"
 
 msgid "Extra options"
-msgstr "Opzioni Extra"
+msgstr "Opcións adicionais"
 
 msgid "General"
-msgstr "Generale"
+msgstr "Xeral"
 
 msgid "General settings"
-msgstr "Impostazioni generali"
+msgstr "Axustes xerais"
 
 msgid ""
 "If enabled, this directive will configure all clients to redirect their "
 "default network gateway through the VPN. If disabled, a static route to the "
 "private subnet is configured on all clients."
-msgstr ""
+msgstr "Se está activada, esta directiva configurará todos os clientes para seren redirixidos á pasarela predeterminada da rede a través da VPN. Se está desactivada, configurarase unha ruta estática á subrede privada en todos os clientes."
 
 msgid "Log each packet"
-msgstr "Logga ogni pacchetto"
+msgstr "Rexistro de cada paquete"
 
 msgid "Logging level"
-msgstr "Livello di log"
+msgstr "Nivel de rexistro"
 
 msgid "Mask"
-msgstr "Maschera"
+msgstr "Máscara"
 
 msgid "No IP reserved."
-msgstr "Nessun IP riservato."
+msgstr "Non se reservou ningún IP."
 
 msgid "No output except fatal errors"
-msgstr "Nessun output tranne che per errori fatali"
+msgstr "Non amosar nada, agás os erros fatais"
 
 msgid "No users connected."
-msgstr "Nessun utente connesso."
+msgstr "Non hai ningún usuario conectado"
 
 msgid "Normal usage output"
-msgstr "Output di utilizzo normale"
+msgstr "Amosar o uso normal"
 
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
 msgid "OpenVPN is disabled."
-msgstr "OpenVPN è disabilitato."
+msgstr "OpenVPN está desactivado"
 
 msgid "Port"
-msgstr "Porta"
+msgstr "Porto"
 
 msgid "Protocol"
-msgstr "Protocollo"
+msgstr "Protocolo"
 
 msgid "Public"
-msgstr "Pubblico"
+msgstr "Público"
 
 msgid "Public address"
-msgstr "Indirizzo pubblico"
+msgstr "Enderezo público"
 
 msgid "Separate multiple entries with commas"
-msgstr "Separa voci multiple con una virgola"
+msgstr "Separe as entradas múltiples con comas."
 
 msgid "Services"
-msgstr "Servizi"
+msgstr "Servizos"
 
 msgid "Settings"
-msgstr "Impostazioni"
+msgstr "Axustes"
 
 msgid ""
 "This is the address which external clients can connect to your VPN with. "
 "This is automatically used in the generated configuration."
-msgstr "Questo è l'indirizzo al quale i client esterni potranno connettersi per entrare nella VPN. Viene automaticamente utilizzato nella configurazione generata."
+msgstr "Este é o enderezo ao que se poderán conectar os clientes externos con VPN. Usase automaticamente na configuración predeterminada."
 
 msgid "UUID"
 msgstr "UUID"
 
 msgid "Use compression"
-msgstr "Utilizza compressione"
+msgstr "Usar compresión"
 
 msgid "User"
-msgstr "Utente"
+msgstr "Usuario"
 
 msgid "VPN network"
-msgstr "Rete VPN"
+msgstr "Rede VPN"
 
 msgid "WINS server(s)"
-msgstr "Server WINS"
+msgstr "Servidor(es) WINS"
