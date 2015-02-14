@@ -1,12 +1,13 @@
 Source: openmediavault-openvpn
 Section: net
-XB-Plugin-Section: remote
 Priority: optional
 Maintainer: OpenMediaVault Plugin Developers <plugins@omv-extras.org>
-Build-Depends: debhelper (>= 9.0.0)
-Standards-Version: 3.9.3
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+XB-Plugin-Section: remote
 
 Package: openmediavault-openvpn
 Architecture: all
 Depends: openmediavault (>= 1.0.7), openvpn, ${misc:Depends}
 Description: OpenVPN plugin for OpenMediaVault.
+ Allow controlling OpenVPN directly from OpenMediaVault.

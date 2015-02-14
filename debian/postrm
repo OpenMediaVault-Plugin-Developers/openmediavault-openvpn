@@ -19,15 +19,15 @@ case "$1" in
         fi
 
         if [ -d /etc/openvpn/easy-rsa ]; then
-            /bin/rm -rf /etc/openvpn/easy-rsa
+            rm -rf /etc/openvpn/easy-rsa
         fi
 
         if [ -d /etc/openvpn/keys ]; then
-            /bin/rm -rf /etc/openvpn/keys
+            rm -rf /etc/openvpn/keys
         fi
 
         if [ -f /etc/openvpn/server.conf ]; then
-            /bin/rm -rf /etc/openvpn/server.conf
+            rm -rf /etc/openvpn/server.conf
         fi
     ;;
 

@@ -1,10 +1,12 @@
-Format: http://dep.debian.net/deps/dep5
-Upstream-Name: openmediavault-openvpn
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 
 Files: *
-Copyright: 2014 OpenMediaVault Plugin Developers <plugins@omv-extras.org>
+Copyright: 2013-2015 OpenMediaVault Plugin Developers <plugins@omv-extras.org>
 License: GPL-3+
 
 Files: var/www/openmediavault/images/*
-Copyright: Keyamoon
-License: CC BY 3.0
+Copyright: Copyright (C) Keyamoon
+License: GPL-3+ or CC-BY-4.0
+
+License: GPL-3+
+ /usr/share/common-licenses/GPL-3
