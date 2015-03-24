@@ -23,6 +23,8 @@ require_once "openmediavault/object.inc";
 require_once "openmediavault/rpc.inc";
 require_once "openmediavault/util.inc";
 
+use ZipArchive;
+
 class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
 {
     private $ipPoolReservationsPath = "/etc/openvpn/ipp.txt";
@@ -435,8 +437,8 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
 
         // Create a new tempory file and a new ZipArchive object
         $tmpFile = tempnam(sys_get_temp_dir(), "zip");
-        $zip = new \ZipArchive();
-        $zip->open($tmpFile, \ZIPARCHIVE::CREATE | \ZIPARCHIVE::OVERWRITE);
+        $zip = new ZipArchive();
+        $zip->open($tmpFile, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
         $keyDir = "/etc/openvpn/keys";
 
