@@ -561,6 +561,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             return gettext("OpenVPN is disabled.");
         }
 
+        // TODO: Switch file_get_contents to SplFileObject::fread (>PHP 5.5.11).
         // Get users currently logged in.
         $status = file_get_contents($this->openVpnStatusLogPath);
 
