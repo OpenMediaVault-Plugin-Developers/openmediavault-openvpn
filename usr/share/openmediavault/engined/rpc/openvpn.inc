@@ -459,8 +459,6 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             $zip->addFromString($filename, $content);
         }
 
-        $content = file_get_contents($tmpFile);
-
         return array(
             "contenttype" => "application/zip",
             "filename"    => "openvpn-$commonName.zip",
