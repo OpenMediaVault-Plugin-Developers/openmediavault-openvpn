@@ -23,7 +23,8 @@ require_once "openmediavault/object.inc";
 require_once "openmediavault/rpc.inc";
 require_once "openmediavault/util.inc";
 
-use ZipArchive;
+use Phar;
+use PharData;
 
 class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
 {
@@ -498,10 +499,9 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             $xmlConfig->get($this->getXpath())
         );
 
-        // Create a new tempory file and a new ZipArchive object.
-        $tmpFile = tempnam(sys_get_temp_dir(), "zip");
-        $zip = new ZipArchive();
-        $zip->open($tmpFile, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+        // Create a new tempory archive file.
+        $tmpFile = sprintf("%s/%s.zip", sys_get_temp_dir(), uniqid());
+        $archive = new PharData($tmpFile);
 
         $keyDir = "/etc/openvpn/keys";
 
@@ -517,11 +517,11 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         );
 
         foreach ($files as $filename => $file) {
-            $zip->addFile($file, $filename);
+            $archive->addFile($file, $filename);
         }
 
         foreach ($stringContent as $filename => $content) {
-            $zip->addFromString($filename, $content);
+            $archive->addFromString($filename, $content);
         }
 
         return array(
