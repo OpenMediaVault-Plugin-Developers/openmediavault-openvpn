@@ -24,109 +24,105 @@
 // require("js/omv/module/admin/service/openvpn/ClientCertificate.js")
 
 Ext.define("OMV.module.admin.service.openvpn.Certificates", {
-    extend   : "OMV.workspace.grid.Panel",
-    requires : [
+    extend: "OMV.workspace.grid.Panel",
+    requires: [
         "OMV.data.Store",
         "OMV.data.Model",
         "OMV.data.proxy.Rpc",
         "OMV.module.admin.service.openvpn.ClientCertificate"
     ],
 
-    hidePagingToolbar : false,
-    hideEditButton    : true,
-    reloadOnActivate  : true,
+    hidePagingToolbar: false,
+    hideEditButton: true,
+    reloadOnActivate: true,
 
-    columns : [{
-        header    : _("UUID"),
-        hidden    : true,
-        dataIndex : "uuid"
-    },{
-        header    : _("User"),
-        flex      : 1,
-        sortable  : true,
-        dataIndex : "associated_user"
-    },{
-        header    : _("Common name"),
-        flex      : 1,
-        sortable  : true,
-        dataIndex : "common_name",
+    columns: [{
+        header: _("UUID"),
+        hidden: true,
+        dataIndex: "uuid"
+    }, {
+        header: _("User"),
+        flex: 1,
+        sortable: true,
+        dataIndex: "associated_user"
+    }, {
+        header: _("Common name"),
+        flex: 1,
+        sortable: true,
+        dataIndex: "common_name",
     }],
 
-    store : Ext.create("OMV.data.Store", {
-        autoLoad   : true,
-        remoteSort : false,
-        model      : OMV.data.Model.createImplicit({
-            idProperty   : "uuid",
-            fields       : [
-                { name : "uuid" },
-                { name : "associated_user" },
-                { name : "common_name" }
-            ]
+    store: Ext.create("OMV.data.Store", {
+        autoLoad: true,
+        remoteSort: false,
+        model: OMV.data.Model.createImplicit({
+            idProperty: "uuid",
+            fields: [{
+                name: "uuid"
+            }, {
+                name: "associated_user"
+            }, {
+                name: "common_name"
+            }]
         }),
-        proxy : {
-            type    : "rpc",
-            rpcData : {
-                "service" : "OpenVpn",
-                "method"  : "getList"
+        proxy: {
+            type: "rpc",
+            rpcData: {
+                "service": "OpenVpn",
+                "method": "getList"
             }
         }
     }),
 
-    getTopToolbarItems : function() {
-        var me = this;
-        var items = me.callParent(arguments);
+    getTopToolbarItems: function() {
+        var items = this.callParent(arguments);
 
         Ext.Array.push(items, [{
-            id       : me.getId() + "-dowload-certificate",
-            xtype    : "button",
-            text     : _("Download certificate"),
-            icon     : "images/download.png",
-            iconCls  : Ext.baseCSSPrefix + "btn-icon-16x16",
-            handler  : Ext.Function.bind(me.onDownloadCertificateButton, me, [ me ]),
-            scope    : me,
-            disabled : true,
-            selectionConfig : {
-                minSelections : 1,
-                maxSelections : 1
+            id: this.getId() + "-dowload-certificate",
+            xtype: "button",
+            text: _("Download certificate"),
+            icon: "images/download.png",
+            iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+            handler: Ext.Function.bind(this.onDownloadCertificateButton, this),
+            scope: this,
+            disabled: true,
+            selectionConfig: {
+                minSelections: 1,
+                maxSelections: 1
             }
         }]);
 
         return items;
     },
 
-    onAddButton : function() {
-        var me = this;
-
+    onAddButton: function() {
         Ext.create("OMV.module.admin.service.openvpn.ClientCertificate", {
-            title        : _("Add certificate"),
-            listeners    : {
-                scope  : me,
-                submit : function() {
-                    me.doReload();
+            title: _("Add certificate"),
+            listeners: {
+                scope: this,
+                submit: function() {
+                    this.doReload();
                 }
             }
         }).show();
     },
 
-    doDeletion : function(record) {
-        var me = this;
-
+    doDeletion: function(record) {
         OMV.Rpc.request({
-            scope : me,
-            callback : me.onDeletion,
-            rpcData : {
-                service : "OpenVpn",
-                method : "delete",
-                params : {
-                    uuid : record.get("uuid")
+            scope: this,
+            callback: this.onDeletion,
+            rpcData: {
+                service: "OpenVpn",
+                method: "delete",
+                params: {
+                    uuid: record.get("uuid")
                 }
             }
         });
     },
 
-    onDownloadCertificateButton : function() {
-        var me = this,
-            record = me.getSelected();
+    onDownloadCertificateButton: function() {
+        var record = this.getSelected();
 
         OMV.Download.request("OpenVpn", "downloadCertificate", {
             uuid: record.get("uuid")
@@ -136,9 +132,9 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
 });
 
 OMV.WorkspaceManager.registerPanel({
-    id        : "certificates",
-    path      : "/service/openvpn",
-    text      : _("Certificates"),
-    position  : 20,
-    className : "OMV.module.admin.service.openvpn.Certificates"
+    id: "certificates",
+    path: "/service/openvpn",
+    text: _("Certificates"),
+    position: 20,
+    className: "OMV.module.admin.service.openvpn.Certificates"
 });

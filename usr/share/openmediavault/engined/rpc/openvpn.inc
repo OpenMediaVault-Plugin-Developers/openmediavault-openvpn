@@ -35,26 +35,36 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         return "org.openmediavault.services.openvpn";
     }
 
-    private function getXPath()
+    private function getXpath()
     {
         return "/config/services/openvpn";
     }
 
-    private function getClientsXPath()
+    private function getClientsXpath()
     {
-        return sprintf("%s/clients", $this->getXPath(), $uuid);
+        return sprintf("%s/clients", $this->getXpath(), $uuid);
     }
 
-    private function getClientXPathByUuid($uuid)
+    private function getClientXpathByUuid($uuid)
     {
-        return sprintf("%s/client[uuid='%s']", $this->getClientsXPath(), $uuid);
+        return sprintf("%s/client[uuid='%s']", $this->getClientsXpath(), $uuid);
     }
 
+    /**
+     * Get the RPC service name.
+     *
+     * @return void
+     */
     public function getName()
     {
         return "OpenVpn";
     }
 
+    /**
+     * Initialize the RPC service.
+     *
+     * @return void
+     */
     public function initialize()
     {
         $this->registerMethod("getSettings");
@@ -67,6 +77,14 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         $this->registerMethod("getStats");
     }
 
+    /**
+     * Get general settings.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
     public function getSettings($params, $context)
     {
         global $xmlConfig;
@@ -76,17 +94,15 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
 
-        // Get configuration object
-        $object = $xmlConfig->get($this->getXPath());
+        $object = $xmlConfig->get($this->getXpath());
 
         if (is_null($object)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getXPath()
+                $this->getXpath()
             );
         }
 
-        // Modify result data
         $settingsObject["enable"]             = boolval($object["enable"]);
         $settingsObject["port"]               = intval($object["port"]);
         $settingsObject["protocol"]           = $object["protocol"];
@@ -106,6 +122,14 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         return $settingsObject;
     }
 
+    /**
+     * Set general settings.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
     public function setSettings($params, $context)
     {
         global $xmlConfig;
@@ -119,73 +143,81 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         $this->validateMethodParams(
             $params,
             '{
-                "type"       : "object",
-                "properties" : {
-                    "enable"             : { "type" : "boolean" },
-                    "port"               : { "type" : "integer" },
-                    "protocol"           : { "type" : "string", "enum" : ["udp", "tcp"] },
-                    "compression"        : { "type" : "boolean" },
-                    "pam_authentication" : { "type" : "boolean" },
-                    "extra_options"      : { "type" : "string", "optional" : true},
-                    "loglevel"           : { "type" : "integer", "enum" : [0, 2, 5, 7] },
-                    "vpn_network"        : { "type" : "string" },
-                    "vpn_mask"           : { "type" : "string" },
-                    "default_gateway"    : { "type" : "boolean" },
-                    "client_to_client"   : { "type" : "boolean" },
-                    "dns"                : { "type" : "string", "optional" : true },
-                    "dns_domains"        : { "type" : "string", "optional" : true },
-                    "wins"               : { "type" : "string", "optional" : true },
-                    "public_address"     : { "type" : "string" }
+                "type": "object",
+                "properties": {
+                    "enable": { "type": "boolean" },
+                    "port": { "type": "integer" },
+                    "protocol": { "type": "string", "enum": ["udp", "tcp"] },
+                    "compression": { "type": "boolean" },
+                    "pam_authentication": { "type": "boolean" },
+                    "extra_options": { "type": "string", "optional": true},
+                    "loglevel": { "type": "integer", "enum": [0, 2, 5, 7] },
+                    "vpn_network": { "type": "string" },
+                    "vpn_mask": { "type": "string" },
+                    "default_gateway": { "type": "boolean" },
+                    "client_to_client": { "type": "boolean" },
+                    "dns": { "type": "string", "optional": true },
+                    "dns_domains": { "type": "string", "optional": true },
+                    "wins": { "type": "string", "optional": true },
+                    "public_address": { "type": "string" }
                 }
             }'
         );
 
-        // Prepare configuration data
+        // Prepare configuration data.
         $object = array(
-            "enable"             => array_boolval($params, "enable"),
-            "port"               => intval($params["port"]),
-            "protocol"           => $params["protocol"],
-            "compression"        => array_boolval($params, "compression"),
-            "pam_authentication" => array_boolval($params, "pam_authentication"),
-            "extra_options"      => $params["extra_options"],
-            "loglevel"           => intval($params["loglevel"]),
-            "vpn_network"        => $params["vpn_network"],
-            "vpn_mask"           => $params["vpn_mask"],
-            "default_gateway"    => array_boolval($params, "default_gateway"),
-            "client_to_client"   => array_boolval($params, "client_to_client"),
-            "dns"                => $params["dns"],
-            "dns_domains"        => $params["dns_domains"],
-            "wins"               => $params["wins"],
-            "public_address"     => $params["public_address"],
+            "enable" => boolval($params["enable"]),
+            "port" => intval($params["port"]),
+            "protocol" => $params["protocol"],
+            "compression" => boolval($params["compression"]),
+            "pam_authentication" => boolval($params["pam_authentication"]),
+            "extra_options" => $params["extra_options"],
+            "loglevel" => intval($params["loglevel"]),
+            "vpn_network" => $params["vpn_network"],
+            "vpn_mask" => $params["vpn_mask"],
+            "default_gateway" => boolval($params["default_gateway"]),
+            "client_to_client" => boolval($params["client_to_client"]),
+            "dns" => $params["dns"],
+            "dns_domains" => $params["dns_domains"],
+            "wins" => $params["wins"],
+            "public_address" => $params["public_address"],
         );
 
-        // Get old configuration object
-        $oldConfig = $xmlConfig->get($this->getXPath());
+        // Get old configuration object.
+        $oldConfig = $xmlConfig->get($this->getXpath());
 
         if (is_null($object)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getXPath()
+                $this->getXpath()
             );
         }
 
         $object["clients"] = $oldConfig["clients"];
 
-        // Set configuration object
-        if (false === $xmlConfig->replace($this->getXPath(), $object)) {
+        // Set configuration object.
+        if (false === $xmlConfig->replace($this->getXpath(), $object)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_SET_OBJECT_FAILED,
-                $this->getXPath()
+                $this->getXpath()
             );
         }
 
-        // Notify configuration changes
+        // Notify configuration changes.
         $dispatcher = &OMVNotifyDispatcher::getInstance();
         $dispatcher->notify(OMV_NOTIFY_MODIFY, $this->getEventMessagePath(), $object);
 
         return $object;
     }
 
+    /**
+     * Get list of certificate configurations.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
     public function getList($params, $context)
     {
         global $xmlConfig;
@@ -199,35 +231,35 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         $this->validateMethodParams(
             $params,
             '{
-                "type"       : "object",
-                "properties" : {
-                    "start"     : { "type" : "integer" },
-                    "limit"     : {' . $GLOBALS["OMV_JSONSCHEMA_COUNTFIELD"] . '},
-                    "sortfield" : {' . $GLOBALS["OMV_JSONSCHEMA_SORTFIELD"] . '},
-                    "sortdir"   : {' . $GLOBALS["OMV_JSONSCHEMA_SORTDIR"] . '}
+                "type": "object",
+                "properties": {
+                    "start": { "type": "integer" },
+                    "limit": {' . $GLOBALS["OMV_JSONSCHEMA_COUNTFIELD"] . '},
+                    "sortfield": {' . $GLOBALS["OMV_JSONSCHEMA_SORTFIELD"] . '},
+                    "sortdir": {' . $GLOBALS["OMV_JSONSCHEMA_SORTDIR"] . '}
                 }
             }'
         );
 
-        // Get configuration object
-        $xPath = null;
+        // Get configuration object.
+        $xpath = null;
 
         if ($context == $this->getAdminContext()) {
-            $xPath = sprintf("%s/client/uuid", $this->getClientsXPath());
+            $xpath = sprintf("%s/client/uuid", $this->getClientsXpath());
         } else {
-            $xPath = sprintf(
+            $xpath = sprintf(
                 "%s/client[associated_user='%s']/uuid",
-                $this->getClientsXPath(),
+                $this->getClientsXpath(),
                 $context["username"]
             );
         }
 
-        $uuids = $xmlConfig->getList($xPath);
+        $uuids = $xmlConfig->getList($xpath);
 
         if (is_null($uuids)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $xPath
+                $xpath
             );
         }
 
@@ -250,6 +282,14 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         );
     }
 
+    /**
+     * Get certificate configuration.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
     public function get($params, $context)
     {
         global $xmlConfig;
@@ -263,25 +303,33 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         $this->validateMethodParams(
             $params,
             '{
-                "type"       : "object",
-                "properties" : {
-                    "uuid" : {' . $GLOBALS["OMV_JSONSCHEMA_UUID"] . '}
+                "type": "object",
+                "properties": {
+                    "uuid": {' . $GLOBALS["OMV_JSONSCHEMA_UUID"] . '}
                 }
             }'
         );
 
-        $client = $xmlConfig->get($this->getClientXPathByUuid($params["uuid"]));
+        $client = $xmlConfig->get($this->getClientXpathByUuid($params["uuid"]));
 
         if (is_null($client)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $xPath
+                $xpath
             );
         }
 
         return $client;
     }
 
+    /**
+     * Set certificate configuration.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
     public function set($params, $context)
     {
         global $xmlConfig;
@@ -295,34 +343,34 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         $this->validateMethodParams(
             $params,
             '{
-                "type"       : "object",
-                "properties" : {
-                    "uuid"            : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_UNDEFINED"] . '},
-                    "associated_user" : { "type" : "string" },
-                    "common_name"     : { "type" : "string" }
+                "type": "object",
+                "properties": {
+                    "uuid": {' . $GLOBALS["OMV_JSONSCHEMA_UUID_UNDEFINED"] . '},
+                    "associated_user": { "type": "string" },
+                    "common_name": { "type": "string" }
                 }
             }'
         );
 
         $client = array(
-            "uuid"            => empty($params["uuid"]) ? OMVUtil::uuid() : $params["uuid"],
+            "uuid" => empty($params["uuid"]) ? OMVUtil::uuid() : $params["uuid"],
             "associated_user" => $params["associated_user"],
-            "common_name"     => $params["common_name"],
+            "common_name" => $params["common_name"],
         );
 
-        // Save configuration
+        // Save configuration.
         $success = false;
-        $xPath = null;
+        $xpath = null;
 
         if (empty($params["uuid"])) {
             $success = $xmlConfig->set(
-                $xPath = $this->getClientsXPath(),
+                $xpath = $this->getClientsXpath(),
                 array("client" => $client),
                 $client
             );
         } else {
             $success = $xmlConfig->replace(
-                $xPath = $this->getClientXPathByUuid($params["uuid"]),
+                $xpath = $this->getClientXpathByUuid($params["uuid"]),
                 $client
             );
         }
@@ -330,13 +378,13 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         if (!$success) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
-                $xPath
+                $xpath
             );
         }
 
-        // Generate certificate
+        // Generate certificate.
         $cmd = sprintf(
-            "omv-mkconf %s add %s 2>&1",
+            "export LANG=C; omv-mkconf %s add %s 2>&1",
             strtolower($this->getName()),
             $client["uuid"]
         );
@@ -352,6 +400,12 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         return $client;
     }
 
+    /**
+     * Delete certificate configuration.
+     *
+     * @param array $params
+     * @param array $context
+     */
     public function delete($params, $context)
     {
         global $xmlConfig;
@@ -365,17 +419,16 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         $this->validateMethodParams(
             $params,
             '{
-                "type"       : "object",
-                "properties" : {
-                    "uuid" : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_NONE"] . '}
+                "type": "object",
+                "properties": {
+                    "uuid": {' . $GLOBALS["OMV_JSONSCHEMA_UUID_NONE"] . '}
                 }
             }'
         );
 
-        // Revoke certificate and then delete from xml
-        // if successful
+        // Revoke certificate and then delete from xml if successful.
         $cmd = sprintf(
-            "omv-mkconf %s revoke %s 2>&1",
+            "export LANG=C; omv-mkconf %s revoke %s 2>&1",
             strtolower($this->getName()),
             $params["uuid"]
         );
@@ -388,16 +441,27 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             );
         }
 
-        $client = $xmlConfig->delete($this->getClientXPathByUuid($params["uuid"]));
+        $client = $xmlConfig->delete($this->getClientXpathByUuid(
+            $params["uuid"]
+        ));
 
         if (is_null($client)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
-                $this->getClientXPathByUuid($params["uuid"])
+                $this->getClientXpathByUuid($params["uuid"])
             );
         }
     }
 
+    /**
+     * Generate an archive including client certificates and configuration and
+     * return the parameters needed to download the archive.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
     public function downloadCertificate($params, $context)
     {
         global $xmlConfig;
@@ -411,9 +475,9 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         $this->validateMethodParams(
             $params,
             '{
-                "type"       : "object",
-                "properties" : {
-                    "uuid" : {' . $GLOBALS["OMV_JSONSCHEMA_UUID"] . '}
+                "type": "object",
+                "properties": {
+                    "uuid": {' . $GLOBALS["OMV_JSONSCHEMA_UUID"] . '}
                 }
             }'
         );
@@ -422,20 +486,19 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         $uuid = $client["uuid"];
         $commonName = $client["common_name"];
 
-        // Check if user is eligble to download certificate
+        // Check if user is eligble to download certificate.
         if ($context != $this->getAdminContext()) {
             if ($context["username"] != $client["associated_user"]) {
                 return;
             }
         }
 
-
         $configContent = $this->generateClientConf(
             $client,
-            $xmlConfig->get($this->getXPath())
+            $xmlConfig->get($this->getXpath())
         );
 
-        // Create a new tempory file and a new ZipArchive object
+        // Create a new tempory file and a new ZipArchive object.
         $tmpFile = tempnam(sys_get_temp_dir(), "zip");
         $zip = new ZipArchive();
         $zip->open($tmpFile, ZipArchive::CREATE | ZipArchive::OVERWRITE);
@@ -443,7 +506,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         $keyDir = "/etc/openvpn/keys";
 
         $files = array(
-            "$commonName-ca.crt"     => sprintf("%s/ca.crt", $keyDir),
+            "$commonName-ca.crt" => sprintf("%s/ca.crt", $keyDir),
             "$commonName-client.crt" => sprintf("%s/%s.crt", $keyDir, $uuid),
             "$commonName-client.key" => sprintf("%s/%s.key", $keyDir, $uuid),
         );
@@ -463,11 +526,19 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
 
         return array(
             "contenttype" => "application/zip",
-            "filename"    => "openvpn-$commonName.zip",
-            "filepath"    => $tmpFile,
+            "filename" => "openvpn-$commonName.zip",
+            "filepath" => $tmpFile,
         );
     }
 
+    /**
+     * Get general OpenVPN stats.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return string
+     */
     public function getStats($params, $context)
     {
         global $xmlConfig;
@@ -477,12 +548,12 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
 
-        $object = $xmlConfig->get($this->getXPath());
+        $object = $xmlConfig->get($this->getXpath());
 
         if (is_null($object)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getXPath()
+                $this->getXpath()
             );
         }
 
@@ -513,6 +584,14 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         return $data;
     }
 
+    /**
+     * Generate client configuration text.
+     *
+     * @param array $client Client certificate configuration.
+     * @param array $settings The OpenVPN plugin configuration.
+     *
+     * @return string
+     */
     private function generateClientConf($client, $settings)
     {
         $commonName = $client["common_name"];

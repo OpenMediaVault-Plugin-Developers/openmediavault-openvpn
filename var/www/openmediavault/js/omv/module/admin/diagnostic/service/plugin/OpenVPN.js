@@ -18,10 +18,10 @@
 // require("js/omv/workspace/panel/Textarea.js")
 
 Ext.define("OMV.module.admin.diagnostic.service.plugin.OpenVpn", {
-    extend : "OMV.workspace.panel.Textarea",
-    alias  : "omv.plugin.diagnostic.service.openvpn",
+    extend: "OMV.workspace.panel.Textarea",
+    alias: "omv.plugin.diagnostic.service.openvpn",
 
-    title      : _("OpenVPN"),
-    rpcService : "OpenVpn",
-    rpcMethod  : "getStats"
+    title: _("OpenVPN"),
+    rpcService: "OpenVpn",
+    rpcMethod: "getStats"
 });

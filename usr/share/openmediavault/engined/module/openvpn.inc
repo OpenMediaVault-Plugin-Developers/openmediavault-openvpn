@@ -28,8 +28,6 @@ class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
     OMVINotifyListener,
     OMVIModuleServiceStatus
 {
-    /* Helpers */
-
     private function getEventMessagePath()
     {
         return "org.openmediavault.services.openvpn";
@@ -40,10 +38,10 @@ class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
         return "/config/services/openvpn";
     }
 
-    /* /Helpers */
-
     /**
      * Get the module name.
+     *
+     * @return string
      */
     public function getName()
     {
@@ -51,7 +49,9 @@ class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
     }
 
     /**
-     * Get the status of the service
+     * Get the status of the managed service.
+     *
+     * @return array
      */
     public function getStatus()
     {
@@ -69,19 +69,21 @@ class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
         $initd = new OMVSysVInitScript($this->getName());
 
         return array(
-            "name"    => $this->getName(),
-            "title"   => gettext("OpenVPN"),
+            "name" => $this->getName(),
+            "title" => gettext("OpenVPN"),
             "enabled" => boolval($object["enable"]),
             "running" => $initd->status() == 0
         );
     }
 
     /**
-     * Create and update the configuration
+     * Generate the configuration.
+     *
+     * @return void
      */
     public function applyConfig()
     {
-        $cmd = sprintf("omv-mkconf %s setup 2>&1", $this->getName());
+        $cmd = sprintf("export LANG=C; omv-mkconf %s setup 2>&1", $this->getName());
 
         if (0 !== $this->exec($cmd, $output)) {
             throw new OMVException(
@@ -93,7 +95,9 @@ class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
     }
 
     /**
-     * Start the service
+     * Start the managed service.
+     *
+     * @return void
      */
     public function startService()
     {
@@ -117,7 +121,9 @@ class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
     }
 
     /**
-     * Stop the service
+     * Stop the managed service.
+     *
+     * @return void
      */
     public function stopService()
     {
@@ -127,6 +133,10 @@ class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
 
     /**
      * Bind listeners.
+     *
+     * @param OMVNotifyDispatcher $dispatcher The dispatcher object.
+     *
+     * @return void
      */
     public function bindListeners(OMVNotifyDispatcher $dispatcher)
     {
@@ -138,33 +148,6 @@ class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
     }
 }
 
-// Register module
+// Register module.
 $moduleMgr = &OMVModuleMgr::getInstance();
 $moduleMgr->registerModule(new OMVModuleOpenVpn());
-
-// Register new logfile type
-OMVLogFile::registerType(
-    "openvpn",
-    array(
-        "filename" => "openvpn",
-        "filepath" => "/var/log/openvpn.log",
-        "regex" => "/^(\w+\s\w+\s+\d+\s+\d+:\d+:\d+\s\d+)\s+(.*)$/",
-        "columns" => array(
-            "ts" => array(
-                "index" => 1,
-                "func" => create_function(
-                    "\$v",
-                    "return strpdate(\$v, \"D M d H:i:s Y\");"
-                )
-            ),
-            "date" => array(
-                "index" => 1,
-                "func" => create_function(
-                    "\$v",
-                    "return strftime(\"%c\", strpdate(\$v,\"D M d H:i:s Y\"));"
-                )
-            ),
-            "event" => 2
-        )
-    )
-);
