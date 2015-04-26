@@ -17,17 +17,25 @@ case "$1" in
         if getent group openvpn >/dev/null 2>&1; then
             groupdel openvpn
         fi
+        
+        if [ -f /etc/sysctl.d/99-openvpn.conf ]; then
+            rm -r /etc/sysctl.d/99-openvpn.conf
+        fi
+        
+        if [ -f /etc/network/if-pre-up.d/openvpn ]; then
+            rm -r /etc/network/if-pre-up.d/openvpn
+        fi
 
         if [ -d /etc/openvpn/easy-rsa ]; then
-            rm -rf /etc/openvpn/easy-rsa
+            rm -r /etc/openvpn/easy-rsa
         fi
 
         if [ -d /etc/openvpn/keys ]; then
-            rm -rf /etc/openvpn/keys
+            rm -r /etc/openvpn/keys
         fi
 
         if [ -f /etc/openvpn/server.conf ]; then
-            rm -rf /etc/openvpn/server.conf
+            rm -r /etc/openvpn/server.conf
         fi
     ;;
 
