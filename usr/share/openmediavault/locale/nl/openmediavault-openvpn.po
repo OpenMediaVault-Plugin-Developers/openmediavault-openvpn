@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# okpail <okpail@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-27 07:25-0500\n"
-"PO-Revision-Date: 2014-03-29 15:54+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2014-11-14 19:50+0000\n"
+"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/openmediavault-openvpn/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,135 +19,135 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "-------OpenVPN status--------"
-msgstr ""
+msgstr "-------OpenVPN status--------"
 
 msgid "-----IP pool reservation-----"
-msgstr ""
+msgstr "-----IP pool reservering-----"
 
 msgid "Add certificate"
-msgstr ""
+msgstr "Voeg certificaat toe"
 
 msgid "Address"
-msgstr ""
+msgstr "Adres"
 
 msgid "Allow client to client communication"
-msgstr ""
+msgstr "Sta client naar client communicatie toe"
 
 msgid "Certificates"
-msgstr ""
+msgstr "Certificaten"
 
 msgid "Client to client"
-msgstr ""
+msgstr "Client naar client"
 
 msgid "Common name"
-msgstr ""
+msgstr "Standaard naam"
 
 msgid "DHCP options"
-msgstr ""
+msgstr "DHCP opties"
 
 msgid "DNS search domains(s)"
-msgstr ""
+msgstr "DNS zoek domein(en)"
 
 msgid "DNS server(s)"
-msgstr ""
+msgstr "DNS server(s)"
 
 msgid "Date & Time"
-msgstr ""
+msgstr "Datum en Tijd"
 
 msgid "Debug"
-msgstr ""
+msgstr "Debug"
 
 msgid "Default gateway"
-msgstr ""
+msgstr "Standaard Gateway"
 
 msgid "Download certificate"
-msgstr ""
+msgstr "Download certificaat"
 
 msgid "Enable"
-msgstr ""
+msgstr "Aanzetten"
 
 msgid "Event"
-msgstr ""
+msgstr "Event"
 
 msgid "Extra options"
-msgstr ""
+msgstr "Extra opties"
 
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
 msgid "General settings"
-msgstr ""
+msgstr "Algemene instellingen"
 
 msgid ""
 "If enabled, this directive will configure all clients to redirect their "
 "default network gateway through the VPN. If disabled, a static route to the "
 "private subnet is configured on all clients."
-msgstr ""
+msgstr "Indien aangezet, deze richtlijn configureert alle cliënten hun default netwerk gateway door de VPN verbinding. Indien uitgezet zal een statische route naar het private subnet worden geconfigureerd op alle clients"
 
 msgid "Log each packet"
-msgstr ""
+msgstr "Log elk packet"
 
 msgid "Logging level"
-msgstr ""
+msgstr "Logging level"
 
 msgid "Mask"
-msgstr ""
+msgstr "Mask"
 
 msgid "No IP reserved."
-msgstr ""
+msgstr "Geen IP nummer gereserveerd"
 
 msgid "No output except fatal errors"
-msgstr ""
+msgstr "Geen output behalve fatale fouten"
 
 msgid "No users connected."
-msgstr ""
+msgstr "Geen gebruikers die een verbinding hebben"
 
 msgid "Normal usage output"
-msgstr ""
+msgstr "Normale gebruikers output"
 
 msgid "OpenVPN"
-msgstr ""
+msgstr "OpenVPN"
 
 msgid "OpenVPN is disabled."
-msgstr ""
+msgstr "OpenVPN is uitgezet"
 
 msgid "Port"
-msgstr ""
+msgstr "Poort"
 
 msgid "Protocol"
-msgstr ""
+msgstr "Protocol"
 
 msgid "Public"
-msgstr ""
+msgstr "Publiek"
 
 msgid "Public address"
-msgstr ""
+msgstr "Publiek adres"
 
 msgid "Separate multiple entries with commas"
-msgstr ""
+msgstr "Separate meerdere ingaven met komma's"
 
 msgid "Services"
-msgstr ""
+msgstr "Services"
 
 msgid "Settings"
-msgstr ""
+msgstr "Instellingen"
 
 msgid ""
 "This is the address which external clients can connect to your VPN with. "
 "This is automatically used in the generated configuration."
-msgstr ""
+msgstr "Dit is het adres waar externe cliënten een VPN verbinding mee kunnen maken. Dit wordt automatisch gegeneerd tijden de configuratie"
 
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 msgid "Use compression"
-msgstr ""
+msgstr "Gebruik compressie"
 
 msgid "User"
-msgstr ""
+msgstr "Gebruiker"
 
 msgid "VPN network"
-msgstr ""
+msgstr "VPN netwerk"
 
 msgid "WINS server(s)"
-msgstr ""
+msgstr "WINS server(s)"
