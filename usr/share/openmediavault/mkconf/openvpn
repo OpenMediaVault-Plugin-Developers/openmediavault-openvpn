@@ -32,7 +32,7 @@ SERVICE_OPENVPN_KEY_DIR="${SERVICE_OPENVPN_KEY_DIR:-/etc/openvpn/keys}"
 # Functions.
 get_ip()
 {
-    ip=$(ifconfig | grep 'inet addr:' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | cut -d: -f2 | awk '{ print $1}' | head -1)
+    ip=$(ifconfig eth0 | grep 'inet addr:' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | cut -d: -f2 | awk '{ print $1}' | head -1)
 
     # TODO: Should this really be done? This address is used when setting up
     # routes.
@@ -45,7 +45,7 @@ get_ip()
 
 get_mask()
 {
-    mask=$(ifconfig | grep 'inet addr:' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | cut -d: -f4 | awk '{ print $1}' | head -1)
+    mask=$(ifconfig eth0 | grep 'inet addr:' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | cut -d: -f4 | awk '{ print $1}' | head -1)
 
     echo ${mask}
 }
