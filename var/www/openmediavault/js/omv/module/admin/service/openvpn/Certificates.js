@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 OpenMediaVault Plugin Developers
+ * Copyright (C) 2015 OpenMediaVault Plugin Developers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,6 +50,31 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
         flex: 1,
         sortable: true,
         dataIndex: "common_name",
+	}, {
+		header: _("Country"),
+		flex: 1,
+		sortable: true,
+		dataIndex "country"
+	}, {
+		header: _("Province"),
+		flex: 1,
+		sortable: true,
+		dataIndex "province"
+	}, {
+		header: _("City"),
+		flex: 1,
+		sortable: true,
+		dataIndex "city"
+	}, {
+		header: _("Organization"),
+		flex: 1,
+		sortable: true,
+		dataIndex "organization"
+	}, {
+		header: _("E-Mail"),
+		flex: 1,
+		sortable: true,
+		dataIndex "email"
     }],
 
     store: Ext.create("OMV.data.Store", {
@@ -63,6 +88,16 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
                 name: "associated_user"
             }, {
                 name: "common_name"
+			}, {
+                name: "country"
+			}, {
+                name: "province"
+			}, {
+                name: "city"
+			}, {
+                name: "organization"
+			}, {
+                name: "email"
             }]
         }),
         proxy: {
