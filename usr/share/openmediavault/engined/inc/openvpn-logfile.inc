@@ -20,26 +20,26 @@
 // Register new logfile type.
 OMVLogFile::registerType(
     "openvpn",
-    array(
+    [
         "filename" => "openvpn",
         "filepath" => "/var/log/openvpn.log",
         "regex" => "/^(\w+\s\w+\s+\d+\s+\d+:\d+:\d+\s\d+)\s+(.*)$/",
-        "columns" => array(
-            "ts" => array(
+        "columns" => [
+            "ts" => [
                 "index" => 1,
                 "func" => create_function(
                     "\$v",
                     "return strpdate(\$v, \"D M d H:i:s Y\");"
                 )
-            ),
-            "date" => array(
+            ],
+            "date" => [
                 "index" => 1,
                 "func" => create_function(
                     "\$v",
                     "return strftime(\"%c\", strpdate(\$v,\"D M d H:i:s Y\"));"
                 )
-            ),
+            ],
             "event" => 2
-        )
-    )
+        ]
+    ]
 );

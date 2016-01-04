@@ -7,6 +7,23 @@ set -e
 
 case "$1" in
     configure)
+        # Set the default settings of the service package to those expected by
+        # OpenMediaVault.
+        if [ -z "$2" ]; then
+            echo "Updating init script links and actions."
+            deb-systemd-helper disable openvpn.service >/dev/null || true
+            deb-systemd-invoke stop openvpn.service >/dev/null || true
+
+            # Restart rsyslog to load the provided configuration if rsyslog is
+            # installed and enabled since we're not dependent on it. Only needs
+            # to be done when the plugin is installed.
+            if deb-systemd-helper debian-installed rsyslog.service; then
+                if deb-systemd-helper is-enabled rsyslog.service; then
+                    deb-systemd-invoke restart rsyslog.service >/dev/null || true
+                fi
+            fi
+        fi
+
         SERVICE_XPATH_NAME="openvpn"
         SERVICE_XPATH="/config/services/${SERVICE_XPATH_NAME}"
 
@@ -38,8 +55,6 @@ case "$1" in
         if ! getent group openvpn >/dev/null 2>&1; then
             groupadd openvpn
         fi
-
-        invoke-rc.d rsyslog restart
 
         # Activate package triggers. These triggers are only set during the
         # package installation.

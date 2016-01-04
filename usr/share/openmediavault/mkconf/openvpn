@@ -34,12 +34,6 @@ get_ip()
 {
     ip=$(ifconfig | grep 'inet addr:' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | cut -d: -f2 | awk '{ print $1}' | head -1)
 
-    # TODO: Should this really be done? This address is used when setting up
-    # routes.
-    if [ "${ip}" = "" ]; then
-        ip=$(wget -qO- ipv4.icanhazip.com)
-    fi
-
     echo ${ip}
 }
 
@@ -125,11 +119,11 @@ setup_certificates()
     # Initialize CRL by revoking a non-existant cert.
     . /etc/openvpn/easy-rsa/2.0/revoke-full NULL || echo "CRL created"
 
-    # Generate Diffie Hellman parameter
+    # Generate Diffie Hellman parameter.
     . /etc/openvpn/easy-rsa/2.0/build-dh
 
     # Same as the last time, we are going to run build-key-server.
-    # Server Certificate
+    # Server Certificate.
     export KEY_DIR="${SERVICE_OPENVPN_KEY_DIR}"
     export EASY_RSA="${EASY_RSA:-.}"
     "$EASY_RSA/pkitool" --server server

@@ -14,14 +14,10 @@ case "$1" in
             omv_config_delete "${SERVICE_XPATH}"
         fi
 
-        if getent group openvpn >/dev/null 2>&1; then
-            groupdel openvpn
-        fi
-        
         if [ -f /etc/sysctl.d/99-openvpn.conf ]; then
             rm -r /etc/sysctl.d/99-openvpn.conf
         fi
-        
+
         if [ -f /etc/network/if-pre-up.d/openvpn ]; then
             rm -r /etc/network/if-pre-up.d/openvpn
         fi

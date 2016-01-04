@@ -4,40 +4,6 @@
 *.swp
 *~
 
-# Eclipse
-.project
-.metadata
-.settings/
-*.launch
-.buildpath
-*.pydevproject
-
-# JetBrains
-.idea/
-*.ipr
-*.iws
-*.iml
-
-# Netbeans
-nbproject/
-build/
-nbbuild/
-dist/
-nbdist/
-nbactions.xml
-nb-configuration.xml
-
-# Sublime Text
-*.sublime-workspace
-*.sublime-project
-
-# Vim
-[._]*.s[a-w][a-z]
-[._]s[a-w][a-z]
-*.un~
-Session.vim
-.netrwhist
-
 # SVN
 .svn/
 
@@ -51,7 +17,7 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# OpenMediaVault / Debian
+# Debian packaging files
 debian/openmediavault-*
 debian/files
 debian/*.debhelper.log

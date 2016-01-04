@@ -19,8 +19,7 @@
 
 require_once "openmediavault/error.inc";
 require_once "openmediavault/notify.inc";
-require_once "openmediavault/object.inc";
-require_once "openmediavault/rpc.inc";
+require_once "openmediavault/rpcservice.inc";
 require_once "openmediavault/util.inc";
 
 use Phar;
@@ -28,13 +27,10 @@ use PharData;
 
 class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
 {
+    private $eventMessagePath = "org.openmediavault.services.openvpn";
     private $ipPoolReservationsPath = "/etc/openvpn/ipp.txt";
     private $openVpnStatusLogPath = "/etc/openvpn/openvpn-status.log";
 
-    private function getEventMessagePath()
-    {
-        return "org.openmediavault.services.openvpn";
-    }
 
     private function getXpath()
     {
@@ -79,21 +75,22 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
     }
 
     /**
-     * Get general settings.
+     * Get the general settings.
      *
      * @param array $params
      * @param array $context
-     *
      * @return array
+     *
+     * @throws OMVException
      */
     public function getSettings($params, $context)
     {
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         $object = $xmlConfig->get($this->getXpath());
 
@@ -104,41 +101,42 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             );
         }
 
-        $settingsObject["enable"]             = boolval($object["enable"]);
-        $settingsObject["port"]               = intval($object["port"]);
-        $settingsObject["protocol"]           = $object["protocol"];
-        $settingsObject["compression"]        = boolval($object["compression"]);
+        $settingsObject["enable"] = boolval($object["enable"]);
+        $settingsObject["port"] = intval($object["port"]);
+        $settingsObject["protocol"] = $object["protocol"];
+        $settingsObject["compression"] = boolval($object["compression"]);
         $settingsObject["pam_authentication"] = boolval($object["pam_authentication"]);
-        $settingsObject["extra_options"]      = $object["extra_options"];
-        $settingsObject["loglevel"]           = intval($object["loglevel"]);
-        $settingsObject["vpn_network"]        = $object["vpn_network"];
-        $settingsObject["vpn_mask"]           = $object["vpn_mask"];
-        $settingsObject["default_gateway"]    = boolval($object["default_gateway"]);
-        $settingsObject["client_to_client"]   = boolval($object["client_to_client"]);
-        $settingsObject["dns"]                = $object["dns"];
-        $settingsObject["dns_domains"]        = $object["dns_domains"];
-        $settingsObject["wins"]               = $object["wins"];
-        $settingsObject["public_address"]     = $object["public_address"];
+        $settingsObject["extra_options"] = $object["extra_options"];
+        $settingsObject["loglevel"] = intval($object["loglevel"]);
+        $settingsObject["vpn_network"] = $object["vpn_network"];
+        $settingsObject["vpn_mask"] = $object["vpn_mask"];
+        $settingsObject["default_gateway"] = boolval($object["default_gateway"]);
+        $settingsObject["client_to_client"] = boolval($object["client_to_client"]);
+        $settingsObject["dns"] = $object["dns"];
+        $settingsObject["dns_domains"] = $object["dns_domains"];
+        $settingsObject["wins"] = $object["wins"];
+        $settingsObject["public_address"] = $object["public_address"];
 
         return $settingsObject;
     }
 
     /**
-     * Set general settings.
+     * Set the general settings.
      *
      * @param array $params
      * @param array $context
-     *
      * @return array
+     *
+     * @throws OMVException
      */
     public function setSettings($params, $context)
     {
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
@@ -165,8 +163,8 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             }'
         );
 
-        // Prepare configuration data.
-        $object = array(
+        // Prepare the configuration data.
+        $object = [
             "enable" => boolval($params["enable"]),
             "port" => intval($params["port"]),
             "protocol" => $params["protocol"],
@@ -182,9 +180,9 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             "dns_domains" => $params["dns_domains"],
             "wins" => $params["wins"],
             "public_address" => $params["public_address"],
-        );
+        ];
 
-        // Get old configuration object.
+        // Get the old configuration object.
         $oldConfig = $xmlConfig->get($this->getXpath());
 
         if (is_null($object)) {
@@ -196,7 +194,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
 
         $object["clients"] = $oldConfig["clients"];
 
-        // Set configuration object.
+        // Set the configuration object.
         if (false === $xmlConfig->replace($this->getXpath(), $object)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_SET_OBJECT_FAILED,
@@ -204,29 +202,30 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             );
         }
 
-        // Notify configuration changes.
+        // Notify about the configuration changes.
         $dispatcher = &OMVNotifyDispatcher::getInstance();
-        $dispatcher->notify(OMV_NOTIFY_MODIFY, $this->getEventMessagePath(), $object);
+        $dispatcher->notify(OMV_NOTIFY_MODIFY, $this->eventMessagePath, $object);
 
         return $object;
     }
 
     /**
-     * Get list of certificate configurations.
+     * Get a list of certificate configurations.
      *
      * @param array $params
      * @param array $context
-     *
      * @return array
+     *
+     * @throws OMVException
      */
     public function getList($params, $context)
     {
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_EVERYONE
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
@@ -242,7 +241,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             }'
         );
 
-        // Get configuration object.
+        // Get the configuration object.
         $xpath = null;
 
         if ($context == $this->getAdminContext()) {
@@ -264,11 +263,11 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             );
         }
 
-        $clients = array();
+        $clients = [];
 
         foreach ($uuids as $uuid) {
             try {
-                $clients[] = $this->get(array("uuid" => $uuid), $this->getAdminContext());
+                $clients[] = $this->get(["uuid" => $uuid], $this->getAdminContext());
             } catch (Exception $e) {
                 throw $e;
             }
@@ -284,21 +283,22 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
     }
 
     /**
-     * Get certificate configuration.
+     * Get single a certificate configuration.
      *
      * @param array $params
      * @param array $context
-     *
      * @return array
+     *
+     * @throws OMVException
      */
     public function get($params, $context)
     {
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
@@ -324,21 +324,22 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
     }
 
     /**
-     * Set certificate configuration.
+     * Set a certificate configuration.
      *
      * @param array $params
      * @param array $context
-     *
      * @return array
+     *
+     * @throws OMVException
      */
     public function set($params, $context)
     {
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
@@ -353,20 +354,20 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             }'
         );
 
-        $client = array(
+        $client = [
             "uuid" => empty($params["uuid"]) ? OMVUtil::uuid() : $params["uuid"],
             "associated_user" => $params["associated_user"],
             "common_name" => $params["common_name"],
-        );
+        ];
 
-        // Save configuration.
+        // Save the configuration.
         $success = false;
         $xpath = null;
 
         if (empty($params["uuid"])) {
             $success = $xmlConfig->set(
                 $xpath = $this->getClientsXpath(),
-                array("client" => $client),
+                ["client" => $client],
                 $client
             );
         } else {
@@ -383,7 +384,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             );
         }
 
-        // Generate certificate.
+        // Generate the certificate.
         $cmd = sprintf(
             "export LANG=C; omv-mkconf %s add %s 2>&1",
             strtolower($this->getName()),
@@ -394,7 +395,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             throw new OMVException(
                 OMVErrorMsg::E_EXEC_FAILED,
                 $cmd,
-                implode("\n", $output)
+                implode(PHP_EOL, $output)
             );
         }
 
@@ -406,15 +407,18 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
      *
      * @param array $params
      * @param array $context
+     * @return void
+     *
+     * @throws OMVException
      */
     public function delete($params, $context)
     {
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
@@ -438,7 +442,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             throw new OMVException(
                 OMVErrorMsg::E_EXEC_FAILED,
                 $cmd,
-                implode("\n", $output)
+                implode(PHP_EOL, $output)
             );
         }
 
@@ -460,17 +464,18 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
      *
      * @param array $params
      * @param array $context
-     *
      * @return array
+     *
+     * @throws OMVException
      */
     public function downloadCertificate($params, $context)
     {
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_EVERYONE
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
@@ -487,7 +492,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         $uuid = $client["uuid"];
         $commonName = $client["common_name"];
 
-        // Check if user is eligble to download certificate.
+        // Check if the user is eligible to download the certificate.
         if ($context != $this->getAdminContext()) {
             if ($context["username"] != $client["associated_user"]) {
                 return;
@@ -505,16 +510,16 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
 
         $keyDir = "/etc/openvpn/keys";
 
-        $files = array(
+        $files = [
             "$commonName-ca.crt" => sprintf("%s/ca.crt", $keyDir),
             "$commonName-client.crt" => sprintf("%s/%s.crt", $keyDir, $uuid),
             "$commonName-client.key" => sprintf("%s/%s.key", $keyDir, $uuid),
-        );
+        ];
 
-        $stringContent = array(
+        $stringContent = [
             "$commonName-client.conf" => $configContent,
             "$commonName-client.ovpn" => $configContent,
-        );
+        ];
 
         foreach ($files as $filename => $file) {
             $archive->addFile($file, $filename);
@@ -524,11 +529,11 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             $archive->addFromString($filename, $content);
         }
 
-        return array(
+        return [
             "contenttype" => "application/zip",
             "filename" => "openvpn-$commonName.zip",
             "filepath" => $tmpFile,
-        );
+        ];
     }
 
     /**
@@ -536,17 +541,18 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
      *
      * @param array $params
      * @param array $context
-     *
      * @return string
+     *
+     * @throws OMVException
      */
     public function getStats($params, $context)
     {
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         $object = $xmlConfig->get($this->getXpath());
 
@@ -576,10 +582,13 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             $reservations = gettext("No IP reserved.");
         }
 
-        $data = gettext("-------OpenVPN status--------") . PHP_EOL
+        $data = gettext("-------OpenVPN status--------")
+              . PHP_EOL
               . $status
-              . PHP_EOL . PHP_EOL
-              . gettext("-----IP pool reservation-----") . PHP_EOL
+              . PHP_EOL
+              . PHP_EOL
+              . gettext("-----IP pool reservation-----")
+              . PHP_EOL
               . $reservations;
 
         return $data;
@@ -590,7 +599,6 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
      *
      * @param array $client Client certificate configuration.
      * @param array $settings The OpenVPN plugin configuration.
-     *
      * @return string
      */
     private function generateClientConf($client, $settings)
@@ -602,25 +610,26 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         $compression = empty($settings["compression"]) ? ";comp-lzo" : "comp-lzo";
         $pam_authentication = empty($settings["pam_authentication"]) ? ";auth-user-pass" : "auth-user-pass";
 
-        $conf = "";
-        $conf .= "client\n";
-        $conf .= "remote $publicAddress $port\n";
-        $conf .= "proto $protocol\n";
-        $conf .= "dev tun\n";
-        $conf .= "ca   $commonName-ca.crt\n";
-        $conf .= "cert $commonName-client.crt\n";
-        $conf .= "key  $commonName-client.key\n";
-        $conf .= "ns-cert-type server\n";
-        $conf .= "$compression\n";
-        $conf .= "$pam_authentication\n";
-        $conf .= "persist-key\n";
-        $conf .= "persist-tun\n";
-        $conf .= "nobind\n";
-        $conf .= "resolv-retry infinite\n";
-        $conf .= "verb 3\n";
-        $conf .= "mute 10\n";
+        $configOptions = [
+            "client",
+            "remote $publicAddress $port",
+            "proto $protocol",
+            "dev tun",
+            "ca   $commonName-ca.crt",
+            "cert $commonName-client.crt",
+            "key  $commonName-client.key",
+            "ns-cert-type server",
+            $compression,
+            $pam_authentication,
+            "persist-key",
+            "persist-tun",
+            "nobind",
+            "resolv-retry infinite",
+            "verb 3",
+            "mute 10",
+        ];
 
-        return $conf;
+        return implode(PHP_EOL, $configOptions);
     }
 }
 

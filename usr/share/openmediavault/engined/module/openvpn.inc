@@ -19,21 +19,22 @@
 
 require_once "openmediavault/config.inc";
 require_once "openmediavault/error.inc";
-require_once "openmediavault/initscript.inc";
-require_once "openmediavault/log.inc";
 require_once "openmediavault/module.inc";
-require_once "openmediavault/util.inc";
+require_once "openmediavault/notify.inc";
+require_once "openmediavault/systemctl.inc";
 
 class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
     OMVINotifyListener,
     OMVIModuleServiceStatus
 {
-    private function getEventMessagePath()
-    {
-        return "org.openmediavault.services.openvpn";
-    }
+    private $eventMessagePath = "org.openmediavault.services.openvpn";
 
-    private function getXPath()
+    /**
+     * Get the service configuration XPath.
+     *
+     * @return string
+     */
+    private function getXpath()
     {
         return "/config/services/openvpn";
     }
@@ -49,7 +50,7 @@ class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
     }
 
     /**
-     * Get the status of the managed service.
+     * Get the module status.
      *
      * @return array
      */
@@ -57,7 +58,7 @@ class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
     {
         global $xmlConfig;
 
-        $object = $xmlConfig->get($this->getXPath());
+        $object = $xmlConfig->get($this->getXpath());
 
         if (is_null($object)) {
             throw new OMVException(
@@ -66,20 +67,22 @@ class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
             );
         }
 
-        $initd = new OMVSysVInitScript($this->getName());
+        $systemCtl = new OMVSystemCtl($this->getName());
 
-        return array(
+        return [
             "name" => $this->getName(),
             "title" => gettext("OpenVPN"),
             "enabled" => boolval($object["enable"]),
-            "running" => $initd->status() == 0
-        );
+            "running" => $systemCtl->isActive(),
+        ];
     }
 
     /**
      * Generate the configuration.
      *
      * @return void
+     *
+     * @throws OMVException
      */
     public function applyConfig()
     {
@@ -89,7 +92,7 @@ class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
             throw new OMVException(
                 OMVErrorMsg::E_EXEC_FAILED,
                 $cmd,
-                implode("\n", $output)
+                implode(PHP_EOL, $output)
             );
         }
     }
@@ -98,17 +101,19 @@ class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
      * Start the managed service.
      *
      * @return void
+     *
+     * @throws OMVException
      */
     public function startService()
     {
         global $xmlConfig;
 
-        $object = $xmlConfig->get($this->getXPath());
+        $object = $xmlConfig->get($this->getXpath());
 
         if (is_null($object)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getXPath()
+                $this->getXpath()
             );
         }
 
@@ -116,8 +121,8 @@ class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
             return;
         }
 
-        $initd = new OMVSysVInitScript($this->getName(), true);
-        $initd->exec();
+        $systemCtl = new OMVSystemCtl($this->getName());
+        $systemCtl->enable(true);
     }
 
     /**
@@ -127,27 +132,26 @@ class OMVModuleOpenVpn extends OMVModuleServiceAbstract implements
      */
     public function stopService()
     {
-        $initd = new OMVSysVInitScript($this->getName());
-        $initd->exec();
+        $systemCtl = new OMVSystemCtl($this->getName());
+        $systemCtl->disable(true);
     }
 
     /**
      * Bind listeners.
      *
      * @param OMVNotifyDispatcher $dispatcher The dispatcher object.
-     *
      * @return void
      */
     public function bindListeners(OMVNotifyDispatcher $dispatcher)
     {
         $dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
-            $this->getEventMessagePath(),
-            array($this, "setDirty")
+            $this->eventMessagePath,
+            [$this, "setDirty"]
         );
     }
 }
 
-// Register module.
+// Register the module.
 $moduleMgr = &OMVModuleMgr::getInstance();
 $moduleMgr->registerModule(new OMVModuleOpenVpn());
