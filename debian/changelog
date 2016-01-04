@@ -1,3 +1,9 @@
+openmediavault-openvpn (3.0) UNRELEASED; urgency=medium
+
+  * OMV 3.0 release.
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 04 Jan 2016 16:22:58 +0100
+
 openmediavault-openvpn (1.1) stable; urgency=medium
 
   * Remove all configuration files when purging the plugin. 
