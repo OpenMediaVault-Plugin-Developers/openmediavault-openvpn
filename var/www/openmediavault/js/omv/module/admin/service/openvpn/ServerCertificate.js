@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 OpenMediaVault Plugin Developers
+ * Copyright (C) 2015 OpenMediaVault Plugin Developers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 // require("js/omv/workspace/window/plugin/ConfigObject.js")
 // require("js/omv/form/field/UserComboBox.js")
 
-Ext.define("OMV.module.admin.service.openvpn.ClientCertificate", {
+Ext.define("OMV.module.admin.service.openvpn.ServerCertificate", {
     extend: "OMV.workspace.window.Form",
     requires: [
         "OMV.workspace.window.plugin.ConfigObject",
@@ -32,7 +32,8 @@ Ext.define("OMV.module.admin.service.openvpn.ClientCertificate", {
     }],
 
     rpcService: "OpenVpn",
-    rpcSetMethod: "set",
+	rpcGetMethod: "getServer",
+    rpcSetMethod: "setServer",
 
     hideResetButton: true,
     uuid: null,
@@ -40,43 +41,36 @@ Ext.define("OMV.module.admin.service.openvpn.ClientCertificate", {
     getFormItems: function() {
         return [{
             xtype: "fieldset",
-            title: _("General"),
+            title: _("Create Server Certificate"),
             items: [{
-                xtype: "usercombo",
-                name: "associated_user",
-                fieldLabel: _("User"),
-                userType: "normal",
-                editable: false,
-                allowNone: true
-            }, {
                 xtype: "textfield",
-                name: "common_name",
+                name: "server_common_name",
                 fieldLabel: _("Common name"),
                 vtype: "domainname",
                 allowBlank: false
 			}, {
 				xtype: "textfield",
-				name: "country",
+				name: "server_country",
 				fieldLabel: _("Country"),
 				allowBlank: false
 			}, {
 				xtype: "textfield",
-				name: "province",
+				name: "server_province",
 				fieldLabel: _("Province / State"),
 				allowBlank: false
 			}, {
 				xtype: "textfield",
-				name: "city",
+				name: "server_city",
 				fieldLabel: _("City"),
 				allowBlank: false
 			}, {
 				xtype: "textfield",
-				name: "organization",
+				name: "server_organization",
 				fieldLabel: _("Organization"),
 				allowBlank: false
 			}, {
 				xtype: "textfield",
-				name: "email",
+				name: "server_email",
 				fieldLabel: _("E-mail"),
 				vtype: "email",
 				allowBlank: false

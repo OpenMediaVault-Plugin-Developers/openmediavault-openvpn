@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 OpenMediaVault Plugin Developers
+ * Copyright (C) 2015 OpenMediaVault Plugin Developers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,6 +38,38 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
                 fieldLabel: _("Enable"),
                 checked: false
             }, {
+				xtype: "combo",
+				name: "interface",
+				hiddenName: "interface",
+				fieldLabel: _("Interface"),
+				emptyText: _("Select an interface..."),
+				allowBlank: false,
+				editable: false,
+				triggerAction: "all",
+				displayField: "netid",
+				valueField: "netid",
+				store: Ext.create("OMV.data.Store", {
+					autoLoad: true,
+					model: OMV.data.Model.createImplicit({
+						idProperty: "netid",
+						fields: [
+						    { name: "netid", type: "string" }
+					]
+				}),
+				proxy: {
+					type: "rpc",
+					rpcData: {
+						service: "Openvpn-2",
+						method: "getNetworks"
+					},
+					appendSortParams: false
+				},
+					sorters: [{
+						direction: "ASC",
+						property: "netid"
+					}]
+				})
+			}, {
                 xtype: "numberfield",
                 name: "port",
                 fieldLabel: _("Port"),
@@ -111,6 +143,25 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
                 triggerAction: "all",
                 value: 2
             }]
+		}, {
+			xtype:"fieldset",
+			title: _("Certificate Authority"),
+			defaults: {
+				labelSeperator: ""
+			},
+			items: [{
+			    xtype: "button"
+                name: "setCA",
+				text: _("Create Certificate Authority"),
+				scope: this,
+				handler: Ext.Function.bind(this.onCreateCAButton, this)
+			}, {
+			    xtype: "button"
+                name: "setServer",
+				text: _("Create Server Certificate"),
+				scope: this,
+				handler: Ext.Function.bind(this.onCreateServerButton, this)
+		    }]
         }, {
             xtype: "fieldset",
             title: _("VPN network"),
@@ -204,7 +255,32 @@ Ext.define("OMV.module.admin.service.openvpn.Settings", {
                 }]
             }]
         }];
+    },
+
+	onCreateCAButton: function(){
+	    Ext.create("OMV.module.admin.service.openvpn-2.CACertificate", {
+            title: _("Create Certificate Authority"),
+            listeners: {
+                scope: this,
+                submit: function() {
+                    this.doReload();
+                }
+            }
+        }).show();
+    },
+	
+	onCreateServerButton: function() {
+        Ext.create("OMV.module.admin.service.openvpn-2.ServerCertificate", {
+            title: _("Create Server Certificate"),
+            listeners: {
+                scope: this,
+                submit: function() {
+                    this.doReload();
+                }
+            }
+        }).show();
     }
+	
 });
 
 OMV.WorkspaceManager.registerPanel({

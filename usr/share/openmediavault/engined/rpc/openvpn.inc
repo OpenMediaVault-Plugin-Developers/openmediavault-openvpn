@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (C) 2014 OpenMediaVault Plugin Developers
+ * Copyright (C) 2015 OpenMediaVault Plugin Developers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -71,11 +71,17 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         $this->registerMethod("getSettings");
         $this->registerMethod("setSettings");
         $this->registerMethod("getList");
+		$this->registerMethod("getCA");
+		$this->registerMethod("setCA");
+		$this->registerMethod("getServer");
+		$this->registerMethod("setServer");
+		$this->registerMethod("deleteCA");
         $this->registerMethod("get");
         $this->registerMethod("set");
         $this->registerMethod("delete");
         $this->registerMethod("downloadCertificate");
         $this->registerMethod("getStats");
+		$this->registerMethod("getNetworks");
     }
 
     /**
@@ -105,6 +111,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         }
 
         $settingsObject["enable"]             = boolval($object["enable"]);
+		$settingsObject["interface"] = $object["interface"];
         $settingsObject["port"]               = intval($object["port"]);
         $settingsObject["protocol"]           = $object["protocol"];
         $settingsObject["compression"]        = boolval($object["compression"]);
@@ -147,6 +154,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
                 "type": "object",
                 "properties": {
                     "enable": { "type": "boolean" },
+					"interface": { "type": "string" },
                     "port": { "type": "integer" },
                     "protocol": { "type": "string", "enum": ["udp", "tcp"] },
                     "compression": { "type": "boolean" },
@@ -168,6 +176,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         // Prepare configuration data.
         $object = array(
             "enable" => boolval($params["enable"]),
+			"interface" => $params["interface"],
             "port" => intval($params["port"]),
             "protocol" => $params["protocol"],
             "compression" => boolval($params["compression"]),
@@ -210,9 +219,332 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
 
         return $object;
     }
+	
+	/**
+     * Get CA certificate configuration.
+     * 
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
+    public function getCA($params, $context) {
+        global $xmlConfig;
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, array(
+            "role" => OMV_ROLE_ADMINISTRATOR
+        ));
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams(
+            $params,
+			'{ "type": "object",
+                "properties": {
+                 "ca_country": { "type": "string" },
+				 "ca_province": { "type": "string" },
+				 "ca_city": { "type": "string" },
+				 "ca_org": { "type": "string" },
+				 "ca_email": { "type": "string" },
+				 "ca_cn": { "type": "string" }
+                }
+            }'
+        );
+
+        if (is_null($ca)) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $this->getXpath()
+            );
+        }
+
+        return $ca;
+    }
+	
+	/**
+     * Set CA certificate configuration.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
+    public function setCA($params, $context){
+        global $xmlConfig;
+
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, array(
+            "role" => OMV_ROLE_ADMINISTRATOR
+        ));
+
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type": "object",
+                "properties": {
+					"ca_country": { "type": "string" },
+					"ca_province": { "type": "string" },
+					"ca_city": { "type": "string" },
+					"ca_org": { "type": "string" },
+					"ca_email": { "type": "string" },
+					"ca_cn": { "type": "string" }
+                }
+            }'
+        );
+
+        $ca = array(
+			"ca_country" => $params["ca_country"],
+			"ca_province" => $params["ca_province"],
+			"ca_city" => $params["ca_city"],
+			"ca_org" => $params["ca_org"],
+			"ca_email" => $params["ca_email"],
+			"ca_cn" => $params["ca_cn"],
+        );
+		
+		// Save configuration.
+        $success = false;
+        $xpath = null;
+		
+		if (empty){
+			$success = $xmlConfig->set(
+			$xpath = $this->getXpath(),
+			array("ca" => $ca),
+			$ca
+			);
+		} else {
+			$success = $xmlConfig->replace(
+			$xpath = $this->getXpath(),
+			$ca
+			);
+		}
+		
+		if(!success){
+			throw mew OMVException(
+			OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
+			$xpath
+			);
+		}
+		
+		$cmd = sprintf(
+		"export LANG=C; omv-mkconf %s set_ca %s 2>&1",
+        strtolower($this->getName()),
+        $ca
+        );
+
+        if (0 !== $this->exec($cmd, $output)) {
+            throw new OMVException(
+			OMVErrorMsg::E_EXEC_FAILED,
+			$cmd,
+			implode("\n", $output)
+			);
+		}
+		
+		return $ca;
+	}
+	
+	/**
+     * Get server certificate configuration.
+     * 
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
+    public function getServer($params, $context) {
+        global $xmlConfig;
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, array(
+            "role" => OMV_ROLE_ADMINISTRATOR
+        ));
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams(
+            $params,
+			'{ "type": "object",
+                "properties": {
+                 "server_country": { "type": "string" },
+				 "server_province": { "type": "string" },
+				 "server_city": { "type": "string" },
+				 "server_org": { "type": "string" },
+				 "server_email": { "type": "string" },
+				 "server_cn": { "type": "string" }
+                }
+            }'
+        );
+
+        if (is_null($server)) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $this->getXpath()
+            );
+        }
+
+        return $server;
+    }
+	
+	/**
+     * Set server certificate configuration.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
+    public function setServer($params, $context){
+        global $xmlConfig;
+
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, array(
+            "role" => OMV_ROLE_ADMINISTRATOR
+        ));
+
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type": "object",
+                "properties": {
+					"server_country": { "type": "string" },
+					"server_province": { "type": "string" },
+					"server_city": { "type": "string" },
+					"server_org": { "type": "string" },
+					"server_email": { "type": "string" },
+					"server_cn": { "type": "string" }
+                }
+            }'
+        );
+
+        $server = array(
+			"server_country" => $params["server_country"],
+			"server_province" => $params["server_province"],
+			"server_city" => $params["server_city"],
+			"server_org" => $params["server_org"],
+			"server_email" => $params["server_email"],
+			"server_cn" => $params["server_cn"],
+        );
+		
+		// Save configuration.
+        $success = false;
+        $xpath = null;
+		
+		if (empty){
+			$success = $xmlConfig->set(
+			$xpath = $this->getXpath(),
+			array("server" => $server),
+			$server
+			);
+		} else {
+			$success = $xmlConfig->replace(
+			$xpath = $this->getXpath(),
+			$server
+			);
+		}
+		
+		if(!success){
+			throw mew OMVException(
+			OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
+			$xpath
+			);
+		}
+		
+		$cmd = sprintf(
+		"export LANG=C; omv-mkconf %s set_server %s 2>&1",
+        strtolower($this->getName()),
+        $ca
+        );
+
+        if (0 !== $this->exec($cmd, $output)) {
+            throw new OMVException(
+			OMVErrorMsg::E_EXEC_FAILED,
+			$cmd,
+			implode("\n", $output)
+			);
+		}
+		
+		return $server;
+	}
+	
+	/**
+     * Delete CA and server certificate configuration.
+     *
+     * @param array $params
+     * @param array $context
+     */
+    public function deleteCA($params, $context){
+        global $xmlConfig;
+
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, array(
+            "role" => OMV_ROLE_ADMINISTRATOR
+        ));
+
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type": "object",
+                "properties": {
+                 "ca_country": { "type": "string" },
+				 "ca_province": { "type": "string" },
+				 "ca_city": { "type": "string" },
+				 "ca_org": { "type": "string" },
+				 "ca_email": { "type": "string" },
+				 "ca_cn": { "type": "string" },
+				 "server_country": { "type": "string" },
+				 "server_province": { "type": "string" },
+				 "server_city": { "type": "string" },
+				 "server_org": { "type": "string" },
+				 "server_email": { "type": "string" },
+				 "server_cn": { "type": "string" }
+                }
+            }'
+        );
+		
+		// Revoke certificates and then delete from xml if successful.
+        $cmd = sprintf(
+            "export LANG=C; omv-mkconf %s revoke_ca %s 2>&1",
+            strtolower($this->getName()),
+            $params["ca_country"],
+			$params["ca_province"],
+			$params["ca_city"],
+			$params["ca_org"],
+			$params["ca_email"],
+            $params["server_country"],
+			$params["server_province"],
+			$params["server_city"],
+			$params["server_org"],
+			$params["server_email"]
+        );
+		
+		if (0 !== $this->exec($cmd, $output)) {
+         throw new OMVException(
+            OMVErrorMsg::E_EXEC_FAILED,
+            $cmd,
+            implode("\n", $output)
+            );
+        }
+		
+		$delete = $xmlConfig->delete($this->getXpath(
+		$params["ca_country"],
+        $params["ca_province"],
+		$params["ca_city"],
+		$params["ca_org"],
+		$params["ca_email"],
+        $params["server_country"],
+        $params["server_province"],
+        $params["server_city"],
+        $params["server_org"],
+        $params["server_email"]
+		));
+		
+        if (is_null($delete)) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
+                $this->getXpath()
+            );
+        }
+    }
 
     /**
-     * Get list of certificate configurations.
+     * Get list of client certificate configurations.
      *
      * @param array $params
      * @param array $context
@@ -284,7 +616,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
     }
 
     /**
-     * Get certificate configuration.
+     * Get client certificate configuration.
      *
      * @param array $params
      * @param array $context
@@ -324,7 +656,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
     }
 
     /**
-     * Set certificate configuration.
+     * Set client certificate configuration.
      *
      * @param array $params
      * @param array $context
@@ -348,7 +680,12 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
                 "properties": {
                     "uuid": {' . $GLOBALS["OMV_JSONSCHEMA_UUID_UNDEFINED"] . '},
                     "associated_user": { "type": "string" },
-                    "common_name": { "type": "string" }
+                    "common_name": { "type": "string" },
+					"country": { "type": "string" },
+					"province": { "type": "string" },
+					"city": { "type": "string" },
+					"org": { "type": "string" },
+					"email": { "type": "string" }
                 }
             }'
         );
@@ -357,6 +694,11 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
             "uuid" => empty($params["uuid"]) ? OMVUtil::uuid() : $params["uuid"],
             "associated_user" => $params["associated_user"],
             "common_name" => $params["common_name"],
+			"country" => $params["country"],
+			"province" => $params["province"],
+			"city" => $params["city"],
+			"org" => $params["org"],
+			"email" => $params["email"],
         );
 
         // Save configuration.
@@ -385,7 +727,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
 
         // Generate certificate.
         $cmd = sprintf(
-            "export LANG=C; omv-mkconf %s add %s 2>&1",
+            "export LANG=C; omv-mkconf %s set_client %s 2>&1",
             strtolower($this->getName()),
             $client["uuid"]
         );
@@ -402,7 +744,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
     }
 
     /**
-     * Delete certificate configuration.
+     * Delete client certificate configuration.
      *
      * @param array $params
      * @param array $context
@@ -429,7 +771,7 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
 
         // Revoke certificate and then delete from xml if successful.
         $cmd = sprintf(
-            "export LANG=C; omv-mkconf %s revoke %s 2>&1",
+            "export LANG=C; omv-mkconf %s revoke_client %s 2>&1",
             strtolower($this->getName()),
             $params["uuid"]
         );
@@ -504,11 +846,13 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
         $archive = new PharData($tmpFile);
 
         $keyDir = "/etc/openvpn/keys";
+		$keyCrt = "/etc/openvpn/keys/issued";
+		$keyKey = "/etc/openvpn/keys/private";
 
         $files = array(
             "$commonName-ca.crt" => sprintf("%s/ca.crt", $keyDir),
-            "$commonName-client.crt" => sprintf("%s/%s.crt", $keyDir, $uuid),
-            "$commonName-client.key" => sprintf("%s/%s.key", $keyDir, $uuid),
+            "$commonName-client.crt" => sprintf("%s/%s.crt", $keyCrt, $uuid),
+            "$commonName-client.key" => sprintf("%s/%s.key", $keyKey, $uuid),
         );
 
         $stringContent = array(
@@ -583,6 +927,28 @@ class OMVRpcServiceOpenVpn extends OMVRpcServiceAbstract
               . $reservations;
 
         return $data;
+    }
+	
+	/**
+     * Get a list of static networks for this machine.
+     *
+     * @return array networks
+     */
+    public function getNetworks($params, $context) {
+        global $xmlConfig;
+
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, array(
+            "role" => OMV_ROLE_ADMINISTRATOR
+        ));
+     $nets=array();
+	 $ints = $xmlConfig->getList("//system/network/interfaces/interface");
+	 foreach ($ints as $i) {
+	     $nets[] = array(
+		     "netid" => $i[devicename']
+		 );
+	 }
+	 return $nets;
     }
 
     /**
