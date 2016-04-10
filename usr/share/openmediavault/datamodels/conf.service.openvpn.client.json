@@ -1,0 +1,23 @@
+{
+    "type": "config",
+    "id": "conf.service.openvpn.client",
+    "title": "OpenVPN - Client",
+    "queryinfo": {
+        "xpath": "/config/services/openvpn/clients/client",
+        "iterable": true,
+        "idproperty": "uuid"
+    },
+    "properties": {
+        "uuid": {
+            "type": "string",
+            "format": "uuidv4"
+        },
+        "associated_user": {
+            "type": "string",
+            "format": "username"
+        },
+        "common_name": {
+            "type": "string"
+        }
+    }
+}

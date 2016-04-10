@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (C) 2013-2015 OpenMediaVault Plugin Developers
+ * Copyright (C) 2013-2015 OpenMediaVault Plugin Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,29 +17,29 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+use OMV\System\LogFileSpec;
+
 // Register new logfile type.
-OMVLogFile::registerType(
-    "openvpn",
+LogFileSpec::registerSpecification(
+    'openvpn',
     [
-        "filename" => "openvpn",
-        "filepath" => "/var/log/openvpn.log",
-        "regex" => "/^(\w+\s\w+\s+\d+\s+\d+:\d+:\d+\s\d+)\s+(.*)$/",
-        "columns" => [
-            "ts" => [
-                "index" => 1,
-                "func" => create_function(
-                    "\$v",
-                    "return strpdate(\$v, \"D M d H:i:s Y\");"
-                )
+        'filename' => 'openvpn',
+        'filepath' => '/var/log/openvpn.log',
+        'regex' => "/^(\w+\s\w+\s+\d+\s+\d+:\d+:\d+\s\d+)\s+(.*)$/",
+        'columns' => [
+            'ts' => [
+                'index' => 1,
+                'func' => function ($date) {
+                    return strpdate($date, 'D M d H:i:s Y');
+                },
             ],
-            "date" => [
-                "index" => 1,
-                "func" => create_function(
-                    "\$v",
-                    "return strftime(\"%c\", strpdate(\$v,\"D M d H:i:s Y\"));"
-                )
+            'date' => [
+                'index' => 1,
+                'func' => function ($date) {
+                    return strftime('%c', strpdate($date, 'D M d H:i:s Y'));
+                },
             ],
-            "event" => 2
-        ]
+            'event' => 2,
+        ],
     ]
 );

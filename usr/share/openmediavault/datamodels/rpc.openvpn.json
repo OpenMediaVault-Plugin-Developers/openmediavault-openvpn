@@ -1,0 +1,89 @@
+[{
+    "type": "rpc",
+    "id": "rpc.openvpn.setsettings",
+    "params": {
+        "type": "object",
+        "properties": {
+            "enable": {
+                "type": "boolean",
+                "required": true
+            },
+            "port": {
+                "type": "integer",
+                "required": true
+            },
+            "protocol": {
+                "type": "string",
+                "enum": ["udp", "tcp"],
+                "required": true
+            },
+            "compression": {
+                "type": "boolean",
+                "required": true
+            },
+            "pam_authentication": {
+                "type": "boolean",
+                "required": true
+            },
+            "extra_options": {
+                "type": "string"
+            },
+            "loglevel": {
+                "type": "integer",
+                "enum": [0, 2, 5, 7],
+                "required": true
+            },
+            "vpn_network": {
+                "type": "string",
+                "required": true
+            },
+            "vpn_mask": {
+                "type": "string",
+                "required": true
+            },
+            "default_gateway": {
+                "type": "boolean",
+                "required": true
+            },
+            "client_to_client": {
+                "type": "boolean",
+                "required": true
+            },
+            "dns": {
+                "type": "string"
+            },
+            "dns_domains": {
+                "type": "string"
+            },
+            "wins": {
+                "type": "string"
+            },
+            "public_address": {
+                "type": "string",
+                "required": true
+            }
+        }
+    }
+}, {
+    "type": "rpc",
+    "id": "rpc.openvpn.set",
+    "params": {
+        "type": "object",
+        "properties": {
+            "uuid": {
+                "type": "string",
+                "format": "uuidv4",
+                "required": true
+            },
+            "associated_user": {
+                "type": "string",
+                "format": "username",
+                "required": true
+            },
+            "common_name": {
+                "type": "string",
+                "required": true
+            }
+        }
+    }
+}]

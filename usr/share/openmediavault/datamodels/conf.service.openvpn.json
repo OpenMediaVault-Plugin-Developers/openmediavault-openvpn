@@ -1,0 +1,94 @@
+{
+    "type": "config",
+    "id": "conf.service.openvpn",
+    "title": "OpenVPN",
+    "queryinfo": {
+        "xpath": "/config/services/openvpn",
+        "iterable": false
+    },
+    "properties": {
+        "enable": {
+            "type": "boolean",
+            "default": false
+        },
+        "port": {
+            "type": "integer",
+            "default": 1194
+        },
+        "protocol": {
+            "type": "string",
+            "enum": ["udp", "tcp"],
+            "default": "udp"
+        },
+        "compression": {
+            "type": "boolean",
+            "default": true
+        },
+        "pam_authentication": {
+            "type": "boolean",
+            "default": false
+        },
+        "extra_options": {
+            "type": "string",
+            "default": ""
+        },
+        "loglevel": {
+            "type": "integer",
+            "enum": [0, 2, 5, 7],
+            "default": 2
+        },
+        "vpn_network": {
+            "type": "string",
+            "default": "10.8.0.0"
+        },
+        "vpn_mask": {
+            "type": "string",
+            "default": "255.255.255.0"
+        },
+        "default_gateway": {
+            "type": "boolean",
+            "default": true
+        },
+        "client_to_client": {
+            "type": "boolean",
+            "default": false
+        },
+        "dns": {
+            "type": "string",
+            "default": ""
+        },
+        "dns_domains": {
+            "type": "string",
+            "default": ""
+        },
+        "wins": {
+            "type": "string",
+            "default": ""
+        },
+        "public_address": {
+            "type": "string",
+            "default": ""
+        },
+        "clients": {
+            "type": "object",
+            "properties": {
+                "client": {
+                    "type": "array",
+                    "items": {
+                        "uuid": {
+                            "type": "string",
+                            "format": "uuidv4"
+                        },
+                        "associated_user": {
+                            "type": "string",
+                            "format": "username"
+                        },
+                        "common_name": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

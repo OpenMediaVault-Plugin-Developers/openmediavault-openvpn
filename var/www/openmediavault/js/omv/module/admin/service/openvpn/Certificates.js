@@ -98,6 +98,7 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
     onAddButton: function() {
         Ext.create("OMV.module.admin.service.openvpn.ClientCertificate", {
             title: _("Add certificate"),
+            uuid: OMV.UUID_UNDEFINED,
             listeners: {
                 scope: this,
                 submit: function() {
