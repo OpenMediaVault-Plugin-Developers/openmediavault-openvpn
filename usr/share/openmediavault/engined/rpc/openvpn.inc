@@ -48,7 +48,7 @@ class OpenVpn extends ServiceAbstract
     private $ipPoolReservationsPath = '/etc/openvpn/ipp.txt';
 
     /* @var string */
-    private $openVpnStatusLogPath = '/etc/openvpn/openvpn-status.log';
+    private $openVpnStatusLogPath = '/var/log/openvpn-status.log';
 
     public function __construct(Database $database = null, Dispatcher $dispatcher = null)
     {
