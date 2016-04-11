@@ -18,6 +18,10 @@ case "$1" in
             rm -r /etc/network/if-pre-up.d/openvpn
         fi
 
+        if [ -f /etc/openvpn/ipp.txt ]; then
+            rm /etc/openvpn/ipp.txt
+        fi
+
         if [ -d /etc/openvpn/keys ]; then
             rm -r /etc/openvpn/keys
         fi
