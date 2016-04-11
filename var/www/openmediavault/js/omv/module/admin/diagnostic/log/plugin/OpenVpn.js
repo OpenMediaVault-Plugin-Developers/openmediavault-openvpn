@@ -18,41 +18,41 @@
 // require("js/omv/PluginManager.js")
 // require("js/omv/module/admin/diagnostic/log/plugin/Plugin.js")
 
-Ext.define("OMV.module.admin.diagnostic.log.plugin.OpenVpn", {
-    extend: "OMV.module.admin.diagnostic.log.plugin.Plugin",
-    alias: "omv.plugin.diagnostic.log.openvpn",
+Ext.define('OMV.module.admin.diagnostic.log.plugin.OpenVpn', {
+    extend: 'OMV.module.admin.diagnostic.log.plugin.Plugin',
+    alias: 'omv.plugin.diagnostic.log.openvpn',
 
-    id: "openvpn",
-    text: "OpenVPN",
+    id: 'openvpn',
+    text: 'OpenVPN',
     columns: [{
-        text: _("Date & Time"),
+        text: _('Date & Time'),
         sortable: true,
-        dataIndex: "rownum",
-        stateId: "date",
+        dataIndex: 'rownum',
+        stateId: 'date',
         renderer: function(value, metaData, record) {
-            return record.get("date");
+            return record.get('date');
         }
     }, {
-        text: _("Event"),
+        text: _('Event'),
         sortable: true,
-        dataIndex: "event",
-        stateId: "event",
+        dataIndex: 'event',
+        stateId: 'event',
         flex: 1
     }],
     rpcParams: {
-        id: "openvpn"
+        id: 'openvpn'
     },
     rpcFields: [{
-        name: "rownum",
-        type: "int"
+        name: 'rownum',
+        type: 'int'
     }, {
-        name: "ts",
-        type: "int"
+        name: 'ts',
+        type: 'int'
     }, {
-        name: "date",
-        type: "string"
+        name: 'date',
+        type: 'string'
     }, {
-        name: "event",
-        type: "string"
+        name: 'event',
+        type: 'string'
     }]
 });

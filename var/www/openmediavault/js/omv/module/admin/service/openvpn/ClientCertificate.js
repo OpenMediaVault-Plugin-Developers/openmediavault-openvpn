@@ -20,39 +20,39 @@
 // require("js/omv/workspace/window/plugin/ConfigObject.js")
 // require("js/omv/form/field/UserComboBox.js")
 
-Ext.define("OMV.module.admin.service.openvpn.ClientCertificate", {
-    extend: "OMV.workspace.window.Form",
+Ext.define('OMV.module.admin.service.openvpn.ClientCertificate', {
+    extend: 'OMV.workspace.window.Form',
     requires: [
-        "OMV.workspace.window.plugin.ConfigObject",
-        "OMV.form.field.UserComboBox"
+        'OMV.workspace.window.plugin.ConfigObject',
+        'OMV.form.field.UserComboBox'
     ],
 
     plugins: [{
-        ptype: "configobject"
+        ptype: 'configobject'
     }],
 
-    rpcService: "OpenVpn",
-    rpcSetMethod: "set",
+    rpcService: 'OpenVpn',
+    rpcSetMethod: 'set',
 
     hideResetButton: true,
     uuid: null,
 
     getFormItems: function() {
         return [{
-            xtype: "fieldset",
-            title: _("General"),
+            xtype: 'fieldset',
+            title: _('General'),
             items: [{
-                xtype: "usercombo",
-                name: "associated_user",
-                fieldLabel: _("User"),
-                userType: "normal",
+                xtype: 'usercombo',
+                name: 'associated_user',
+                fieldLabel: _('User'),
+                userType: 'normal',
                 editable: false,
                 allowNone: true
             }, {
-                xtype: "textfield",
-                name: "common_name",
-                fieldLabel: _("Common name"),
-                vtype: "domainname",
+                xtype: 'textfield',
+                name: 'common_name',
+                fieldLabel: _('Common name'),
+                vtype: 'domainname',
                 allowBlank: false
             }]
         }];

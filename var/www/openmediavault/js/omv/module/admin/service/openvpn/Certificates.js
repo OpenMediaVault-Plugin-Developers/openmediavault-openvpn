@@ -23,13 +23,13 @@
 // require("js/omv/data/Download.js")
 // require("js/omv/module/admin/service/openvpn/ClientCertificate.js")
 
-Ext.define("OMV.module.admin.service.openvpn.Certificates", {
-    extend: "OMV.workspace.grid.Panel",
+Ext.define('OMV.module.admin.service.openvpn.Certificates', {
+    extend: 'OMV.workspace.grid.Panel',
     requires: [
-        "OMV.data.Store",
-        "OMV.data.Model",
-        "OMV.data.proxy.Rpc",
-        "OMV.module.admin.service.openvpn.ClientCertificate"
+        'OMV.data.Store',
+        'OMV.data.Model',
+        'OMV.data.proxy.Rpc',
+        'OMV.module.admin.service.openvpn.ClientCertificate'
     ],
 
     hidePagingToolbar: false,
@@ -37,39 +37,39 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
     reloadOnActivate: true,
 
     columns: [{
-        header: _("UUID"),
+        header: _('UUID'),
         hidden: true,
-        dataIndex: "uuid"
+        dataIndex: 'uuid'
     }, {
-        header: _("User"),
+        header: _('User'),
         flex: 1,
         sortable: true,
-        dataIndex: "associated_user"
+        dataIndex: 'associated_user'
     }, {
-        header: _("Common name"),
+        header: _('Common name'),
         flex: 1,
         sortable: true,
-        dataIndex: "common_name",
+        dataIndex: 'common_name',
     }],
 
-    store: Ext.create("OMV.data.Store", {
+    store: Ext.create('OMV.data.Store', {
         autoLoad: true,
         remoteSort: false,
         model: OMV.data.Model.createImplicit({
-            idProperty: "uuid",
+            idProperty: 'uuid',
             fields: [{
-                name: "uuid"
+                name: 'uuid'
             }, {
-                name: "associated_user"
+                name: 'associated_user'
             }, {
-                name: "common_name"
+                name: 'common_name'
             }]
         }),
         proxy: {
-            type: "rpc",
+            type: 'rpc',
             rpcData: {
-                "service": "OpenVpn",
-                "method": "getList"
+                'service': 'OpenVpn',
+                'method': 'getList'
             }
         }
     }),
@@ -78,11 +78,11 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
         var items = this.callParent(arguments);
 
         Ext.Array.push(items, [{
-            id: this.getId() + "-dowload-certificate",
-            xtype: "button",
-            text: _("Download certificate"),
-            icon: "images/download.png",
-            iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+            id: this.getId() + '-dowload-certificate',
+            xtype: 'button',
+            text: _('Download certificate'),
+            icon: 'images/download.png',
+            iconCls: Ext.baseCSSPrefix + 'btn-icon-16x16',
             handler: Ext.Function.bind(this.onDownloadCertificateButton, this),
             scope: this,
             disabled: true,
@@ -96,8 +96,8 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
     },
 
     onAddButton: function() {
-        Ext.create("OMV.module.admin.service.openvpn.ClientCertificate", {
-            title: _("Add certificate"),
+        Ext.create('OMV.module.admin.service.openvpn.ClientCertificate', {
+            title: _('Add certificate'),
             uuid: OMV.UUID_UNDEFINED,
             listeners: {
                 scope: this,
@@ -113,10 +113,10 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
             scope: this,
             callback: this.onDeletion,
             rpcData: {
-                service: "OpenVpn",
-                method: "delete",
+                service: 'OpenVpn',
+                method: 'delete',
                 params: {
-                    uuid: record.get("uuid")
+                    uuid: record.get('uuid')
                 }
             }
         });
@@ -125,17 +125,17 @@ Ext.define("OMV.module.admin.service.openvpn.Certificates", {
     onDownloadCertificateButton: function() {
         var record = this.getSelected();
 
-        OMV.Download.request("OpenVpn", "downloadCertificate", {
-            uuid: record.get("uuid")
+        OMV.Download.request('OpenVpn', 'downloadCertificate', {
+            uuid: record.get('uuid')
         });
     }
 
 });
 
 OMV.WorkspaceManager.registerPanel({
-    id: "certificates",
-    path: "/service/openvpn",
-    text: _("Certificates"),
+    id: 'certificates',
+    path: '/service/openvpn',
+    text: _('Certificates'),
     position: 20,
-    className: "OMV.module.admin.service.openvpn.Certificates"
+    className: 'OMV.module.admin.service.openvpn.Certificates'
 });

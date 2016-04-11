@@ -22,12 +22,12 @@
 // require("js/omv/data/proxy/Rpc.js")
 // require("js/omv/data/Download.js")
 
-Ext.define("OMV.module.user.service.openvpn.Certificates", {
-    extend: "OMV.workspace.grid.Panel",
+Ext.define('OMV.module.user.service.openvpn.Certificates', {
+    extend: 'OMV.workspace.grid.Panel',
     requires: [
-        "OMV.data.Store",
-        "OMV.data.Model",
-        "OMV.data.proxy.Rpc"
+        'OMV.data.Store',
+        'OMV.data.Model',
+        'OMV.data.proxy.Rpc'
     ],
 
     hidePagingToolbar: false,
@@ -38,32 +38,32 @@ Ext.define("OMV.module.user.service.openvpn.Certificates", {
     reloadOnActivate: true,
 
     columns: [{
-        header: _("UUID"),
+        header: _('UUID'),
         hidden: true,
-        dataIndex: "uuid"
+        dataIndex: 'uuid'
     }, {
-        header: _("Common name"),
+        header: _('Common name'),
         flex: 1,
         sortable: true,
-        dataIndex: "common_name",
+        dataIndex: 'common_name',
     }],
 
-    store: Ext.create("OMV.data.Store", {
+    store: Ext.create('OMV.data.Store', {
         autoLoad: true,
         remoteSort: false,
         model: OMV.data.Model.createImplicit({
-            idProperty: "uuid",
+            idProperty: 'uuid',
             fields: [{
-                name: "uuid"
+                name: 'uuid'
             }, {
-                name: "common_name"
+                name: 'common_name'
             }]
         }),
         proxy: {
-            type: "rpc",
+            type: 'rpc',
             rpcData: {
-                "service": "OpenVpn",
-                "method": "getList"
+                'service': 'OpenVpn',
+                'method': 'getList'
             }
         }
     }),
@@ -72,11 +72,11 @@ Ext.define("OMV.module.user.service.openvpn.Certificates", {
         var items = this.callParent(arguments);
 
         Ext.Array.push(items, [{
-            id: this.getId() + "-dowload-certificate",
-            xtype: "button",
-            text: _("Download certificate"),
-            icon: "images/download.png",
-            iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+            id: this.getId() + '-dowload-certificate',
+            xtype: 'button',
+            text: _('Download certificate'),
+            icon: 'images/download.png',
+            iconCls: Ext.baseCSSPrefix + 'btn-icon-16x16',
             handler: Ext.Function.bind(this.onDownloadCertificateButton, this),
             scope: this,
             disabled: true,
@@ -92,17 +92,17 @@ Ext.define("OMV.module.user.service.openvpn.Certificates", {
     onDownloadCertificateButton: function() {
         var record = this.getSelected();
 
-        OMV.Download.request("OpenVpn", "downloadCertificate", {
-            uuid: record.get("uuid")
+        OMV.Download.request('OpenVpn', 'downloadCertificate', {
+            uuid: record.get('uuid')
         });
     }
 
 });
 
 OMV.WorkspaceManager.registerPanel({
-    id: "certificates",
-    path: "/service/openvpn",
-    text: _("Certificates"),
+    id: 'certificates',
+    path: '/service/openvpn',
+    text: _('Certificates'),
     position: 10,
-    className: "OMV.module.user.service.openvpn.Certificates"
+    className: 'OMV.module.user.service.openvpn.Certificates'
 });

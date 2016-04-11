@@ -18,16 +18,16 @@
 // require("js/omv/WorkspaceManager.js")
 
 OMV.WorkspaceManager.registerNode({
-    id: "service",
-    path: "/",
-    text: _("Services"),
+    id: 'service',
+    path: '/',
+    text: _('Services'),
     position: 40
 });
 
 OMV.WorkspaceManager.registerNode({
-    id: "openvpn",
-    path: "/service",
-    text: _("OpenVPN"),
-    icon16: "images/openvpn.png",
-    iconSvg: "images/openvpn.svg"
+    id: 'openvpn',
+    path: '/service',
+    text: _('OpenVPN'),
+    icon16: 'images/openvpn.png',
+    iconSvg: 'images/openvpn.svg'
 });
