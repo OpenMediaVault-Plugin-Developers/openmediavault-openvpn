@@ -256,7 +256,6 @@ class OpenVpn extends ServiceAbstract
         $object = $this->database->get($this->clientDataModelPath, $params['uuid']);
         $settings = $this->database->get($this->dataModelPath);
 
-        $uuid = $object->get('uuid');
         $commonName = $object->get('common_name');
 
         // Check if the user is eligible to download the certificate.
@@ -274,8 +273,8 @@ class OpenVpn extends ServiceAbstract
 
         $files = [
             $commonName.'-ca.crt' => sprintf('%s/ca.crt', $keyDir),
-            $commonName.'-client.crt' => sprintf('%s/%s.crt', $keyDir, $uuid),
-            $commonName.'-client.key' => sprintf('%s/%s.key', $keyDir, $uuid),
+            $commonName.'-client.crt' => sprintf('%s/%s.crt', $keyDir, $commonName),
+            $commonName.'-client.key' => sprintf('%s/%s.key', $keyDir, $commonName),
         ];
 
         $stringContent = [

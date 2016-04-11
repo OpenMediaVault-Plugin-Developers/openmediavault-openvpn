@@ -14,16 +14,8 @@ case "$1" in
             omv_config_delete "${SERVICE_XPATH}"
         fi
 
-        if [ -f /etc/sysctl.d/99-openvpn.conf ]; then
-            rm -r /etc/sysctl.d/99-openvpn.conf
-        fi
-
         if [ -f /etc/network/if-pre-up.d/openvpn ]; then
             rm -r /etc/network/if-pre-up.d/openvpn
-        fi
-
-        if [ -d /etc/openvpn/easy-rsa ]; then
-            rm -r /etc/openvpn/easy-rsa
         fi
 
         if [ -d /etc/openvpn/keys ]; then
@@ -32,6 +24,10 @@ case "$1" in
 
         if [ -f /etc/openvpn/server.conf ]; then
             rm -r /etc/openvpn/server.conf
+        fi
+
+        if [ -f /etc/sysctl.d/99-openvpn.conf ]; then
+            rm -r /etc/sysctl.d/99-openvpn.conf
         fi
     ;;
 
