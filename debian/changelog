@@ -1,8 +1,8 @@
-openmediavault-openvpn (3.0) UNRELEASED; urgency=medium
+openmediavault-openvpn (3.0.1) UNRELEASED; urgency=medium
 
-  * OMV 3.0 release.
+  * OMV 3.0.15 release.
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 04 Jan 2016 16:22:58 +0100
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 11 Apr 2016 15:09:38 +0200
 
 openmediavault-openvpn (1.1) stable; urgency=medium
 
