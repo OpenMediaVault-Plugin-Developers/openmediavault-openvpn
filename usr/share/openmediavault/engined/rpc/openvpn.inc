@@ -263,23 +263,24 @@ class OpenVpn extends ServiceAbstract
             return;
         }
 
-        $configContent = $this->generateClientConf($object, $settings);
-
         // Create a new temporary archive file.
         $tmpFile = sprintf('%s/%s.zip', sys_get_temp_dir(), uniqid());
         $archive = new PharData($tmpFile);
 
         $keyDir = '/etc/openvpn/keys';
+        $ca = sprintf('%s/ca.crt', $keyDir);
+        $cert = sprintf('%s/%s.crt', $keyDir, $commonName);
+        $key = sprintf('%s/%s.key', $keyDir, $commonName);
 
         $files = [
-            $commonName.'-ca.crt' => sprintf('%s/ca.crt', $keyDir),
-            $commonName.'-client.crt' => sprintf('%s/%s.crt', $keyDir, $commonName),
-            $commonName.'-client.key' => sprintf('%s/%s.key', $keyDir, $commonName),
+            $commonName . '-ca.crt' => $ca,
+            $commonName . '-client.crt' => $cert,
+            $commonName . '-client.key' => $key,
         ];
 
         $stringContent = [
-            $commonName.'-client.conf' => $configContent,
-            $commonName.'-client.ovpn' => $configContent,
+            $commonName . '-client.conf' => self::generateClientConf($object, $settings),
+            $commonName . '-client.ovpn' => self::generateClientConf($object, $settings, $ca, $cert, $key),
         ];
 
         foreach ($files as $filename => $file) {
@@ -292,7 +293,7 @@ class OpenVpn extends ServiceAbstract
 
         return [
             'contenttype' => 'application/zip',
-            'filename' => 'openvpn-'.$commonName.'.zip',
+            'filename' => 'openvpn-' . $commonName . '.zip',
             'filepath' => $tmpFile,
         ];
     }
@@ -330,9 +331,9 @@ class OpenVpn extends ServiceAbstract
 
         $data = implode(PHP_EOL, [
             gettext('------ OpenVPN status -------'),
-            $status.PHP_EOL,
+            $status . PHP_EOL,
             gettext('---- IP pool reservation ----'),
-            $reservations.PHP_EOL,
+            $reservations . PHP_EOL,
         ]);
 
         return $data;
@@ -343,11 +344,22 @@ class OpenVpn extends ServiceAbstract
      *
      * @param ConfigObject $client   Client certificate configuration.
      * @param ConfigObject $settings The OpenVPN plugin configuration.
+     * @param string       $ca       Path to the CA. If set the CA will be
+     *                               included in the file.
+     * @param string       $cert     Path to public key. If set the certificate
+     *                               will be included in the file.
+     * @param string       $key      Path to private key. If set the certificate
+     *                               will be included in the file.
      *
      * @return string
      */
-    private function generateClientConf(ConfigObject $client, ConfigObject $settings)
-    {
+    private static function generateClientConf(
+        ConfigObject $client,
+        ConfigObject $settings,
+        $ca = null,
+        $cert = null,
+        $key = null
+    ) {
         $commonName = $client->get('common_name');
 
         $publicAddress = $settings->get('public_address');
@@ -358,12 +370,9 @@ class OpenVpn extends ServiceAbstract
 
         $configOptions = [
             'client',
-            'remote '.$publicAddress.' '.$port,
-            'proto '.$protocol,
+            'remote ' . $publicAddress . ' ' . $port,
+            'proto ' . $protocol,
             'dev tun',
-            'ca   '.$commonName.'-ca.crt',
-            'cert '.$commonName.'-client.crt',
-            'key  '.$commonName.'-client.key',
             'ns-cert-type server',
             $compression,
             $pam_authentication,
@@ -374,6 +383,30 @@ class OpenVpn extends ServiceAbstract
             'verb 3',
             'mute 10',
         ];
+
+        if ($ca) {
+            $configOptions[] = '<ca>';
+            $configOptions[] = file_get_contents($ca);
+            $configOptions[] = '</ca>';
+        } else {
+            $configOptions[] = 'ca   ' . $commonName . '-ca.crt';
+        }
+
+        if ($cert) {
+            $configOptions[] = '<cert>';
+            $configOptions[] = file_get_contents($cert);
+            $configOptions[] = '</cert>';
+        } else {
+            $configOptions[] = 'cert ' . $commonName . '-client.crt';
+        }
+
+        if ($key) {
+            $configOptions[] = '<key>';
+            $configOptions[] = file_get_contents($key);
+            $configOptions[] = '</key>';
+        } else {
+            $configOptions[] = 'key  ' . $commonName . '-client.key';
+        }
 
         return implode(PHP_EOL, $configOptions);
     }
