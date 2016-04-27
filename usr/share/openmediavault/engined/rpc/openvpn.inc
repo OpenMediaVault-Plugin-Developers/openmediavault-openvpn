@@ -42,7 +42,7 @@ class OpenVpn extends ServiceAbstract
     private $dispatcher;
 
     /* @var string */
-    private $eventMessagePath = 'org.openmediavault.services.openvpn';
+    private $eventMessagePath = 'org.openmediavault.conf.service.openvpn';
 
     /* @var string */
     private $ipPoolReservationsPath = '/etc/openvpn/ipp.txt';

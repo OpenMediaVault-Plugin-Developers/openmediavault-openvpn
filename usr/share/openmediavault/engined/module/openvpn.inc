@@ -38,7 +38,7 @@ class OpenVpn extends ServiceAbstract implements
     private $dataModelPath = 'conf.service.openvpn';
 
     /** @var string */
-    private $eventMessagePath = 'org.openmediavault.services.openvpn';
+    private $eventMessagePath = 'org.openmediavault.conf.service.openvpn';
 
     /** @var string */
     private $serviceName = 'openvpn.service';
