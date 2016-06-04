@@ -22,7 +22,6 @@ namespace OMV\Engined\Rpc;
 use OMV\Config\ConfigObject;
 use OMV\Config\Database;
 use OMV\Config\DatabaseException;
-use OMV\Engine\Notify\Dispatcher;
 use OMV\Rpc\ServiceAbstract;
 use OMV\System\Process;
 use PharData;
@@ -38,22 +37,15 @@ class OpenVpn extends ServiceAbstract
     /** @var string */
     private $dataModelPath = 'conf.service.openvpn';
 
-    /** @var Dispatcher */
-    private $dispatcher;
-
-    /* @var string */
-    private $eventMessagePath = 'org.openmediavault.conf.service.openvpn';
-
     /* @var string */
     private $ipPoolReservationsPath = '/etc/openvpn/ipp.txt';
 
     /* @var string */
     private $openVpnStatusLogPath = '/var/log/openvpn-status.log';
 
-    public function __construct(Database $database = null, Dispatcher $dispatcher = null)
+    public function __construct(Database $database = null)
     {
         $this->database = $database ?: Database::getInstance();
-        $this->dispatcher = $dispatcher ?: Dispatcher::getInstance();
     }
 
     /**
@@ -118,7 +110,6 @@ class OpenVpn extends ServiceAbstract
         $object->setAssoc($params);
 
         $this->database->set($object);
-        $this->dispatcher->notify(OMV_NOTIFY_MODIFY, $this->eventMessagePath, $object);
 
         return $object->getAssoc();
     }
