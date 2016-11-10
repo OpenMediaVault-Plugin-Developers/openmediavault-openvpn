@@ -52,9 +52,11 @@ case "$1" in
             omv_config_add_node "${SERVICE_XPATH}" "clients" ""
         fi
 
-        addgroup --quiet \
-                 --system \
-                 openvpn
+        if ! omv_group_id_exists openvpn; then
+            addgroup --quiet \
+                     --system \
+                     openvpn
+        fi
 
         # Activate package triggers. These triggers are only set during the
         # package installation.
