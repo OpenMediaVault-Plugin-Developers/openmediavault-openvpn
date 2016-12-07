@@ -17,10 +17,16 @@
 
 // require("js/omv/WorkspaceManager.js")
 // require("js/omv/workspace/form/Panel.js")
+// require("js/omv/Rpc.js")
+// require("js/omv/data/Store.js")
+// require("js/omv/data/Model.js")
+// require("js/omv/data/proxy/Rpc.js")
 
 Ext.define('OMV.module.admin.service.openvpn.Settings', {
     extend: 'OMV.workspace.form.Panel',
-
+    requires: [
+            "OMV.Rpc"
+    ],
     rpcService: 'OpenVpn',
     rpcGetMethod: 'getSettings',
     rpcSetMethod: 'setSettings',
@@ -140,6 +146,38 @@ Ext.define('OMV.module.admin.service.openvpn.Settings', {
                     ptype: 'fieldinfo',
                     text: _('If enabled, this directive will configure all clients to redirect their default network gateway through the VPN. If disabled, a static route to the private subnet is configured on all clients.')
                 }]
+            }, {
+                xtype: 'combo',
+                name: 'gateway_interface',
+                fieldLabel: _('Gateway Interface'),
+                store: Ext.create("OMV.data.Store", {
+                    autoLoad: true,
+                    model: OMV.data.Model.createImplicit({
+                        identifier: "empty",
+                        idProperty: "devicename",
+                        fields: [
+                            { name: "devicename", type: "string" },
+                        ]
+                    }),
+                    proxy: {
+                        type: "rpc",
+                        rpcData: {
+                            service: "Network",
+                            method: "getInterfaceList"
+                        }
+                    },
+                    sorters: [{
+                        direction: "ASC",
+                        property: "devicename"
+                    }],
+
+                }),
+                emptyText: _("Select a device ..."),
+                displayField: 'devicename',
+                valueField: 'devicename',
+                allowBlank: false,
+                editable: false,
+                triggerAction: 'all',
             }, {
                 xtype: 'checkbox',
                 name: 'client_to_client',

@@ -45,6 +45,10 @@
                 "type": "boolean",
                 "required": true
             },
+            "gateway_interface": {
+                "type": "string",
+                "required": true
+            },
             "client_to_client": {
                 "type": "boolean",
                 "required": true

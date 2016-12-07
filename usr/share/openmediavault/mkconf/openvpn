@@ -34,24 +34,23 @@ EASY_RSA_KEY_DIR="${SERVICE_OPENVPN_KEY_DIR:-/etc/openvpn/keys}"
 
 get_ipv4_definition()
 {
-    local interface=$(xmlstarlet sel -t -v "//system/network/interfaces/interface[type='ethernet' or type='wireless'][1]/devicename" $OMV_CONFIG_FILE)
-    ifconfig $interface | grep 'inet addr:'
+    ifconfig $1 | grep 'inet addr:'
 }
 
 get_ip()
 {
-    get_ipv4_definition | cut -d: -f2 | cut -d' ' -f1
+    get_ipv4_definition $1 | cut -d: -f2 | cut -d' ' -f1
 }
 
 get_mask()
 {
-    get_ipv4_definition | cut -d: -f4 | cut -d' ' -f1
+    get_ipv4_definition $1 | cut -d: -f4 | cut -d' ' -f1
 }
 
 get_subnet()
 {
-    local ip=$(get_ip)
-    local mask=$(get_mask)
+    local ip=$(get_ip $1)
+    local mask=$(get_mask $1)
     local IFS='.' subnet i
     local -a oct msk
     read -ra oct <<< "$ip"
@@ -108,9 +107,10 @@ setup_certificates()
 setup_config()
 {
     # Variables.
-    local ip=$(get_ip)
-    local mask=$(get_mask)
-    local subnet=$(get_subnet)
+    local gateway_interface=$(omv_config_get "$SERVICE_XPATH/gateway_interface")
+    local ip=$(get_ip $gateway_interface)
+    local mask=$(get_mask $gateway_interface)
+    local subnet=$(get_subnet $gateway_interface)
     local port=$(omv_config_get "$SERVICE_XPATH/port")
     local protocol=$(omv_config_get "$SERVICE_XPATH/protocol")
     local compression=$(omv_config_get "$SERVICE_XPATH/compression")
