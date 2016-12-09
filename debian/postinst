@@ -40,8 +40,8 @@ case "$1" in
 
             omv_config_add_key "${SERVICE_XPATH}" "vpn_network" "10.8.0.0"
             omv_config_add_key "${SERVICE_XPATH}" "vpn_mask" "255.255.255.0"
-            omv_config_add_key "${SERVICE_XPATH}" "default_gateway" "1"
             omv_config_add_key "${SERVICE_XPATH}" "gateway_interface" ""
+            omv_config_add_key "${SERVICE_XPATH}" "default_gateway" "1"
             omv_config_add_key "${SERVICE_XPATH}" "client_to_client" "0"
 
             omv_config_add_key "${SERVICE_XPATH}" "dns" ""

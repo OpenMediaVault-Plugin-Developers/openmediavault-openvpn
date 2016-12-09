@@ -41,12 +41,12 @@
                 "type": "string",
                 "required": true
             },
-            "default_gateway": {
-                "type": "boolean",
-                "required": true
-            },
             "gateway_interface": {
                 "type": "string",
+                "required": true
+            },
+            "default_gateway": {
+                "type": "boolean",
                 "required": true
             },
             "client_to_client": {
