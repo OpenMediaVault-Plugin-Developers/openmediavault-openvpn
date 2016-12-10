@@ -25,7 +25,7 @@
 Ext.define('OMV.module.admin.service.openvpn.Settings', {
     extend: 'OMV.workspace.form.Panel',
     requires: [
-            "OMV.Rpc"
+            'OMV.Rpc'
     ],
     rpcService: 'OpenVpn',
     rpcGetMethod: 'getSettings',
