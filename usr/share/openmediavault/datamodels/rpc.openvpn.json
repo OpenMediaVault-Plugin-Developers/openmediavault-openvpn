@@ -41,6 +41,10 @@
                 "type": "string",
                 "required": true
             },
+            "gateway_interface": {
+                "type": "string",
+                "required": true
+            },
             "default_gateway": {
                 "type": "boolean",
                 "required": true

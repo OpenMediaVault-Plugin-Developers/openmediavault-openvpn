@@ -45,6 +45,10 @@
             "type": "string",
             "default": "255.255.255.0"
         },
+        "gateway_interface": {
+            "type": "string",
+            "default": ""
+        },
         "default_gateway": {
             "type": "boolean",
             "default": true
