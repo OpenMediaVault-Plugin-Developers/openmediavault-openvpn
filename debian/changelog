@@ -1,3 +1,9 @@
+openmediavault-openvpn (3.0.6) stable; urgency=low
+
+  * Improve foreign content handling
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 18 Mar 2017 10:47:39 -0500
+
 openmediavault-openvpn (3.0.5) stable; urgency=medium
 
   * The interface used for the iptables rules is now selectable. 
