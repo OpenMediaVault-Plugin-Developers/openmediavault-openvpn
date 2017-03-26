@@ -133,11 +133,11 @@ class OpenVpn extends ServiceAbstract
             $objects = $this->database->get($this->clientDataModelPath);
         } else {
             try {
-		$objects = $this->database->getByFilter($this->clientDataModelPath, [
-                               'operator' => 'stringEquals',
-                               'arg0' => 'associated_user',
-                               'arg1' => $context['username']
-                           ]);
+                $objects = $this->database->getByFilter($this->clientDataModelPath, [
+                    'operator' => 'stringEquals',
+                    'arg0' => 'associated_user',
+                    'arg1' => $context['username']
+                ]);
             } catch (DatabaseException $e) {
                 // OMV throws and exception when there was no match.
             }
