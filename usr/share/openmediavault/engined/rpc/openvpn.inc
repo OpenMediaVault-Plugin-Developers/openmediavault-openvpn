@@ -262,10 +262,10 @@ class OpenVpn extends ServiceAbstract
         $tmpFile = sprintf('%s/%s.zip', sys_get_temp_dir(), uniqid());
         $archive = new PharData($tmpFile);
 
-        $keyDir = '/etc/openvpn/keys';
+        $keyDir = '/etc/openvpn/pki';
         $ca = sprintf('%s/ca.crt', $keyDir);
-        $cert = sprintf('%s/%s.crt', $keyDir, $commonName);
-        $key = sprintf('%s/%s.key', $keyDir, $commonName);
+        $cert = sprintf('%s/issued/%s.crt', $keyDir, $commonName);
+        $key = sprintf('%s/private/%s.key', $keyDir, $commonName);
 
         $files = [
             $commonName . '-ca.crt' => $ca,

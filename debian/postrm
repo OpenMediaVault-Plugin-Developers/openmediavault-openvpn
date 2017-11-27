@@ -33,6 +33,9 @@ case "$1" in
         if [ -f /etc/sysctl.d/99-openvpn.conf ]; then
             rm -r /etc/sysctl.d/99-openvpn.conf
         fi
+
+        # Remove the easyrsa directory
+        rm -rf /opt/Easy-RSA-*
     ;;
 
     remove)
