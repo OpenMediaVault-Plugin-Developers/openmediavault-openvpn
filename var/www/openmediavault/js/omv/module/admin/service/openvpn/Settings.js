@@ -84,10 +84,7 @@ Ext.define('OMV.module.admin.service.openvpn.Settings', {
                 name: 'pam_authentication',
                 fieldLabel: _('PAM authentication'),
                 checked: false,
-                plugins: [{
-                    ptype: 'fieldinfo',
-                    text: _('Authenticate with server using username/password (client certificate and key are still required).')
-                }]
+                boxLabel: _('Authenticate with server using username/password (client certificate and key are still required).')
             }, {
                 xtype: 'textarea',
                 name: 'extra_options',
@@ -174,19 +171,15 @@ Ext.define('OMV.module.admin.service.openvpn.Settings', {
                 name: 'default_gateway',
                 fieldLabel: _('Default gateway'),
                 checked: true,
-                plugins: [{
-                    ptype: 'fieldinfo',
-                    text: _('If enabled, this directive will configure all clients to redirect their default network gateway through the VPN. If disabled, a static route to the private subnet is configured on all clients.')
-                }]
+                boxLabel: _('If enabled, this directive will configure all clients to redirect their \
+                            default network gateway through the VPN. If disabled, a static route to the \
+                            private subnet is configured on all clients.')
             }, {
                 xtype: 'checkbox',
                 name: 'client_to_client',
                 fieldLabel: _('Client to client'),
                 checked: false,
-                plugins: [{
-                    ptype: 'fieldinfo',
-                    text: _('Allow client to client communication')
-                }]
+                boxLabel: _('Allow client to client communication')
             }]
         }, {
             xtype: 'fieldset',

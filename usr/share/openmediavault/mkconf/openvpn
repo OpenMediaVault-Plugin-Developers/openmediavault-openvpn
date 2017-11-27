@@ -27,57 +27,56 @@ SERVICE_XPATH="/config/services/openvpn"
 SERVICE_SYSCTL_CONF="/etc/sysctl.d/99-openvpn.conf"
 SERVICE_IPTABLES_CONF="/etc/network/if-pre-up.d/openvpn"
 SERVICE_OPENVPN_CONF="/etc/openvpn/server.conf"
+SERVICE_OPENVPN_DIR="/etc/openvpn"
+HOSTNAME=$(cat /etc/hostname)
+if [ -z "$HOSTNAME" ];then
+    HOSTNAME="server"
+fi
+
+## temp for testing
+# export EASYRSA_KEY_SIZE=512
 
 # easy-rsa variables.
-EASY_RSA_DIR="/usr/share/easy-rsa"
-EASY_RSA_KEY_DIR="${SERVICE_OPENVPN_KEY_DIR:-/etc/openvpn/keys}"
+EASY_RSA_VERSION="3.0.3"
+EASY_RSA_DIR="/opt/EasyRSA-$EASY_RSA_VERSION"
+EASY_RSA_KEY_DIR="${SERVICE_OPENVPN_KEY_DIR:-/etc/openvpn/pki}"
 
-get_ipv4_definition()
+cdr2mask ()
 {
-    ifconfig "$1" | grep "inet addr:"
+   set -- $(( 5 - ($1 / 8) )) 255 255 255 255 $(( (255 << (8 - ($1 % 8))) & 255 )) 0 0 0
+   [ $1 -gt 1 ] && shift $1 || shift
+   echo ${1-0}.${2-0}.${3-0}.${4-0}
 }
 
 get_ip()
 {
-    get_ipv4_definition "$1" | cut -d: -f2 | cut -d" " -f1
+    omv_get_ipaddr "$1"
 }
 
 get_mask()
 {
-    get_ipv4_definition "$1" | cut -d: -f4 | cut -d" " -f1
+    mask=$(cdr2mask `ip addr show "$1" |  grep "inet\b" | awk '{print $2}' | cut -d/ -f2`)
+    echo "${mask}"
 }
 
 get_subnet()
 {
-    local ip=$(get_ip "$1")
-    local mask=$(get_mask "$1")
-    local IFS='.' subnet i
-    local -a oct msk
-    read -ra oct <<< "$ip"
-    read -ra msk <<< "$mask"
-
-    for i in ${!oct[@]}; do
-        subnet+=( "$(( oct[i] & msk[i] ))" )
-    done
-
-    echo "${subnet[*]}"
+    subnet=$(ip r s | grep -Ev default | grep ${1} |cut -d/ -f1)
+    echo "${subnet}"
 }
 
 setup_certificates()
 {
-    # Change into the easy-rsa directory before sourcing vars to make sure it'll
-    # have the correct variables.
+    # Change into the easy-rsa directory
     cd "$EASY_RSA_DIR"
 
-    # Import easy-rsa parameter settings.
-    . "$EASY_RSA_DIR/vars"
+    # Create PKI directory
+    if [ ! -d "${SERVICE_OPENVPN_DIR}/pki" ];then
+        mkdir "${SERVICE_OPENVPN_DIR}"/pki
+    fi
 
-    # Export variables.
-    export KEY_DIR="$EASY_RSA_KEY_DIR"
-
-    # Clean and initialize the KEY_DIR directory.
-    # Removes the existing KEY_DIR and creates a new one.
-    "$EASY_RSA_DIR/clean-all"
+    # Define PKI directory variable
+    export EASYRSA_PKI="$SERVICE_OPENVPN_DIR"/pki
 
     # Remove clients from the config.
     omv_config_update "$SERVICE_XPATH/clients" ""
@@ -86,18 +85,21 @@ setup_certificates()
     # because it's interactive. This could potentially break the installation
     # script in case of future changes.
 
-    # Build root Certificates
-    "$EASY_RSA_DIR/pkitool" --initca
+    # Clean the pki directory
+    "$EASY_RSA_DIR/easyrsa" --batch init-pki
+
+    # Build the CA root certificates
+    "$EASY_RSA_DIR/easyrsa" --batch build-ca nopass
+
+    # Create the server certificate/key
+    "$EASY_RSA_DIR/easyrsa" --batch build-server-full $HOSTNAME nopass        
 
     # Initialize the CRL by revoking a non-existant cert. Returns the error code
     # 23 when the certificate is revoked.
-    "$EASY_RSA_DIR/revoke-full" null || true
+    "$EASY_RSA_DIR/easyrsa" gen-crl || true
 
     # Generate Diffie Hellman parameter for the server side.
-    "$EASY_RSA_DIR/build-dh"
-
-    # Build server certificate/key.
-    "$EASY_RSA_DIR/pkitool" --server server
+    "$EASY_RSA_DIR/easyrsa" gen-dh
 
     # FIXME: Is this the best way?
     # Make sure the CLR is readable by OpenVPN.
@@ -171,110 +173,18 @@ setup_config()
     chmod 755 "$SERVICE_IPTABLES_CONF"
 
     cat > "$SERVICE_OPENVPN_CONF" <<EOF
-#################################################
-# OpenMediaVault config file for multi-client   #
-# server.                                       #
-#                                               #
-# This file is for the server side              #
-# of a many-clients <-> one-server              #
-# OpenVPN configuration.                        #
-#                                               #
-# Comments are preceded with '#' or ';'         #
-#################################################
-
-# Which TCP/UDP port should OpenVPN listen on?
-# If you want to run multiple OpenVPN instances
-# on the same machine, use a different port
-# number for each one.  You will need to
-# open up this port on your firewall.
 port $port
-
-# TCP or UDP server?
 proto $protocol
-
-# "dev tun" will create a routed IP tunnel,
-# "dev tap" will create an ethernet tunnel.
-# Use "dev tap0" if you are ethernet bridging
-# and have precreated a tap0 virtual interface
-# and bridged it with your ethernet interface.
-# If you want to control access policies
-# over the VPN, you must create firewall
-# rules for the the TUN/TAP interface.
-# On non-Windows systems, you can give
-# an explicit unit number, such as tun0.
-# On Windows, use "dev-node" for this.
-# On most systems, the VPN will not function
-# unless you partially or fully disable
-# the firewall for the TUN/TAP interface.
 dev tun
-
-# SSL/TLS root certificate (ca), certificate
-# (cert), and private key (key).  Each client
-# and the server must have their own cert and
-# key file.  The server and all clients will
-# use the same ca file.
-#
-# See the "easy-rsa" directory for a series
-# of scripts for generating RSA certificates
-# and private keys.  Remember to use
-# a unique Common Name for the server
-# and each of the client certificates.
-#
-# Any X509 key management system can be used.
-# OpenVPN can also use a PKCS #12 formatted key file
-# (see "pkcs12" directive in man page).
 ca "$EASY_RSA_KEY_DIR/ca.crt"
-cert "$EASY_RSA_KEY_DIR/server.crt"
-key "$EASY_RSA_KEY_DIR/server.key" # This file should be kept secret
-
-# Diffie hellman parameters.
-# Generate your own with:
-#   openssl dhparam -out dh1024.pem 1024
-# Substitute 2048 for 1024 if you are using
-# 2048 bit keys.
-dh "$EASY_RSA_KEY_DIR/dh2048.pem"
-
-# Configure server mode and supply a VPN subnet
-# for OpenVPN to draw client addresses from.
-# The server will take 10.8.0.1 for itself,
-# the rest will be made available to clients.
-# Each client will be able to reach the server
-# on 10.8.0.1. Comment this line out if you are
-# ethernet bridging. See the man page for more info.
+cert "$EASY_RSA_KEY_DIR/issued/$HOSTNAME.crt"
+key "$EASY_RSA_KEY_DIR/private/$HOSTNAME.key" # This file should be kept secret
+dh "$EASY_RSA_KEY_DIR/dh.pem"
+topology subnet
 server $vpn_network $vpn_mask
-
-# Maintain a record of client <-> virtual IP address
-# associations in this file.  If OpenVPN goes down or
-# is restarted, reconnecting clients can be assigned
-# the same virtual IP address from the pool that was
-# previously assigned.
 ifconfig-pool-persist ipp.txt
-
-# Push routes to the client to allow it
-# to reach other private subnets behind
-# the server.  Remember that these
-# private subnets will also need
-# to know to route the OpenVPN client
-# address pool (10.8.0.0/255.255.255.0)
-# back to the OpenVPN server.
 $static_route
-
-# If enabled, this directive will configure
-# all clients to redirect their default
-# network gateway through the VPN, causing
-# all IP traffic such as web browsing and
-# and DNS lookups to go through the VPN
-# (The OpenVPN server machine may need to NAT
-# or bridge the TUN/TAP interface to the internet
-# in order for this to work properly).
 $default_gateway
-
-# Certain Windows-specific network settings
-# can be pushed to clients, such as DNS
-# or WINS server addresses.  CAVEAT:
-# http://openvpn.net/faq.html#dhcpcaveats
-# The addresses below refer to the public
-# DNS servers provided by opendns.com.
 EOF
 
     for address in $dns; do
@@ -288,78 +198,18 @@ EOF
     done
 
     cat >> "$SERVICE_OPENVPN_CONF" <<EOF
-
-# Uncomment this directive to allow different
-# clients to be able to "see" each other.
-# By default, clients will only see the server.
-# To force clients to only see the server, you
-# will also need to appropriately firewall the
-# server's TUN/TAP interface.
 $client_to_client
-
-# The keepalive directive causes ping-like
-# messages to be sent back and forth over
-# the link so that each side knows when
-# the other side has gone down.
-# Ping every 10 seconds, assume that remote
-# peer is down if no ping received during
-# a 120 second time period.
 keepalive 10 120
-
-# Enable compression on the VPN link.
-# If you enable it here, you must also
-# enable it in the client config file.
 $compression
-
-# Enable PAM authentication plugin.
-# If you enable it here, you must also
-# enable it in the client config file.
 $pam_authentication
-
-# It's a good idea to reduce the OpenVPN
-# daemon's privileges after initialization.
-#
-# You can uncomment this out on
-# non-Windows systems.
 user nobody
 group nogroup
-
-# The persist options will try to avoid
-# accessing certain resources on restart
-# that may no longer be accessible because
-# of the privilege downgrade.
 persist-key
 persist-tun
-
-# Output a short status file showing
-# current connections, truncated
-# and rewritten every minute.
 status /var/log/openvpn-status.log
-
-# By default, log messages will go to the syslog (or
-# on Windows, if running as a service, they will go to
-# the "\Program Files\OpenVPN\log" directory).
-# Use log or log-append to override this default.
-# "log" will truncate the log file on OpenVPN startup,
-# while "log-append" will append to it.  Use one
-# or the other (but not both).
 log /var/log/openvpn.log
-
-# Set the appropriate level of log
-# file verbosity.
-#
-# 0 is silent, except for fatal errors
-# 4 is reasonable for general usage
-# 5 and 6 can help to debug connection problems
-# 9 is extremely verbose
 verb $loglevel
-
-# Silence repeating messages.  At most 20
-# sequential messages of the same message
-# category will be output to the log.
 mute 10
-
-# Certificate Revocation List
 crl-verify "$EASY_RSA_KEY_DIR/crl.pem"
 
 EOF
@@ -375,18 +225,11 @@ add_client_cert()
     local uuid="$1"
     local common_name="$(omv_config_get "$SERVICE_XPATH/clients/client[uuid='$uuid']/common_name")"
 
-    # Change into the easy-rsa directory before sourcing vars to make sure it'll
-    # have the correct variables.
-    cd "$EASY_RSA_DIR"
-
-    # Import easy-rsa parameter settings.
-    . "$EASY_RSA_DIR/vars"
-
     # Export variables.
-    export KEY_DIR="$EASY_RSA_KEY_DIR"
+    export EASYRSA_PKI="$SERVICE_OPENVPN_DIR"/pki
 
     # build-key for the client.
-    "$EASY_RSA_DIR/pkitool" $common_name
+    "$EASY_RSA_DIR/easyrsa" build-client-full $common_name nopass
 }
 
 revoke_client_cert()
@@ -394,18 +237,17 @@ revoke_client_cert()
     local uuid="$1"
     local common_name="$(omv_config_get "$SERVICE_XPATH/clients/client[uuid='$uuid']/common_name")"
 
-    # Change into the easy-rsa directory before sourcing vars to make sure it'll
-    # have the correct variables.
-    cd "$EASY_RSA_DIR"
-
-    # Import easy-rsa parameter settings.
-    . "$EASY_RSA_DIR/vars"
-
-    # Export variables.
-    export KEY_DIR="$EASY_RSA_KEY_DIR"
+    # Export pki directory variable 
+    export EASYRSA_PKI="$SERVICE_OPENVPN_DIR"/pki
 
     # revoke-full returns error code 23 when the certificate is revoked.
-    "$EASY_RSA_DIR/revoke-full" $common_name || true
+    "$EASY_RSA_DIR/easyrsa" --batch revoke $common_name
+
+    # Update the control revokation list
+    "$EASY_RSA_DIR/easyrsa" gen-crl
+
+    ## Delete the files associated with client
+    rm -rf "${SERVICE_OPENVPN_DIR}"/pki/{private,issued,reqs}/"${common_name}".{crt,key,req}
 }
 
 
@@ -419,7 +261,7 @@ fi
 case ${args[0]} in
     setup)
         # Check if certificates exists.
-        if [ ! -f "$EASY_RSA_KEY_DIR/ca.key" -o ! -f "$EASY_RSA_KEY_DIR/server.key" ]; then
+        if [ ! -f "$EASY_RSA_KEY_DIR/private/ca.key" -o ! -f "$EASY_RSA_KEY_DIR/private/$HOSTNAME.key" ]; then
             setup_certificates
         fi
 
