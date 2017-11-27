@@ -1,152 +1,152 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-openvpn package.
 # 
 # Translators:
+# Gyuris Gellért <gellert.gyuris@protonmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-27 07:25-0500\n"
-"PO-Revision-Date: 2014-11-14 19:50+0000\n"
-"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
-"Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/openmediavault-openvpn/language/hu_HU/)\n"
+"POT-Creation-Date: 2017-11-27 09:18-0600\n"
+"PO-Revision-Date: 2017-11-27 15:18+0000\n"
+"Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
+"Language-Team: Hungarian (Hungary) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-openvpn/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "-------OpenVPN status--------"
-msgstr ""
-
-msgid "-----IP pool reservation-----"
-msgstr ""
-
 msgid "Add certificate"
-msgstr ""
+msgstr "Tanúsítvány hozzáadása"
 
 msgid "Address"
-msgstr ""
+msgstr "Cím"
 
 msgid "Allow client to client communication"
+msgstr "Kliensek közötti kommunikáció engedélyezése"
+
+msgid ""
+"Authenticate with server using username/password (client certificate and key"
+" are still required)."
 msgstr ""
 
 msgid "Certificates"
-msgstr ""
+msgstr "Tanúsítványok"
 
 msgid "Client to client"
-msgstr ""
+msgstr "Kliensek között"
 
 msgid "Common name"
-msgstr ""
+msgstr "Ismert név"
 
 msgid "DHCP options"
-msgstr ""
+msgstr "DHCP beállítások"
 
 msgid "DNS search domains(s)"
-msgstr ""
+msgstr "DNS keresési tartomány(ok)"
 
 msgid "DNS server(s)"
-msgstr ""
+msgstr "DNS-kiszolgáló(k)"
 
 msgid "Date & Time"
-msgstr ""
+msgstr "Dátum és idő"
 
 msgid "Debug"
-msgstr ""
+msgstr "Hibakeresés"
 
 msgid "Default gateway"
-msgstr ""
+msgstr "Alapértelmezett átjáró"
 
 msgid "Download certificate"
-msgstr ""
+msgstr "Tanúsítvány letöltése"
 
 msgid "Enable"
-msgstr ""
+msgstr "Engedélyezés"
 
 msgid "Event"
-msgstr ""
+msgstr "Esemény"
 
 msgid "Extra options"
+msgstr "További beállítások"
+
+msgid "Gateway interface"
 msgstr ""
 
 msgid "General"
-msgstr ""
+msgstr "Általános"
 
 msgid "General settings"
-msgstr ""
+msgstr "Általános beállítások"
 
 msgid ""
 "If enabled, this directive will configure all clients to redirect their "
 "default network gateway through the VPN. If disabled, a static route to the "
 "private subnet is configured on all clients."
-msgstr ""
+msgstr "Bekapcsolva minden kliens úgy lesz konfigurálva, hogy az alapértelmezett hálózati átjárójuk a VPN-en keresztül legyen átirányítva. Kikapcsolva minden kliensnél be lesz állítva a privát alhálózatra mutató statikus útvonal."
 
 msgid "Log each packet"
-msgstr ""
+msgstr "Minden csomag naplózása"
 
 msgid "Logging level"
-msgstr ""
+msgstr "Naplózási szint"
 
 msgid "Mask"
-msgstr ""
-
-msgid "No IP reserved."
-msgstr ""
+msgstr "Maszk"
 
 msgid "No output except fatal errors"
-msgstr ""
-
-msgid "No users connected."
-msgstr ""
+msgstr "Nincs kimenet, csak végzetes hibák."
 
 msgid "Normal usage output"
-msgstr ""
+msgstr "Normál használati kimenet"
 
 msgid "OpenVPN"
-msgstr ""
+msgstr "OpenVPN"
 
-msgid "OpenVPN is disabled."
+msgid "PAM authentication"
 msgstr ""
 
 msgid "Port"
-msgstr ""
+msgstr "Kapu"
 
 msgid "Protocol"
-msgstr ""
+msgstr "Protokoll"
 
 msgid "Public"
-msgstr ""
+msgstr "Nyilvános"
 
 msgid "Public address"
+msgstr "Nyilvános cím"
+
+msgid "Select a device ..."
 msgstr ""
 
 msgid "Separate multiple entries with commas"
-msgstr ""
+msgstr "Több bejegyzést vesszővel lehet elválasztani"
 
 msgid "Services"
-msgstr ""
+msgstr "Szolgáltatások"
 
 msgid "Settings"
-msgstr ""
+msgstr "Beállítások"
 
 msgid ""
 "This is the address which external clients can connect to your VPN with. "
 "This is automatically used in the generated configuration."
-msgstr ""
+msgstr "Ez az a cím, amellyel a külső kliensek kapcsolódnak a VPN hálózathoz. A létrehozandó beállítófájlokban ez automatikusan belekerül. "
 
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 msgid "Use compression"
-msgstr ""
+msgstr "Tömörítés alkalmazása"
 
 msgid "User"
-msgstr ""
+msgstr "Felhasználó"
 
 msgid "VPN network"
-msgstr ""
+msgstr "VPN hálózat"
 
 msgid "WINS server(s)"
-msgstr ""
+msgstr "WINS-kiszolgáló(k)"

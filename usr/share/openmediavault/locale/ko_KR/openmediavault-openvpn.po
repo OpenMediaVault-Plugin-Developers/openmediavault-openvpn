@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-openvpn package.
 # 
 # Translators:
 # Hyeonkyu Chu <hyeonkyu@gmail.com>, 2014
@@ -8,21 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-27 07:25-0500\n"
-"PO-Revision-Date: 2014-11-22 13:37+0000\n"
-"Last-Translator: Hyeonkyu Chu <hyeonkyu@gmail.com>\n"
-"Language-Team: Korean (Korea) (http://www.transifex.com/projects/p/openmediavault-openvpn/language/ko_KR/)\n"
+"POT-Creation-Date: 2017-11-27 09:18-0600\n"
+"PO-Revision-Date: 2017-11-27 15:18+0000\n"
+"Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
+"Language-Team: Korean (Korea) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-openvpn/language/ko_KR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko_KR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-msgid "-------OpenVPN status--------"
-msgstr "-------OpenVPN 현황--------"
-
-msgid "-----IP pool reservation-----"
-msgstr "-----IP pool 할당-----"
 
 msgid "Add certificate"
 msgstr "인증 추가"
@@ -32,6 +26,11 @@ msgstr "주소"
 
 msgid "Allow client to client communication"
 msgstr "클라이언트 사이의 통신 허용"
+
+msgid ""
+"Authenticate with server using username/password (client certificate and key"
+" are still required)."
+msgstr ""
 
 msgid "Certificates"
 msgstr "인증"
@@ -72,6 +71,9 @@ msgstr "이벤트"
 msgid "Extra options"
 msgstr "추가 선택 사항"
 
+msgid "Gateway interface"
+msgstr ""
+
 msgid "General"
 msgstr "일반"
 
@@ -93,14 +95,8 @@ msgstr "기록 수준"
 msgid "Mask"
 msgstr "마스크"
 
-msgid "No IP reserved."
-msgstr "할당된 IP 없음."
-
 msgid "No output except fatal errors"
 msgstr "치명적인 오류만 출력"
-
-msgid "No users connected."
-msgstr "연결된 사용자 없음."
 
 msgid "Normal usage output"
 msgstr "정상적인 사용 출력"
@@ -108,8 +104,8 @@ msgstr "정상적인 사용 출력"
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
-msgid "OpenVPN is disabled."
-msgstr "OpenVPN이 비활성화됨"
+msgid "PAM authentication"
+msgstr ""
 
 msgid "Port"
 msgstr "포트"
@@ -122,6 +118,9 @@ msgstr "공개"
 
 msgid "Public address"
 msgstr "공개 주소"
+
+msgid "Select a device ..."
+msgstr ""
 
 msgid "Separate multiple entries with commas"
 msgstr "여러 항목은 쉼표로 구분합니다"

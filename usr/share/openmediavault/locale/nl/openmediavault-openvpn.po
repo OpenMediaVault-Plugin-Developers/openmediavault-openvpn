@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-openvpn package.
 # 
 # Translators:
 # okpail <okpail@gmail.com>, 2014
@@ -8,21 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-27 07:25-0500\n"
-"PO-Revision-Date: 2014-11-14 19:50+0000\n"
-"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/openmediavault-openvpn/language/nl/)\n"
+"POT-Creation-Date: 2017-11-27 09:18-0600\n"
+"PO-Revision-Date: 2017-11-27 15:18+0000\n"
+"Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-openvpn/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "-------OpenVPN status--------"
-msgstr "-------OpenVPN status--------"
-
-msgid "-----IP pool reservation-----"
-msgstr "-----IP pool reservering-----"
 
 msgid "Add certificate"
 msgstr "Voeg certificaat toe"
@@ -32,6 +26,11 @@ msgstr "Adres"
 
 msgid "Allow client to client communication"
 msgstr "Sta client naar client communicatie toe"
+
+msgid ""
+"Authenticate with server using username/password (client certificate and key"
+" are still required)."
+msgstr ""
 
 msgid "Certificates"
 msgstr "Certificaten"
@@ -72,6 +71,9 @@ msgstr "Event"
 msgid "Extra options"
 msgstr "Extra opties"
 
+msgid "Gateway interface"
+msgstr ""
+
 msgid "General"
 msgstr "Algemeen"
 
@@ -93,14 +95,8 @@ msgstr "Logging level"
 msgid "Mask"
 msgstr "Mask"
 
-msgid "No IP reserved."
-msgstr "Geen IP nummer gereserveerd"
-
 msgid "No output except fatal errors"
 msgstr "Geen output behalve fatale fouten"
-
-msgid "No users connected."
-msgstr "Geen gebruikers die een verbinding hebben"
 
 msgid "Normal usage output"
 msgstr "Normale gebruikers output"
@@ -108,8 +104,8 @@ msgstr "Normale gebruikers output"
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
-msgid "OpenVPN is disabled."
-msgstr "OpenVPN is uitgezet"
+msgid "PAM authentication"
+msgstr ""
 
 msgid "Port"
 msgstr "Poort"
@@ -122,6 +118,9 @@ msgstr "Publiek"
 
 msgid "Public address"
 msgstr "Publiek adres"
+
+msgid "Select a device ..."
+msgstr ""
 
 msgid "Separate multiple entries with commas"
 msgstr "Separate meerdere ingaven met komma's"

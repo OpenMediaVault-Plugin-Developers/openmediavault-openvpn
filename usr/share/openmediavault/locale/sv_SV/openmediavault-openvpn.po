@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the openmediavault-openvpn package.
 # 
 # Translators:
-# kochin <kochinc@outlook.com>, 2014
+# Jonatan Nyberg, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
@@ -11,21 +11,21 @@ msgstr ""
 "POT-Creation-Date: 2017-11-27 09:18-0600\n"
 "PO-Revision-Date: 2017-11-27 15:18+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
-"Language-Team: Chinese (Taiwan) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-openvpn/language/zh_TW/)\n"
+"Language-Team: Swedish (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-openvpn/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_TW\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Add certificate"
-msgstr "新增證書"
+msgstr "Lägg till certifikat"
 
 msgid "Address"
-msgstr "地址"
+msgstr "Adress"
 
 msgid "Allow client to client communication"
-msgstr "允許客戶端對客戶端的通訊"
+msgstr "Tillåt klient till klient kommunikation"
 
 msgid ""
 "Authenticate with server using username/password (client certificate and key"
@@ -33,73 +33,73 @@ msgid ""
 msgstr ""
 
 msgid "Certificates"
-msgstr "證書"
+msgstr "Certifikat"
 
 msgid "Client to client"
-msgstr "客戶端對客戶端"
+msgstr "Klient till klient"
 
 msgid "Common name"
-msgstr "通用名稱"
+msgstr "Gemensamt namn"
 
 msgid "DHCP options"
-msgstr "DHCP 選項"
+msgstr "DHCP-alternativ"
 
 msgid "DNS search domains(s)"
-msgstr "DNS 搜尋網預"
+msgstr "DNS-sökdomän(er)"
 
 msgid "DNS server(s)"
-msgstr "DNS 伺服器"
+msgstr "DNS-server/servrar"
 
 msgid "Date & Time"
-msgstr "日期與時間"
+msgstr "Datum & Tid"
 
 msgid "Debug"
-msgstr "除錯"
+msgstr "Felsök"
 
 msgid "Default gateway"
-msgstr "預設閘道器"
+msgstr "Standard gateway"
 
 msgid "Download certificate"
-msgstr "下載證書"
+msgstr "Hämta certifikat"
 
 msgid "Enable"
-msgstr "啟用"
+msgstr "Aktivera"
 
 msgid "Event"
-msgstr "是件"
+msgstr "Händelse"
 
 msgid "Extra options"
-msgstr "額外選項"
+msgstr "Extra alternativ"
 
 msgid "Gateway interface"
 msgstr ""
 
 msgid "General"
-msgstr "一般"
+msgstr "Allmänt"
 
 msgid "General settings"
-msgstr "一般設定"
+msgstr "Allmänna inställningar"
 
 msgid ""
 "If enabled, this directive will configure all clients to redirect their "
 "default network gateway through the VPN. If disabled, a static route to the "
 "private subnet is configured on all clients."
-msgstr "若啟用，此指引把所有的客戶端設置為重新導向它們的網路閘道器經由此 VPN。若停用，則會在所有客戶端上設置一個靜態路線到私用子網。"
+msgstr "Om aktiverat, kommer det här direktivet att konfigurera alla klienter att omdirigera sin standard nätverksgateway via VPN. Om den är inaktiverad konfigureras en statisk rutt till det privata delnätet på alla klienter."
 
 msgid "Log each packet"
-msgstr "記載每個數據包"
+msgstr "Logga varje paket"
 
 msgid "Logging level"
-msgstr "日誌層級"
+msgstr "Loggningsnivå"
 
 msgid "Mask"
-msgstr "遮罩"
+msgstr "Mask"
 
 msgid "No output except fatal errors"
-msgstr "只輸出致命錯誤"
+msgstr "Ingen utgång utom allvarliga fel"
 
 msgid "Normal usage output"
-msgstr "正常使用輸出"
+msgstr "Normal användningsutgång"
 
 msgid "OpenVPN"
 msgstr "OpenVPN"
@@ -108,45 +108,45 @@ msgid "PAM authentication"
 msgstr ""
 
 msgid "Port"
-msgstr "通訊埠"
+msgstr "Port"
 
 msgid "Protocol"
-msgstr "通訊協定"
+msgstr "Protokoll"
 
 msgid "Public"
-msgstr "公開"
+msgstr "Offentlig"
 
 msgid "Public address"
-msgstr "公開地址"
+msgstr "Offentlig adress"
 
 msgid "Select a device ..."
 msgstr ""
 
 msgid "Separate multiple entries with commas"
-msgstr "多個項目要以逗號分開"
+msgstr "Separera flera poster med kommatecken"
 
 msgid "Services"
-msgstr "服務"
+msgstr "Tjänster"
 
 msgid "Settings"
-msgstr "設定"
+msgstr "Inställningar"
 
 msgid ""
 "This is the address which external clients can connect to your VPN with. "
 "This is automatically used in the generated configuration."
-msgstr "這是外部客戶端可以用來連接到您的 VPN 之地址。這在所產生的配置中會自動被使用。"
+msgstr "Detta är adressen som externa klienter kan ansluta till din VPN med. Detta används automatiskt i den genererade konfigurationen."
 
 msgid "UUID"
 msgstr "UUID"
 
 msgid "Use compression"
-msgstr "使用壓縮"
+msgstr "Använd komprimering"
 
 msgid "User"
-msgstr "用戶"
+msgstr "Användare"
 
 msgid "VPN network"
-msgstr "VPN 網路"
+msgstr "VPN-nätverk"
 
 msgid "WINS server(s)"
-msgstr "WINS 服務"
+msgstr "WINS-server/servrar"

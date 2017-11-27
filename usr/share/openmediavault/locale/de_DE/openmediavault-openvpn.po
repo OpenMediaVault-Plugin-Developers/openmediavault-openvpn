@@ -1,28 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-openvpn package.
 # 
 # Translators:
+# David Hönel <davidh1990@gmx.de>, 2015
 # Ettore Atalan <atalanttore@googlemail.com>, 2014
+# Raiko, 2015
+# WastlJ, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-27 07:25-0500\n"
-"PO-Revision-Date: 2014-11-15 01:31+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/openmediavault-openvpn/language/de/)\n"
+"POT-Creation-Date: 2017-11-27 09:18-0600\n"
+"PO-Revision-Date: 2017-11-27 15:18+0000\n"
+"Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
+"Language-Team: German (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-openvpn/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "-------OpenVPN status--------"
-msgstr "-------OpenVPN-Status--------"
-
-msgid "-----IP pool reservation-----"
-msgstr ""
 
 msgid "Add certificate"
 msgstr "Zertifikat hinzufügen"
@@ -33,20 +30,25 @@ msgstr "Adresse"
 msgid "Allow client to client communication"
 msgstr "Client-zu-Client-Kommunikation erlauben"
 
+msgid ""
+"Authenticate with server using username/password (client certificate and key"
+" are still required)."
+msgstr ""
+
 msgid "Certificates"
-msgstr "Zertifikat"
+msgstr "Zertifikate"
 
 msgid "Client to client"
 msgstr "Client-zu-Client"
 
 msgid "Common name"
-msgstr ""
+msgstr "Allgemeiner Name"
 
 msgid "DHCP options"
 msgstr "DHCP-Optionen"
 
 msgid "DNS search domains(s)"
-msgstr ""
+msgstr "DNS Suchdomain(s)"
 
 msgid "DNS server(s)"
 msgstr "DNS-Server"
@@ -58,7 +60,7 @@ msgid "Debug"
 msgstr "Fehlersuche"
 
 msgid "Default gateway"
-msgstr ""
+msgstr "Standard-Gateway"
 
 msgid "Download certificate"
 msgstr "Zertifikat herunterladen"
@@ -72,6 +74,9 @@ msgstr "Ereignis"
 msgid "Extra options"
 msgstr "Zusätzliche Optionen"
 
+msgid "Gateway interface"
+msgstr ""
+
 msgid "General"
 msgstr "Allgemein"
 
@@ -82,7 +87,7 @@ msgid ""
 "If enabled, this directive will configure all clients to redirect their "
 "default network gateway through the VPN. If disabled, a static route to the "
 "private subnet is configured on all clients."
-msgstr ""
+msgstr "Wenn aktiviert, wird die Konfiguration aller Klienten so geändert, dass der Standard Zugangspunkt durch das VPN läuft. Wenn deaktviert, wird eine statische Route zum privaten Subnetz des VPNs auf allen Klienten konfiguriert."
 
 msgid "Log each packet"
 msgstr "Jedes Paket protokollieren."
@@ -91,25 +96,19 @@ msgid "Logging level"
 msgstr "Protokollierungsstufe"
 
 msgid "Mask"
-msgstr ""
-
-msgid "No IP reserved."
-msgstr "Keine IP reserviert."
+msgstr "Maske"
 
 msgid "No output except fatal errors"
-msgstr ""
-
-msgid "No users connected."
-msgstr "Keine Benutzer verbunden."
+msgstr "Keine Ausgabe außer schwerwiegende Fehler"
 
 msgid "Normal usage output"
-msgstr ""
+msgstr "Normale Gebrauchsausgabe"
 
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
-msgid "OpenVPN is disabled."
-msgstr "OpenVPN ist deaktiviert."
+msgid "PAM authentication"
+msgstr ""
 
 msgid "Port"
 msgstr "Port"
@@ -123,6 +122,9 @@ msgstr "Öffentlich"
 msgid "Public address"
 msgstr "Öffentliche Adresse"
 
+msgid "Select a device ..."
+msgstr ""
+
 msgid "Separate multiple entries with commas"
 msgstr "Trennen Sie mehrere Einträge durch Kommas"
 
@@ -135,7 +137,7 @@ msgstr "Einstellungen"
 msgid ""
 "This is the address which external clients can connect to your VPN with. "
 "This is automatically used in the generated configuration."
-msgstr ""
+msgstr "Dies ist die Adresse unter der Ihr VPN mit externen Clients herstellen können. Dies wird automatisch in die generierte Konfiguration verwendet."
 
 msgid "UUID"
 msgstr "UUID"

@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-openvpn package.
 # 
 # Translators:
 # songming <by@songming.me>, 2014
@@ -8,21 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-27 07:25-0500\n"
-"PO-Revision-Date: 2014-11-14 19:50+0000\n"
-"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/openmediavault-openvpn/language/zh_CN/)\n"
+"POT-Creation-Date: 2017-11-27 09:18-0600\n"
+"PO-Revision-Date: 2017-11-27 15:18+0000\n"
+"Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-openvpn/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-msgid "-------OpenVPN status--------"
-msgstr "-------OpenVPN状态--------"
-
-msgid "-----IP pool reservation-----"
-msgstr "-----IP保留池-----"
 
 msgid "Add certificate"
 msgstr "添加证书"
@@ -32,6 +26,11 @@ msgstr "地址"
 
 msgid "Allow client to client communication"
 msgstr "允许客户端到客户端之间的通信"
+
+msgid ""
+"Authenticate with server using username/password (client certificate and key"
+" are still required)."
+msgstr ""
 
 msgid "Certificates"
 msgstr "证书"
@@ -72,6 +71,9 @@ msgstr "事件"
 msgid "Extra options"
 msgstr "扩展选项"
 
+msgid "Gateway interface"
+msgstr ""
+
 msgid "General"
 msgstr "常规"
 
@@ -93,14 +95,8 @@ msgstr "日志级别"
 msgid "Mask"
 msgstr "掩码"
 
-msgid "No IP reserved."
-msgstr "没有保留IP。"
-
 msgid "No output except fatal errors"
 msgstr "除致命错误不进行输出"
-
-msgid "No users connected."
-msgstr "没有用户连接。"
 
 msgid "Normal usage output"
 msgstr "常规使用输出"
@@ -108,8 +104,8 @@ msgstr "常规使用输出"
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
-msgid "OpenVPN is disabled."
-msgstr "OpenVPN停用。"
+msgid "PAM authentication"
+msgstr ""
 
 msgid "Port"
 msgstr "端口"
@@ -122,6 +118,9 @@ msgstr "公共"
 
 msgid "Public address"
 msgstr "公共地址"
+
+msgid "Select a device ..."
+msgstr ""
 
 msgid "Separate multiple entries with commas"
 msgstr "用逗号分隔多个条目"

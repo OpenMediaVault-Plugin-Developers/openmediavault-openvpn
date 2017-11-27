@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-openvpn package.
 # 
 # Translators:
 # Cyryl Sochacki <cyrylsochacki@gmail.com>, 2014
@@ -8,21 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-27 07:25-0500\n"
-"PO-Revision-Date: 2014-12-20 21:10+0000\n"
-"Last-Translator: Cyryl Sochacki <cyrylsochacki@gmail.com>\n"
-"Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/openmediavault-openvpn/language/pl_PL/)\n"
+"POT-Creation-Date: 2017-11-27 09:18-0600\n"
+"PO-Revision-Date: 2017-11-27 15:18+0000\n"
+"Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
+"Language-Team: Polish (Poland) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-openvpn/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl_PL\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-
-msgid "-------OpenVPN status--------"
-msgstr "-------Status OpenVPN--------"
-
-msgid "-----IP pool reservation-----"
-msgstr ""
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Add certificate"
 msgstr "Dodaj certyfikat"
@@ -32,6 +26,11 @@ msgstr "Adres"
 
 msgid "Allow client to client communication"
 msgstr "Pozwól na komunikację pomiędzy użytkownikami"
+
+msgid ""
+"Authenticate with server using username/password (client certificate and key"
+" are still required)."
+msgstr ""
 
 msgid "Certificates"
 msgstr "Certyfikaty"
@@ -72,6 +71,9 @@ msgstr "Zdarzenie"
 msgid "Extra options"
 msgstr "Dodatkowe opcje"
 
+msgid "Gateway interface"
+msgstr ""
+
 msgid "General"
 msgstr "Główne"
 
@@ -93,14 +95,8 @@ msgstr "Poziom logów"
 msgid "Mask"
 msgstr "Maska"
 
-msgid "No IP reserved."
-msgstr ""
-
 msgid "No output except fatal errors"
 msgstr ""
-
-msgid "No users connected."
-msgstr "Brak połączonych użytkowników."
 
 msgid "Normal usage output"
 msgstr ""
@@ -108,8 +104,8 @@ msgstr ""
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
-msgid "OpenVPN is disabled."
-msgstr "OpenVPN jest wyłączony."
+msgid "PAM authentication"
+msgstr ""
 
 msgid "Port"
 msgstr "Port"
@@ -122,6 +118,9 @@ msgstr "Publiczny"
 
 msgid "Public address"
 msgstr "Publiczny adres"
+
+msgid "Select a device ..."
+msgstr ""
 
 msgid "Separate multiple entries with commas"
 msgstr "Oddziel wpisy przecinkami"
