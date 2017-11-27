@@ -1,3 +1,9 @@
+openmediavault-openvpn (4.0) stable; urgency=low
+
+  * Update for easy-rsa3 and OMV 4.x
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 27 Nov 2017 09:16:17 -0600
+
 openmediavault-openvpn (3.0.6) stable; urgency=low
 
   * Improve foreign content handling
@@ -6,7 +12,7 @@ openmediavault-openvpn (3.0.6) stable; urgency=low
 
 openmediavault-openvpn (3.0.5) stable; urgency=medium
 
-  * The interface used for the iptables rules is now selectable. 
+  * The interface used for the iptables rules is now selectable.
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 10 Dec 2016 14:52:13 +0100
 
@@ -24,19 +30,19 @@ openmediavault-openvpn (3.0.3) stable; urgency=medium
 
 openmediavault-openvpn (3.0.2) stable; urgency=medium
 
-  * OMV 3.0.21 compatibility. 
+  * OMV 3.0.21 compatibility.
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 04 Jun 2016 18:38:54 +0200
 
 openmediavault-openvpn (3.0.1) stable; urgency=medium
 
-  * OMV 3.0.15 release. 
+  * OMV 3.0.15 release.
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 04 Jun 2016 18:38:35 +0200
 
 openmediavault-openvpn (1.1) stable; urgency=medium
 
-  * Remove all configuration files when purging the plugin. 
+  * Remove all configuration files when purging the plugin.
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 26 Apr 2015 16:20:03 +0200
 
@@ -49,7 +55,7 @@ openmediavault-openvpn (1.0.13) stable; urgency=low
 
 openmediavault-openvpn (1.0.12) stable; urgency=low
 
-  * Fix bug that caused mkconf to fail on initial run. 
+  * Fix bug that caused mkconf to fail on initial run.
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 06 Nov 2014 23:16:36 +0100
 
@@ -82,20 +88,20 @@ openmediavault-openvpn (1.0.9) stable; urgency=low
 
 openmediavault-openvpn (1.0.8) stable; urgency=low
 
-  * Fix Javascript errors 
+  * Fix Javascript errors
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 25 Jul 2014 14:45:31 +0200
 
 openmediavault-openvpn (1.0.7) stable; urgency=low
 
-  * update to OMV 1.0.7 selectionchange changes 
+  * update to OMV 1.0.7 selectionchange changes
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 22 Jul 2014 11:09:40 +0200
 
 openmediavault-openvpn (1.0.0.2) stable; urgency=low
 
   * Conform to OMV 0.6.0.6 trigger standards
-  * Work with OMV 0.6.0.11 
+  * Work with OMV 0.6.0.11
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 22 Jul 2014 11:08:59 +0200
 
