@@ -368,7 +368,7 @@ class OpenVpn extends ServiceAbstract
             'remote ' . $publicAddress . ' ' . $port,
             'proto ' . $protocol,
             'dev tun',
-            'ns-cert-type server',
+            'remote-cert-tls server',
             $compression,
             $pam_authentication,
             'persist-key',
