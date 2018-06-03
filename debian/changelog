@@ -1,3 +1,9 @@
+openmediavault-openvpn (4.0.1) stable; urgency=low
+
+  * Update locales
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 03 Jun 2018 07:26:59 -0500
+
 openmediavault-openvpn (4.0) stable; urgency=low
 
   * Update for easy-rsa3 and OMV 4.x

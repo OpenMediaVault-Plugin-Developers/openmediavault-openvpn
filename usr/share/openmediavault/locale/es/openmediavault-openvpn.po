@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the openmediavault-openvpn package.
 # 
 # Translators:
-# Raul Fernandez Garcia <raulfg3@gmail.com>, 2014
+# Raul Fernandez Garcia <raulfg3@gmail.com>, 2014,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-27 09:19-0600\n"
-"PO-Revision-Date: 2017-11-27 15:19+0000\n"
-"Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
+"PO-Revision-Date: 2018-01-10 14:33+0000\n"
+"Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-openvpn/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +30,7 @@ msgstr "Permitir comunicación cliente a cliente"
 msgid ""
 "Authenticate with server using username/password (client certificate and key"
 " are still required)."
-msgstr ""
+msgstr "Autentificación en el servidor usando usuario/contraseña (El certificado del cliente y la clave aún se requieren)."
 
 msgid "Certificates"
 msgstr "Certificados"
@@ -72,7 +72,7 @@ msgid "Extra options"
 msgstr "Opciones"
 
 msgid "Gateway interface"
-msgstr ""
+msgstr "Puerta de enlace"
 
 msgid "General"
 msgstr "General"
@@ -85,7 +85,7 @@ msgid ""
 "                             default network gateway through the VPN. If "
 "disabled, a static route to the                             private subnet "
 "is configured on all clients."
-msgstr ""
+msgstr "Si se habilita, esta directiva configura todos los clientes para redireccionar su puerta de enlace predeterminada atraves de la conexion VPN.  Si se deshabilita, se debe configurar una ruta estatica para la red privada en todos los clientes."
 
 msgid "Log each packet"
 msgstr "Log de cada paquete"
@@ -106,7 +106,7 @@ msgid "OpenVPN"
 msgstr "OpenVPN"
 
 msgid "PAM authentication"
-msgstr ""
+msgstr "Autentificación PAM"
 
 msgid "Port"
 msgstr "Puerto"
@@ -121,7 +121,7 @@ msgid "Public address"
 msgstr "Dirección publica"
 
 msgid "Select a device ..."
-msgstr ""
+msgstr "Seleccione un dispositivo ..."
 
 msgid "Separate multiple entries with commas"
 msgstr "Separar multiples entradas con comas"

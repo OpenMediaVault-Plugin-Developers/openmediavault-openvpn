@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the openmediavault-openvpn package.
 # 
 # Translators:
-# Andi Chandler <andi@gowling.com>, 2015
+# Andi Chandler <andi@gowling.com>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-27 09:19-0600\n"
-"PO-Revision-Date: 2017-11-27 15:19+0000\n"
-"Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
+"PO-Revision-Date: 2017-12-04 23:21+0000\n"
+"Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-openvpn/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +30,7 @@ msgstr "Allow client to client communication"
 msgid ""
 "Authenticate with server using username/password (client certificate and key"
 " are still required)."
-msgstr ""
+msgstr "Authenticate with server using username/password (client certificate and key are still required)."
 
 msgid "Certificates"
 msgstr "Certificates"
@@ -72,7 +72,7 @@ msgid "Extra options"
 msgstr "Extra options"
 
 msgid "Gateway interface"
-msgstr ""
+msgstr "Gateway interface"
 
 msgid "General"
 msgstr "General"
@@ -85,7 +85,7 @@ msgid ""
 "                             default network gateway through the VPN. If "
 "disabled, a static route to the                             private subnet "
 "is configured on all clients."
-msgstr ""
+msgstr "If enabled, this directive will configure all clients to redirect their                             default network gateway through the VPN. If disabled, a static route to the                             private subnet is configured on all clients."
 
 msgid "Log each packet"
 msgstr "Log each packet"
@@ -106,7 +106,7 @@ msgid "OpenVPN"
 msgstr "OpenVPN"
 
 msgid "PAM authentication"
-msgstr ""
+msgstr "PAM authentication"
 
 msgid "Port"
 msgstr "Port"
@@ -121,7 +121,7 @@ msgid "Public address"
 msgstr "Public address"
 
 msgid "Select a device ..."
-msgstr ""
+msgstr "Select a device ..."
 
 msgid "Separate multiple entries with commas"
 msgstr "Separate multiple entries with commas"

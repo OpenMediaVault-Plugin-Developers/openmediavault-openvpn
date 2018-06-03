@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the openmediavault-openvpn package.
 # 
 # Translators:
-# Toshihiro Kan <kansuke4649@gmail.com>, 2014
+# Toshihiro Kan <kansuke4649@gmail.com>, 2014,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-27 09:19-0600\n"
-"PO-Revision-Date: 2017-11-27 15:19+0000\n"
-"Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
+"PO-Revision-Date: 2017-12-18 03:43+0000\n"
+"Last-Translator: Toshihiro Kan <kansuke4649@gmail.com>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-openvpn/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +30,7 @@ msgstr "クライアント間の通信を許可"
 msgid ""
 "Authenticate with server using username/password (client certificate and key"
 " are still required)."
-msgstr ""
+msgstr "ユーザー名/パスワードを使用してサーバーで認証します。(クライアント証明書とキーは依然として必要です)"
 
 msgid "Certificates"
 msgstr "証明書"
@@ -72,7 +72,7 @@ msgid "Extra options"
 msgstr "その他のオプション"
 
 msgid "Gateway interface"
-msgstr ""
+msgstr "ゲートウェイインターフェース"
 
 msgid "General"
 msgstr "一般"
@@ -85,7 +85,7 @@ msgid ""
 "                             default network gateway through the VPN. If "
 "disabled, a static route to the                             private subnet "
 "is configured on all clients."
-msgstr ""
+msgstr "このディレクティブを有効にすると、すべてのクライアントがデフォルトネットワークゲートウェイをVPN経由でリダイレクトするように設定されます。 無効にすると、すべてのクライアントでプライベートサブネットへのスタティックルートが設定されます。"
 
 msgid "Log each packet"
 msgstr "各パケットのログ"
@@ -106,7 +106,7 @@ msgid "OpenVPN"
 msgstr "OpenVPN"
 
 msgid "PAM authentication"
-msgstr ""
+msgstr "PAM認証"
 
 msgid "Port"
 msgstr "ポート"
@@ -121,7 +121,7 @@ msgid "Public address"
 msgstr "公開アドレス"
 
 msgid "Select a device ..."
-msgstr ""
+msgstr "デバイスを選択 ..."
 
 msgid "Separate multiple entries with commas"
 msgstr "カンマ区切りの複数エントリー"
