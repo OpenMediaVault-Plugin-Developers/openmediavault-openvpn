@@ -182,6 +182,7 @@ key "$EASY_RSA_KEY_DIR/private/$HOSTNAME.key" # This file should be kept secret
 dh "$EASY_RSA_KEY_DIR/dh.pem"
 topology subnet
 server $vpn_network $vpn_mask
+push "route $vpn_network $vpn_mask"
 ifconfig-pool-persist ipp.txt
 $static_route
 $default_gateway
