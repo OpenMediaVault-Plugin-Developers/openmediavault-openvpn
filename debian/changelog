@@ -1,6 +1,7 @@
 openmediavault-openvpn (4.0.2) stable; urgency=low
 
   * Fix missing route
+  * Update locales
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 24 Jan 2019 08:10:02 -0600
 
