@@ -36,6 +36,9 @@ case "$1" in
 
         # Remove the easyrsa directory
         rm -rf /opt/Easy-RSA-*
+        
+        # Uninstall openvpn
+        apt-get remove openvpn
     ;;
 
     remove)
