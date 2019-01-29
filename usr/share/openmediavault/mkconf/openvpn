@@ -72,7 +72,7 @@ setup_certificates()
 
     # Create PKI directory
     if [ ! -d "${SERVICE_OPENVPN_DIR}/pki" ];then
-        mkdir "${SERVICE_OPENVPN_DIR}"/pki
+        mkdir -p "${SERVICE_OPENVPN_DIR}"/pki
     fi
 
     # Define PKI directory variable
