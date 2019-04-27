@@ -61,7 +61,7 @@ get_mask()
 
 get_subnet()
 {
-    subnet=$(ip r s | grep -Ev default | grep ${1} |cut -d/ -f1)
+    subnet=$(ip r s | grep -Ev "^default|^169\.254\." | grep ${1} | cut -d/ -f1)
     echo "${subnet}"
 }
 
