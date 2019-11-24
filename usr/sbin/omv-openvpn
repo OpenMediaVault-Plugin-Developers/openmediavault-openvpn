@@ -37,8 +37,8 @@ fi
 # export EASYRSA_KEY_SIZE=512
 
 # easy-rsa variables.
-EASY_RSA_VERSION="3.0.3"
-EASY_RSA_DIR="/opt/EasyRSA-$EASY_RSA_VERSION"
+EASY_RSA_VERSION="3.0.6"
+EASY_RSA_DIR="/opt/EasyRSA-v${EASY_RSA_VERSION}"
 EASY_RSA_KEY_DIR="${SERVICE_OPENVPN_KEY_DIR:-/etc/openvpn/pki}"
 
 cdr2mask ()

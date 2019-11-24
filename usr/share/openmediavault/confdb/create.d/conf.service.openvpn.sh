@@ -58,9 +58,9 @@ if ! omv_group_id_exists openvpn; then
 fi
 
 if [ ! -f "/opt/EasyRSA-$version/easyrsa" ];then 
-    wget https://github.com/OpenVPN/easy-rsa/releases/download/v$version/EasyRSA-$version.tgz -P /opt/ 
-    tar xf /opt/EasyRSA-$version.tgz -C /opt 
-    rm -rf /opt/EasyRSA-$version.tgz 
+    wget https://github.com/OpenVPN/easy-rsa/releases/download/v${version}/EasyRSA-unix-v${version}.tgz -P /opt/
+    tar xf /opt/EasyRSA-unix-v${version}.tgz -C /opt
+    rm -rf /opt/EasyRSA-unix-v${version}.tgz
 fi 
 
 exit 0
