@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014 OpenMediaVault Plugin Developers
+ * Copyright (C) 2014-2019 OpenMediaVault Plugin Developers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// require("js/omv/PluginManager.js")
 // require("js/omv/module/admin/diagnostic/log/plugin/Plugin.js")
 
 Ext.define('OMV.module.admin.diagnostic.log.plugin.OpenVpn', {

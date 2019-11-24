@@ -5,9 +5,6 @@ set -e
 . /etc/default/openmediavault
 . /usr/share/openmediavault/scripts/helper-functions
 
-# EasyRSA version
-version="3.0.3"
-
 case "$1" in
     configure)
         # Set the default settings of the service package to those expected by
@@ -27,52 +24,16 @@ case "$1" in
             fi
         fi
 
-        SERVICE_XPATH_NAME="openvpn"
-        SERVICE_XPATH="/config/services/${SERVICE_XPATH_NAME}"
-
-        if ! omv_config_exists "${SERVICE_XPATH}"; then
-            omv_config_add_node "/config/services" "${SERVICE_XPATH_NAME}"
-            omv_config_add_key "${SERVICE_XPATH}" "enable" "0"
-
-            omv_config_add_key "${SERVICE_XPATH}" "port" "1194"
-            omv_config_add_key "${SERVICE_XPATH}" "protocol" "udp"
-            omv_config_add_key "${SERVICE_XPATH}" "compression" "1"
-            omv_config_add_key "${SERVICE_XPATH}" "pam_authentication" "0"
-            omv_config_add_key "${SERVICE_XPATH}" "extra_options" ""
-            omv_config_add_key "${SERVICE_XPATH}" "loglevel" "2"
-
-            omv_config_add_key "${SERVICE_XPATH}" "vpn_network" "10.8.0.0"
-            omv_config_add_key "${SERVICE_XPATH}" "vpn_mask" "255.255.255.0"
-            omv_config_add_key "${SERVICE_XPATH}" "gateway_interface" ""
-            omv_config_add_key "${SERVICE_XPATH}" "default_gateway" "1"
-            omv_config_add_key "${SERVICE_XPATH}" "client_to_client" "0"
-
-            omv_config_add_key "${SERVICE_XPATH}" "dns" ""
-            omv_config_add_key "${SERVICE_XPATH}" "dns_domains" ""
-            omv_config_add_key "${SERVICE_XPATH}" "wins" ""
-
-            omv_config_add_key "${SERVICE_XPATH}" "public_address" ""
-
-            omv_config_add_node "${SERVICE_XPATH}" "clients" ""
-        fi
-
-        if ! omv_group_id_exists openvpn; then
-            addgroup --quiet \
-                     --system \
-                     openvpn
-        fi
-        
-        if [ ! -f "/opt/EasyRSA-$version/easyrsa" ];then
-            wget https://github.com/OpenVPN/easy-rsa/releases/download/v$version/EasyRSA-$version.tgz \
-                    -P /opt/
-            tar xf /opt/EasyRSA-$version.tgz -C /opt
-            rm -rf /opt/EasyRSA-$version.tgz
-        fi
-
-        # Activate package triggers. These triggers are only set during the
-        # package installation.
+        # Activate package triggers.
         dpkg-trigger update-fixperms
         dpkg-trigger update-locale
+
+        # Initialize and migrate configuration database.
+        echo "Updating configuration database ..."
+        omv-confdbadm create "conf.service.openvpn"
+        if [ -n "$2" ]; then
+            omv-confdbadm migrate "conf.service.openvpn" "${2}"
+        fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (C) 2014 OpenMediaVault Plugin Developers.
+ * Copyright (C) 2014-2019 OpenMediaVault Plugin Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -204,7 +204,7 @@ class OpenVpn extends ServiceAbstract
         $this->database->set($object);
 
         // Generate the certificate.
-        $cmd = new Process('omv-mkconf', 'openvpn', 'add', escapeshellarg($object->get('uuid')));
+        $cmd = new Process('/usr/sbin/omv-openvpn', 'add', escapeshellarg($object->get('uuid')));
         $cmd->setRedirect2to1();
         $cmd->execute();
 
@@ -227,7 +227,7 @@ class OpenVpn extends ServiceAbstract
         $object = $this->database->get($this->clientDataModelPath, $params['uuid']);
 
         // Revoke certificate and then delete from the configuration if successful.
-        $cmd = new Process('omv-mkconf', 'openvpn', 'revoke', escapeshellarg($object->get('uuid')));
+        $cmd = new Process('/usr/sbin/omv-openvpn', 'revoke', escapeshellarg($object->get('uuid')));
         $cmd->setRedirect2to1();
         $cmd->execute();
 

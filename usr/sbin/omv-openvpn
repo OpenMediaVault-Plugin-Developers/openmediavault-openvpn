@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2014 OpenMediaVault Plugin Developers
+# Copyright (C) 2014-2019 OpenMediaVault Plugin Developers
 #
 # This file is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -252,11 +252,7 @@ revoke_client_cert()
 }
 
 
-if [ "$1" = "mkconf" ]; then
-    args=($2)
-else
-    args=(${*})
-fi
+args=(${*})
 
 # Generate configuration files.
 case ${args[0]} in

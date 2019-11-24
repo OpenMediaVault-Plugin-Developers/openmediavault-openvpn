@@ -8,7 +8,7 @@ XB-Plugin-Section: remote
 
 Package: openmediavault-openvpn
 Architecture: all
-Depends: openmediavault (>= 4.0.12),
+Depends: openmediavault (>= 5.1),
          openvpn,
          ${misc:Depends}
 Description: OpenVPN plugin for OpenMediaVault.

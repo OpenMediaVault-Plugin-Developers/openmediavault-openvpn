@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (C) 2014 OpenMediaVault Plugin Developers.
+ * Copyright (C) 2014-2019 OpenMediaVault Plugin Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -83,7 +83,7 @@ class OpenVpn extends ServiceAbstract implements
      */
     public function applyConfig()
     {
-        $cmd = new Process('omv-mkconf', $this->getName(), 'setup');
+        $cmd = new Process('/usr/sbin/omv-openvpn', 'setup');
         $cmd->setRedirect2to1();
         $cmd->execute();
     }
