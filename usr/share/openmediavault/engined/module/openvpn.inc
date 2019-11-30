@@ -77,44 +77,6 @@ class OpenVpn extends ServiceAbstract implements
     }
 
     /**
-     * Generate the configuration.
-     *
-     * @return void
-     */
-    public function applyConfig()
-    {
-        $cmd = new Process('/usr/sbin/omv-openvpn', 'setup');
-        $cmd->setRedirect2to1();
-        $cmd->execute();
-    }
-
-    /**
-     * Start the managed service.
-     *
-     * @return void
-     */
-    public function startService()
-    {
-        $object = $this->database->get($this->dataModelPath);
-
-        if ($object->get('enable')) {
-            $systemCtl = new SystemCtl($this->serviceName);
-            $systemCtl->enable(true);
-        }
-    }
-
-    /**
-     * Stop the managed service.
-     *
-     * @return void
-     */
-    public function stopService()
-    {
-        $systemCtl = new SystemCtl($this->serviceName);
-        $systemCtl->disable(true);
-    }
-
-    /**
      * Bind listeners.
      *
      * @param Dispatcher $dispatcher The dispatcher object.

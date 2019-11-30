@@ -15,6 +15,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-remove_openmediavault_openvpn:
-  file.absent:
-    - name: "/etc/default/openmediavault-openvpn"
+{% set config = salt['omv_conf.get']('conf.service.openvpn') %}
+
+{% if config.enable | to_bool %}
+
+update_openmediavault_openvpn_config:
+  cmd.run:
+    - name: "/usr/sbin/omv-openvpn"
+
+start_openvpn_service:
+  service.running:
+    - name: openvpn
+    - enable: True
+    - watch:
+      - file: "/etc/openvpn/server.conf"
+
+{% else %}
+
+stop_openvpn_service:
+  service.dead:
+    - name: openvpn
+    - enable: False
+
+{% endif %}
