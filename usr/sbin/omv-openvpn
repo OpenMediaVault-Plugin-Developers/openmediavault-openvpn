@@ -136,10 +136,15 @@ setup_config()
         compression=";comp-lzo"
     fi
 
+    PAMLOC="/usr/lib/openvpn/openvpn-plugin-auth-pam.so"
+    if [ ! -f "PAMLOC" ]; then
+    PAMLOC=$(find /usr/lib/ -name openvpn-plugin-auth-pam.so)
+    fi
+
     if [ $pam_authentication -eq 1 ]; then
-        pam_authentication="plugin /usr/lib/openvpn/openvpn-plugin-auth-pam.so login"
+        pam_authentication="plugin $PAMLOC login"
     else
-        pam_authentication=";plugin /usr/lib/openvpn/openvpn-plugin-auth-pam.so login"
+        pam_authentication=";plugin $PAMLOC login"
     fi
 
     if [ $default_gateway -eq 1 ]; then

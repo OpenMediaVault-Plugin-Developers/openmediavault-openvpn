@@ -79,16 +79,19 @@
                 "client": {
                     "type": "array",
                     "items": {
-                        "uuid": {
-                            "type": "string",
-                            "format": "uuidv4"
-                        },
-                        "associated_user": {
-                            "type": "string",
-                            "format": "username"
-                        },
-                        "common_name": {
-                            "type": "string"
+                        "type": "object",
+                        "properties": {
+                            "uuid": {
+                                "type": "string",
+                                "format": "uuidv4"
+                            },
+                            "associated_user": {
+                                "type": "string",
+                                "format": "username"
+                            },
+                            "common_name": {
+                                "type": "string"
+                            }
                         }
                     }
                 }

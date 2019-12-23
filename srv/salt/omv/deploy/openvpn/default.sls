@@ -21,14 +21,14 @@
 
 update_openmediavault_openvpn_config:
   cmd.run:
-    - name: "/usr/sbin/omv-openvpn"
+    - name: "/usr/sbin/omv-openvpn setup"
 
 start_openvpn_service:
   service.running:
     - name: openvpn
     - enable: True
-    - watch:
-      - file: "/etc/openvpn/server.conf"
+#    - watch:
+#      - file: "/etc/openvpn/server.conf"
 
 {% else %}
 
