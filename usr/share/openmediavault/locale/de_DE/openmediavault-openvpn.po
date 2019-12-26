@@ -94,7 +94,7 @@ msgid "Log each packet"
 msgstr "Jedes Paket protokollieren."
 
 msgid "Logging level"
-msgstr "Protokollierungsstufe"
+msgstr "Protokollierung"
 
 msgid "Mask"
 msgstr "Maske"
@@ -138,7 +138,7 @@ msgstr "Einstellungen"
 msgid ""
 "This is the address which external clients can connect to your VPN with. "
 "This is automatically used in the generated configuration."
-msgstr "Dies ist die Adresse unter der Ihr VPN mit externen Clients herstellen können. Dies wird automatisch in die generierte Konfiguration verwendet."
+msgstr "Über diese Adresse verbinden sich externe Clients mit diesem VPN. Sie wird automatisch in der generierten Konfigurationen hinterlegt."
 
 msgid "UUID"
 msgstr "UUID"
