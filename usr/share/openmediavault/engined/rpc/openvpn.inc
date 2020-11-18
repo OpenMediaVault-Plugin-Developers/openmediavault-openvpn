@@ -377,6 +377,7 @@ class OpenVpn extends ServiceAbstract
             $persist_tun,
             'nobind',
             'resolv-retry infinite',
+            'auth-nocache',
             'verb 3',
             'mute 10',
         ];
