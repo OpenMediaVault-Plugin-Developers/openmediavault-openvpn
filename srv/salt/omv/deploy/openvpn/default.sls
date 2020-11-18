@@ -17,24 +17,24 @@
 
 {% set config = salt['omv_conf.get']('conf.service.openvpn') %}
 
+stop_openvpn_service:
+  service.dead:
+    - name: openvpn
+    - enable: False
+
 {% if config.enable | to_bool %}
 
-update_openmediavault_openvpn_config:
+setup_openvpn:
   cmd.run:
-    - name: "/usr/sbin/omv-openvpn setup"
+    - name: /usr/sbin/omv-openvpn setup
+    - cwd: /
+    - stateful: True
 
 start_openvpn_service:
   service.running:
     - name: openvpn
     - enable: True
-#    - watch:
-#      - file: "/etc/openvpn/server.conf"
-
-{% else %}
-
-stop_openvpn_service:
-  service.dead:
-    - name: openvpn
-    - enable: False
+    - onchanges:
+      - cmd: setup_openvpn
 
 {% endif %}

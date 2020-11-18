@@ -75,9 +75,35 @@ Ext.define('OMV.module.admin.service.openvpn.Settings', {
                 triggerAction: 'all',
                 value: 'udp'
             }, {
+                xtype: 'combo',
+                name: 'deviceovpn',
+                fieldLabel: _('Device'),
+                queryMode: 'local',
+                store: Ext.create('Ext.data.ArrayStore', {
+                    fields: [
+                        'value',
+                        'text'
+                    ],
+                    data: [
+                        ['tun', 'TUN'],
+                        ['tap', 'TAP']
+                    ]
+                }),
+                displayField: 'text',
+                valueField: 'value',
+                allowBlank: false,
+                editable: false,
+                triggerAction: 'all',
+                value: 'tun'
+            }, {
                 xtype: 'checkbox',
                 name: 'compression',
                 fieldLabel: _('Use compression'),
+                checked: true
+            }, {
+                xtype: 'checkbox',
+                name: 'duplicate_cn',
+                fieldLabel: _('Simultaneous login per CN'),
                 checked: true
             }, {
                 xtype: 'checkbox',
@@ -172,8 +198,13 @@ Ext.define('OMV.module.admin.service.openvpn.Settings', {
                 fieldLabel: _('Default gateway'),
                 checked: true,
                 boxLabel: _('If enabled, this directive will configure all clients to redirect their \
-                            default network gateway through the VPN. If disabled, a static route to the \
-                            private subnet is configured on all clients.')
+                            default network gateway through the VPN.')
+            }, {
+                xtype: 'checkbox',
+                name: 'default_route',
+                fieldLabel: _('Default route'),
+                checked: true,
+                boxLabel: _('If enabled, a static route to the private subnet is configured on all clients.')
             }, {
                 xtype: 'checkbox',
                 name: 'client_to_client',

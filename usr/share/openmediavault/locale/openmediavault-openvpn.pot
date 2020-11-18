@@ -77,7 +77,10 @@ msgstr ""
 msgid "General settings"
 msgstr ""
 
-msgid "If enabled, this directive will configure all clients to redirect their                             default network gateway through the VPN. If disabled, a static route to the                             private subnet is configured on all clients."
+msgid "If enabled, this directive will configure all clients to redirect their                             default network gateway through the VPN."
+msgstr ""
+
+msgid "If enabled, a static route to the private subnet is configured on all clients."
 msgstr ""
 
 msgid "Log each packet"

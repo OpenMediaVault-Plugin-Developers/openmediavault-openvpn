@@ -360,6 +360,8 @@ class OpenVpn extends ServiceAbstract
         $publicAddress = $settings->get('public_address');
         $port = $settings->get('port');
         $protocol = $settings->get('protocol');
+        $deviceovpn = $settings->get('deviceovpn');
+        $persist_tun = ($deviceovpn == 'tun') ? 'persist-tun' : ';persist-tun';
         $compression = $settings->get('compression') ? 'comp-lzo' : ';comp-lzo';
         $pam_authentication = $settings->get('pam_authentication') ? 'auth-user-pass' : ';auth-user-pass';
 
@@ -367,12 +369,12 @@ class OpenVpn extends ServiceAbstract
             'client',
             'remote ' . $publicAddress . ' ' . $port,
             'proto ' . $protocol,
-            'dev tun',
+            'dev ' . $deviceovpn,
             'remote-cert-tls server',
             $compression,
             $pam_authentication,
             'persist-key',
-            'persist-tun',
+            $persist_tun,
             'nobind',
             'resolv-retry infinite',
             'verb 3',

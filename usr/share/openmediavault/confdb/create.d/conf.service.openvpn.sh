@@ -35,7 +35,9 @@ if ! omv_config_exists "${SERVICE_XPATH}"; then
 
     omv_config_add_key "${SERVICE_XPATH}" "port" "1194"
     omv_config_add_key "${SERVICE_XPATH}" "protocol" "udp"
+    omv_config_add_key "${SERVICE_XPATH}" "deviceovpn" "tun"
     omv_config_add_key "${SERVICE_XPATH}" "compression" "1"
+    omv_config_add_key "${SERVICE_XPATH}" "duplicate_cn" "0"
     omv_config_add_key "${SERVICE_XPATH}" "pam_authentication" "0"
     omv_config_add_key "${SERVICE_XPATH}" "extra_options" ""
     omv_config_add_key "${SERVICE_XPATH}" "loglevel" "2"
@@ -44,6 +46,7 @@ if ! omv_config_exists "${SERVICE_XPATH}"; then
     omv_config_add_key "${SERVICE_XPATH}" "vpn_mask" "255.255.255.0"
     omv_config_add_key "${SERVICE_XPATH}" "gateway_interface" ""
     omv_config_add_key "${SERVICE_XPATH}" "default_gateway" "1"
+    omv_config_add_key "${SERVICE_XPATH}" "default_route" "1"
     omv_config_add_key "${SERVICE_XPATH}" "client_to_client" "0"
 
     omv_config_add_key "${SERVICE_XPATH}" "dns" ""

@@ -20,9 +20,18 @@
             "enum": ["udp", "tcp"],
             "default": "udp"
         },
+        "deviceovpn": {
+            "type": "string",
+            "enum": ["tun", "tap"],
+            "default": "tun"
+        },
         "compression": {
             "type": "boolean",
             "default": true
+        },
+        "duplicate_cn": {
+            "type": "boolean",
+            "default": false
         },
         "pam_authentication": {
             "type": "boolean",
@@ -50,6 +59,10 @@
             "default": ""
         },
         "default_gateway": {
+            "type": "boolean",
+            "default": true
+        },
+        "default_route": {
             "type": "boolean",
             "default": true
         },

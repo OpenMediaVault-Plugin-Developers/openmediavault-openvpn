@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2014-2019 OpenMediaVault Plugin Developers
+# Copyright (C) 2014-2020 OpenMediaVault Plugin Developers
 #
 # This file is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@ SERVICE_IPTABLES_CONF="/etc/network/if-pre-up.d/openvpn"
 SERVICE_OPENVPN_CONF="/etc/openvpn/server.conf"
 SERVICE_OPENVPN_DIR="/etc/openvpn"
 HOSTNAME=$(cat /etc/hostname)
+
 if [ -z "$HOSTNAME" ];then
     HOSTNAME="server"
 fi
@@ -44,18 +45,18 @@ EASY_RSA_KEY_DIR="${SERVICE_OPENVPN_KEY_DIR:-/etc/openvpn/pki}"
 cdr2mask ()
 {
    set -- $(( 5 - ($1 / 8) )) 255 255 255 255 $(( (255 << (8 - ($1 % 8))) & 255 )) 0 0 0
-   [ $1 -gt 1 ] && shift $1 || shift
+   [ ${1} -gt 1 ] && shift ${1} || shift
    echo ${1-0}.${2-0}.${3-0}.${4-0}
 }
 
 get_ip()
 {
-    omv_get_ipaddr "$1"
+    omv_get_ipaddr "${1}"
 }
 
 get_mask()
 {
-    mask=$(cdr2mask `ip addr show "$1" |  grep "inet\b" | awk '{print $2}' | cut -d/ -f2`)
+    mask=$(cdr2mask $(ip addr show "${1}" |  grep "inet\b" | awk '{print $2}' | cut -d/ -f2))
     echo "${mask}"
 }
 
@@ -76,59 +77,61 @@ setup_certificates()
     fi
 
     # Define PKI directory variable
-    export EASYRSA_PKI="$SERVICE_OPENVPN_DIR"/pki
+    export EASYRSA_PKI="${SERVICE_OPENVPN_DIR}"/pki
 
     # Remove clients from the config.
-    omv_config_update "$SERVICE_XPATH/clients" ""
+    omv_config_update "${SERVICE_XPATH}/clients" ""
 
     # The following lines are from build-ca. We don't use that script directly
     # because it's interactive. This could potentially break the installation
     # script in case of future changes.
 
     # Clean the pki directory
-    "$EASY_RSA_DIR/easyrsa" --batch init-pki
+    "${EASY_RSA_DIR}/easyrsa" --batch init-pki
 
     # Build the CA root certificates
-    "$EASY_RSA_DIR/easyrsa" --batch build-ca nopass
+    "${EASY_RSA_DIR}/easyrsa" --batch build-ca nopass
 
     # Create the server certificate/key
-    "$EASY_RSA_DIR/easyrsa" --batch build-server-full $HOSTNAME nopass        
+    "${EASY_RSA_DIR}/easyrsa" --batch build-server-full ${HOSTNAME} nopass
 
     # Initialize the CRL by revoking a non-existant cert. Returns the error code
     # 23 when the certificate is revoked.
-    "$EASY_RSA_DIR/easyrsa" gen-crl || true
+    "${EASY_RSA_DIR}/easyrsa" gen-crl || true
 
     # Generate Diffie Hellman parameter for the server side.
-    "$EASY_RSA_DIR/easyrsa" gen-dh
+    "${EASY_RSA_DIR}/easyrsa" gen-dh
 
     # FIXME: Is this the best way?
     # Make sure the CLR is readable by OpenVPN.
-    chmod 755 "$EASY_RSA_KEY_DIR"
+    chmod 755 "${EASY_RSA_KEY_DIR}"
 }
 
 setup_config()
 {
     # Variables.
-    local gateway_interface=$(omv_config_get "$SERVICE_XPATH/gateway_interface")
-    local ip=$(get_ip "$gateway_interface")
-    local mask=$(get_mask "$gateway_interface")
-    local subnet=$(get_subnet "$gateway_interface")
-    local port=$(omv_config_get "$SERVICE_XPATH/port")
-    local protocol=$(omv_config_get "$SERVICE_XPATH/protocol")
-    local compression=$(omv_config_get "$SERVICE_XPATH/compression")
-    local pam_authentication=$(omv_config_get "$SERVICE_XPATH/pam_authentication")
-    local extra_options=$(omv_config_get "$SERVICE_XPATH/extra_options")
-    local loglevel=$(omv_config_get "$SERVICE_XPATH/loglevel")
-
-    local vpn_network=$(omv_config_get "$SERVICE_XPATH/vpn_network")
-    local vpn_mask=$(omv_config_get "$SERVICE_XPATH/vpn_mask")
-    local default_gateway=$(omv_config_get "$SERVICE_XPATH/default_gateway")
-    local client_to_client=$(omv_config_get "$SERVICE_XPATH/client_to_client")
+    local gateway_interface=$(omv_config_get "${SERVICE_XPATH}/gateway_interface")
+    local ip=$(get_ip "${gateway_interface}")
+    local mask=$(get_mask "${gateway_interface}")
+    local subnet=$(get_subnet "${gateway_interface}")
+    local port=$(omv_config_get "${SERVICE_XPATH}/port")
+    local protocol=$(omv_config_get "${SERVICE_XPATH}/protocol")
+    local deviceovpn=$(omv_config_get "${SERVICE_XPATH}/deviceovpn")
+    local duplicate_cn=$(omv_config_get "${SERVICE_XPATH}/duplicate_cn")
+    local compression=$(omv_config_get "${SERVICE_XPATH}/compression")
+    local pam_authentication=$(omv_config_get "${SERVICE_XPATH}/pam_authentication")
+    local extra_options=$(omv_config_get "${SERVICE_XPATH}/extra_options")
+    local loglevel=$(omv_config_get "${SERVICE_XPATH}/loglevel")
+    local vpn_network=$(omv_config_get "${SERVICE_XPATH}/vpn_network")
+    local vpn_mask=$(omv_config_get "${SERVICE_XPATH}/vpn_mask")
+    local default_gateway=$(omv_config_get "${SERVICE_XPATH}/default_gateway")
+    local default_route=$(omv_config_get "${SERVICE_XPATH}/default_route")
+    local client_to_client=$(omv_config_get "${SERVICE_XPATH}/client_to_client")
 
     # Split strings into rows with the regex "\s*,\s*".
-    local dns=$(omv_config_get "$SERVICE_XPATH/dns" | sed -e 's/\s*,\s*/\n/g')
-    local dns_domains=$(omv_config_get "$SERVICE_XPATH/dns_domains" | sed -e 's/\s*,\s*/\n/g')
-    local wins=$(omv_config_get "$SERVICE_XPATH/wins" | sed -e 's/\s*,\s*/\n/g')
+    local dns=$(omv_config_get "${SERVICE_XPATH}/dns" | sed -e 's/\s*,\s*/\n/g')
+    local dns_domains=$(omv_config_get "${SERVICE_XPATH}/dns_domains" | sed -e 's/\s*,\s*/\n/g')
+    local wins=$(omv_config_get "${SERVICE_XPATH}/wins" | sed -e 's/\s*,\s*/\n/g')
 
     if [ $compression -eq 1 ]; then
         compression="comp-lzo"
@@ -141,116 +144,133 @@ setup_config()
     PAMLOC=$(find /usr/lib/ -name openvpn-plugin-auth-pam.so)
     fi
 
-    if [ $pam_authentication -eq 1 ]; then
-        pam_authentication="plugin $PAMLOC login"
+    if [ ${pam_authentication} -eq 1 ]; then
+        pam_authentication="plugin ${PAMLOC} login"
     else
-        pam_authentication=";plugin $PAMLOC login"
+        pam_authentication=";plugin ${PAMLOC} login"
     fi
 
-    if [ $default_gateway -eq 1 ]; then
+    if [ ${default_gateway} -eq 1 ]; then
         default_gateway="push \"redirect-gateway def1 bypass-dhcp\""
-        static_route=";push \"route $subnet $mask\""
     else
         default_gateway=";push \"redirect-gateway def1 bypass-dhcp\""
-        static_route="push \"route $subnet $mask\""
     fi
 
-    if [ $client_to_client -eq 1 ]; then
+    if [ ${default_route} -eq 1 ]; then
+        static_route="push \"route ${subnet} ${mask}\""
+    else
+        static_route=";push \"route ${subnet} ${mask}\""
+    fi
+
+    if [ ${client_to_client} -eq 1 ]; then
         client_to_client="client-to-client"
     else
         client_to_client=";client-to-client"
     fi
 
+    if [ "${deviceovpn^^}" = "TUN" ]; then
+        persist_tun="persist-tun"
+    else
+        persist_tun=";persist-tun"
+    fi
+
+    if [ ${duplicate_cn} -eq 1 ]; then
+        duplicate_cn="duplicate-cn"
+    else
+        duplicate_cn="ifconfig-pool-persist ipp.txt"
+    fi
+
+
+
     # Enable net.ipv4.ip_forward.
-    echo "net.ipv4.ip_forward=1" > "$SERVICE_SYSCTL_CONF"
+    echo "net.ipv4.ip_forward=1" > "${SERVICE_SYSCTL_CONF}"
     echo 1 > /proc/sys/net/ipv4/ip_forward
 
     # Remove old iptables rule.
-    if [ -f "$SERVICE_IPTABLES_CONF" ]; then
-        iptables -t nat -D $(tail -1 "$SERVICE_IPTABLES_CONF" | cut -c20-) || true
+    if [ -f "${SERVICE_IPTABLES_CONF}" ]; then
+        iptables -t nat -D $(tail -1 "${SERVICE_IPTABLES_CONF}" | cut -c20-) || true
     fi
 
     # Set iptables.
-    iptables -t nat -A POSTROUTING -s $vpn_network/24 -j SNAT --to $ip
-    echo "#!/bin/sh" > "$SERVICE_IPTABLES_CONF"
-    echo "[ \"\$IFACE\" != \"lo\" ] || exit 0" >> "$SERVICE_IPTABLES_CONF"
-    echo "iptables -t nat -A POSTROUTING -s $vpn_network/24 -j SNAT --to $ip" >> "$SERVICE_IPTABLES_CONF"
-    chmod 755 "$SERVICE_IPTABLES_CONF"
+    iptables -t nat -A POSTROUTING -s ${vpn_network}/24 -j SNAT --to ${ip}
+    echo "#!/bin/sh" > "${SERVICE_IPTABLES_CONF}"
+    echo "[ \"\${IFACE}\" != \"lo\" ] || exit 0" >> "${SERVICE_IPTABLES_CONF}"
+    echo "iptables -t nat -A POSTROUTING -s ${vpn_network}/24 -j SNAT --to ${ip}" >> "${SERVICE_IPTABLES_CONF}"
+    chmod 755 "${SERVICE_IPTABLES_CONF}"
 
-    cat > "$SERVICE_OPENVPN_CONF" <<EOF
-port $port
-proto $protocol
-dev tun
-ca "$EASY_RSA_KEY_DIR/ca.crt"
-cert "$EASY_RSA_KEY_DIR/issued/$HOSTNAME.crt"
-key "$EASY_RSA_KEY_DIR/private/$HOSTNAME.key" # This file should be kept secret
-dh "$EASY_RSA_KEY_DIR/dh.pem"
+    cat > "${SERVICE_OPENVPN_CONF}" <<EOF
+port ${port}
+proto ${protocol}
+dev ${deviceovpn}
+ca "${EASY_RSA_KEY_DIR}/ca.crt"
+cert "${EASY_RSA_KEY_DIR}/issued/${HOSTNAME}.crt"
+key "${EASY_RSA_KEY_DIR}/private/${HOSTNAME}.key" # This file should be kept secret
+dh "${EASY_RSA_KEY_DIR}/dh.pem"
 topology subnet
-server $vpn_network $vpn_mask
-push "route $vpn_network $vpn_mask"
-ifconfig-pool-persist ipp.txt
-$static_route
-$default_gateway
+server ${vpn_network} ${vpn_mask}
+${duplicate_cn}
+${static_route}
+${default_gateway}
 EOF
 
-    for address in $dns; do
-        echo "push \"dhcp-option DNS $address\"" >> "$SERVICE_OPENVPN_CONF"
+    for address in ${dns}; do
+        echo "push \"dhcp-option DNS ${address}\"" >> "${SERVICE_OPENVPN_CONF}"
     done
-    for address in $dns_domains; do
-        echo "push \"dhcp-option DOMAIN $address\"" >> "$SERVICE_OPENVPN_CONF"
+    for address in ${dns_domains}; do
+        echo "push \"dhcp-option DOMAIN ${address}\"" >> "${SERVICE_OPENVPN_CONF}"
     done
-    for address in $wins; do
-        echo "push \"dhcp-option WINS $address\"" >> "$SERVICE_OPENVPN_CONF"
+    for address in ${wins}; do
+        echo "push \"dhcp-option WINS ${address}\"" >> "${SERVICE_OPENVPN_CONF}"
     done
 
-    cat >> "$SERVICE_OPENVPN_CONF" <<EOF
-$client_to_client
+    cat >> "${SERVICE_OPENVPN_CONF}" <<EOF
+${client_to_client}
 keepalive 10 120
-$compression
-$pam_authentication
+${compression}
+${pam_authentication}
 user nobody
 group nogroup
 persist-key
-persist-tun
+${persist_tun}
 status /var/log/openvpn-status.log
 log /var/log/openvpn.log
-verb $loglevel
+verb ${loglevel}
 mute 10
-crl-verify "$EASY_RSA_KEY_DIR/crl.pem"
+crl-verify "${EASY_RSA_KEY_DIR}/crl.pem"
 
 EOF
 
-    xmlstarlet sel -t -m "$SERVICE_XPATH" \
+    xmlstarlet sel -t -m "${SERVICE_XPATH}" \
         -o "# Extra options" -n \
         -v "extra_options" -n \
-        $OMV_CONFIG_FILE | xmlstarlet unesc >> "$SERVICE_OPENVPN_CONF"
+        ${OMV_CONFIG_FILE} | xmlstarlet unesc >> "${SERVICE_OPENVPN_CONF}"
 }
 
 add_client_cert()
 {
-    local uuid="$1"
-    local common_name="$(omv_config_get "$SERVICE_XPATH/clients/client[uuid='$uuid']/common_name")"
+    local uuid="${1}"
+    local common_name="$(omv_config_get "${SERVICE_XPATH}/clients/client[uuid='${uuid}']/common_name")"
 
     # Export variables.
-    export EASYRSA_PKI="$SERVICE_OPENVPN_DIR"/pki
+    export EASYRSA_PKI="${SERVICE_OPENVPN_DIR}"/pki
 
     # build-key for the client.
-    "$EASY_RSA_DIR/easyrsa" build-client-full $common_name nopass
+    "${EASY_RSA_DIR}/easyrsa" build-client-full ${common_name} nopass
 }
 
 revoke_client_cert()
 {
-    local uuid="$1"
-    local common_name="$(omv_config_get "$SERVICE_XPATH/clients/client[uuid='$uuid']/common_name")"
+    local uuid="${1}"
+    local common_name="$(omv_config_get "${SERVICE_XPATH}/clients/client[uuid='${uuid}']/common_name")"
 
     # Export pki directory variable 
-    export EASYRSA_PKI="$SERVICE_OPENVPN_DIR"/pki
+    export EASYRSA_PKI="${SERVICE_OPENVPN_DIR}"/pki
 
     # revoke-full returns error code 23 when the certificate is revoked.
-    "$EASY_RSA_DIR/easyrsa" --batch revoke $common_name
+    "${EASY_RSA_DIR}/easyrsa" --batch revoke ${common_name}
 
     # Update the control revokation list
-    "$EASY_RSA_DIR/easyrsa" gen-crl
+    "${EASY_RSA_DIR}/easyrsa" gen-crl
 
     ## Delete the files associated with client
     rm -rf "${SERVICE_OPENVPN_DIR}"/pki/{private,issued,reqs}/"${common_name}".{crt,key,req}
@@ -263,11 +283,14 @@ args=(${*})
 case ${args[0]} in
     setup)
         # Check if certificates exists.
-        if [ ! -f "$EASY_RSA_KEY_DIR/private/ca.key" -o ! -f "$EASY_RSA_KEY_DIR/private/$HOSTNAME.key" ]; then
+        if [ ! -f "${EASY_RSA_KEY_DIR}/private/ca.key" ] || [ ! -f "${EASY_RSA_KEY_DIR}/private/${HOSTNAME}.key" ]; then
             setup_certificates
         fi
 
         setup_config
+
+        echo
+        echo "changed=yes"
     ;;
 
     setup_certificates)

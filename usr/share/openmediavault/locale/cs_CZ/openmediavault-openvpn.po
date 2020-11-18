@@ -82,10 +82,12 @@ msgstr "Obecná nastavení"
 
 msgid ""
 "If enabled, this directive will configure all clients to redirect their"
-"                             default network gateway through the VPN. If "
-"disabled, a static route to the                             private subnet "
-"is configured on all clients."
-msgstr "Pokud je zapnuto, tato direktiva nastaví všechny klienty tak, aby přesměrovali jejich výchozí bránu skrz VPN. Pokud je vypnuto, je na všech klientech nastavena statická trasa do soukromé podsítě."
+"                             default network gateway through the VPN.
+msgstr "Pokud je zapnuto, tato direktiva nastaví všechny klienty tak, aby přesměrovali jejich výchozí bránu skrz VPN."
+
+msgid ""
+"If enabled, a static route to the private subnet is configured on all clients."
+msgstr "Pokud je zapnuto, je na všech klientech nastavena statická trasa do soukromé podsítě."
 
 msgid "Log each packet"
 msgstr "Zaznamenat každý paket"

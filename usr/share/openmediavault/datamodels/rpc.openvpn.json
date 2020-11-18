@@ -17,7 +17,16 @@
                 "enum": ["udp", "tcp"],
                 "required": true
             },
+            "deviceovpn": {
+                "type": "string",
+                "enum": ["tun", "tap"],
+                "required": true
+            },
             "compression": {
+                "type": "boolean",
+                "required": true
+            },
+            "duplicate_cn": {
                 "type": "boolean",
                 "required": true
             },
@@ -46,6 +55,10 @@
                 "required": true
             },
             "default_gateway": {
+                "type": "boolean",
+                "required": true
+            },
+            "default_route": {
                 "type": "boolean",
                 "required": true
             },
