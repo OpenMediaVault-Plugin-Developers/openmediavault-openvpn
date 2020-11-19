@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-openvpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-27 09:19-0600\n"
+"POT-Creation-Date: 2020-11-19 06:19-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,6 +56,12 @@ msgstr ""
 msgid "Default gateway"
 msgstr ""
 
+msgid "Default route"
+msgstr ""
+
+msgid "Device"
+msgstr ""
+
 msgid "Download certificate"
 msgstr ""
 
@@ -77,10 +83,10 @@ msgstr ""
 msgid "General settings"
 msgstr ""
 
-msgid "If enabled, this directive will configure all clients to redirect their                             default network gateway through the VPN."
+msgid "If enabled, a static route to the private subnet is configured on all clients."
 msgstr ""
 
-msgid "If enabled, a static route to the private subnet is configured on all clients."
+msgid "If enabled, this directive will configure all clients to redirect their                             default network gateway through the VPN."
 msgstr ""
 
 msgid "Log each packet"
@@ -126,6 +132,9 @@ msgid "Services"
 msgstr ""
 
 msgid "Settings"
+msgstr ""
+
+msgid "Simultaneous login per CN"
 msgstr ""
 
 msgid "This is the address which external clients can connect to your VPN with. This is automatically used in the generated configuration."
