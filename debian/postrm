@@ -41,7 +41,7 @@ case "$1" in
         fi
 
         # Remove the easyrsa directory
-        rm -rf /opt/Easy-RSA-*
+        rm -rf /opt/EasyRSA-*
     ;;
 
     remove)
